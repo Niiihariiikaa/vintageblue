@@ -1,0 +1,347 @@
+/* ================================================================
+   Lookbook landing — a bold editorial "deck" page: a slide-style meta
+   row, a giant overlapping-type hero collage, a two-tone vision panel,
+   a duotone banner, and a three-goal grid. Adapted from a pink/red
+   genZ deck template into Vintage Blue's own serif/Montserrat type
+   system and indigo/denim/beige palette.
+   ================================================================ */
+
+.lb-page {
+  width: 100%;
+  background: var(--beige);
+  overflow-x: hidden;
+}
+
+/* ================================================================
+   Meta row
+   ================================================================ */
+
+.lb-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 22px 4vw;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(31, 35, 39, 0.6);
+}
+
+/* ================================================================
+   Hero collage
+   ================================================================ */
+
+.lb-hero {
+  position: relative;
+  height: clamp(520px, 58vw, 740px);
+  overflow: hidden;
+  padding: 0 4vw;
+}
+
+.lb-line {
+  position: absolute;
+  z-index: 1;
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: normal;
+  line-height: 0.85;
+  color: var(--indigo);
+  white-space: nowrap;
+}
+
+.lb-line-1 {
+  top: 10%;
+  left: 4vw;
+  font-size: clamp(46px, 9vw, 128px);
+}
+
+.lb-line-2 {
+  bottom: 6%;
+  left: 4vw;
+  right: 4vw;
+  text-align: center;
+  font-size: clamp(56px, 11.5vw, 168px);
+}
+
+.lb-hero-photo {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -46%);
+  height: 90%;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 34px 44px rgba(31, 35, 39, 0.28));
+}
+
+.lb-tagline {
+  position: absolute;
+  z-index: 3;
+  margin: 0;
+  max-width: 22ch;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--obsidian);
+}
+
+.lb-tagline-right {
+  top: 6%;
+  right: 4vw;
+  text-align: right;
+}
+
+.lb-tagline-left {
+  top: 36%;
+  left: 4vw;
+  max-width: 19ch;
+}
+
+.lb-credit {
+  position: absolute;
+  z-index: 3;
+  bottom: 2%;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: rgba(31, 35, 39, 0.55);
+}
+
+.lb-credit-left {
+  left: 4vw;
+}
+
+.lb-credit-right {
+  right: 4vw;
+}
+
+/* ================================================================
+   Vision / summary
+   ================================================================ */
+
+.lb-summary {
+  display: grid;
+  grid-template-columns: 0.85fr 1.3fr;
+  gap: clamp(24px, 4vw, 50px);
+  align-items: center;
+  padding: clamp(50px, 7vw, 90px) 4vw;
+}
+
+.lb-summary-photo {
+  padding: 16px;
+  border-radius: 26px;
+  background: var(--obsidian);
+}
+
+.lb-summary-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 16px;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.lb-summary-copy-cell h2 {
+  margin: 0 0 22px;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(34px, 4.4vw, 56px);
+  color: var(--indigo);
+}
+
+.lb-summary-copy-cell p {
+  margin: 0 0 18px;
+  max-width: 62ch;
+  font-size: 14px;
+  line-height: 1.75;
+  color: rgba(31, 35, 39, 0.72);
+}
+
+.lb-summary-copy-cell p:last-child {
+  margin-bottom: 0;
+}
+
+/* ================================================================
+   Banner
+   ================================================================ */
+
+.lb-banner {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: clamp(280px, 32vw, 420px);
+  padding: clamp(40px, 6vw, 64px) 4vw;
+  overflow: hidden;
+}
+
+.lb-banner-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: grayscale(1) brightness(0.7) contrast(1.05);
+}
+
+.lb-banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--indigo);
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+}
+
+.lb-banner-content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 20px;
+  max-width: 640px;
+  text-align: center;
+}
+
+.lb-banner-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: normal;
+  line-height: 1;
+  font-size: clamp(48px, 8.5vw, 120px);
+  color: var(--beige);
+  text-shadow: 0 4px 30px rgba(31, 35, 39, 0.3);
+}
+
+.lb-banner-copy {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.75;
+  color: rgba(238, 235, 229, 0.85);
+}
+
+/* ================================================================
+   Goals
+   ================================================================ */
+
+.lb-goals {
+  padding: clamp(50px, 7vw, 90px) 4vw;
+}
+
+.lb-goals-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 3vw, 40px);
+}
+
+.lb-goal {
+  text-align: center;
+}
+
+.lb-goal h3 {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(19px, 2vw, 24px);
+  color: var(--obsidian);
+}
+
+.lb-goal p {
+  margin: 0 0 24px;
+  font-size: 13px;
+  line-height: 1.65;
+  color: rgba(31, 35, 39, 0.65);
+}
+
+.lb-goal-photo {
+  width: clamp(96px, 11vw, 132px);
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 18px 30px rgba(31, 35, 39, 0.18);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lb-goal-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.lb-goal-cell:hover .lb-goal-photo {
+  transform: translateY(-6px);
+}
+
+/* ================================================================
+   Footer
+   ================================================================ */
+
+.lb-foot {
+  padding: 0 4vw clamp(40px, 6vw, 64px);
+  text-align: center;
+}
+
+.lb-back {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: rgba(31, 35, 39, 0.55);
+  transition: color 0.25s ease;
+}
+
+.lb-back:hover {
+  color: var(--indigo);
+}
+
+/* ================================================================
+   Responsive
+   ================================================================ */
+
+@media (max-width: 900px) {
+  .lb-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .lb-goals-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .lb-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .lb-hero {
+    height: clamp(600px, 130vw, 780px);
+  }
+
+  .lb-line-1 {
+    font-size: clamp(38px, 12vw, 70px);
+  }
+
+  .lb-line-2 {
+    font-size: clamp(44px, 15vw, 90px);
+  }
+
+  .lb-tagline-right {
+    max-width: 15ch;
+    font-size: 11.5px;
+  }
+
+  .lb-tagline-left {
+    top: auto;
+    bottom: 22%;
+    max-width: 15ch;
+    font-size: 11.5px;
+  }
+
+  .lb-hero-photo {
+    height: 62%;
+  }
+}

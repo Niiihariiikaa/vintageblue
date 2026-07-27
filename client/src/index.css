@@ -1,0 +1,111 @@
+@font-face {
+  font-family: 'New Icon Serif';
+  src: url('./assets/New Icon Serif.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'New Icon Serif Condensed';
+  src: url('./assets/New Icon Serif condensed.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'New Icon Script';
+  src: url('./assets/New Icon Script.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --indigo: #3a5571;
+  --denim: #94acc1;
+  --pastel-blue: #cdd9e5;
+  --obsidian: #1f2327;
+  --beige: #e8e6da;
+  --hero-greige: #c9bfae;
+  --font-display: 'New Icon Serif', serif;
+  --font-condensed: 'New Icon Serif Condensed', 'New Icon Serif', serif;
+  --font-script: 'New Icon Script', cursive;
+  --font-body: 'Montserrat', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  font-family: var(--font-body);
+  color: var(--obsidian);
+  background-color: var(--beige);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Script initial — the oversized cursive first letter of the
+   wordmark (hero, nav logo, footer), set against the serif rest.
+   Shared across pages/components, so it lives in the global sheet. */
+.script-initial {
+  font-family: var(--font-script);
+  font-size: 1.45em;
+  line-height: 0;
+  margin-right: -0.04em;
+}
+
+/* Scroll-reveal wrapper — styles for the shared `Reveal` component
+   (see motion.tsx), used by both the homepage and the drop landing. */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.8s ease var(--reveal-delay, 0ms),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

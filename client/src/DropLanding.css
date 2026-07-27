@@ -1,0 +1,528 @@
+/* ================================================================
+   Drop landing — a bolder, editorial alternate homepage: hamburger +
+   filter-chip nav, a clean wordmark, a leaking hero photo group, a
+   floating swipe card, a social row, a marquee, a product-peek strip.
+   Full-bleed, same as the main site — no floating framed card.
+   ================================================================ */
+
+.dl-page {
+  min-height: 100vh;
+  width: 100%;
+  background: var(--beige);
+  overflow-x: hidden;
+}
+
+.dl-frame {
+  position: relative;
+  width: 100%;
+}
+
+/* ================================================================
+   Top bar
+   ================================================================ */
+
+.dl-topbar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 22px 4vw 14px;
+}
+
+.dl-icon-btn {
+  justify-self: start;
+  display: inline-grid;
+  place-items: center;
+  padding: 6px;
+  border: none;
+  background: none;
+  color: var(--obsidian);
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.dl-icon-btn:hover {
+  color: var(--indigo);
+  transform: translateY(-1px);
+}
+
+.dl-logo {
+  font-family: var(--font-display);
+  font-size: 21px;
+  letter-spacing: 0.02em;
+  color: var(--obsidian);
+  white-space: nowrap;
+}
+
+.dl-cart {
+  justify-self: end;
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  padding: 6px;
+  color: var(--obsidian);
+}
+
+.dl-cart-count {
+  position: absolute;
+  top: -2px;
+  right: -6px;
+  display: grid;
+  place-items: center;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: var(--indigo);
+  color: var(--beige);
+  font-size: 9.5px;
+  font-weight: 700;
+}
+
+/* ================================================================
+   Filter bar
+   ================================================================ */
+
+.dl-filterbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 8px 4vw 22px;
+  border-bottom: 1px solid rgba(31, 35, 39, 0.14);
+}
+
+.dl-filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dl-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border: 1px solid rgba(31, 35, 39, 0.45);
+  border-radius: 999px;
+  background: none;
+  color: var(--obsidian);
+  font-family: inherit;
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.dl-chip:hover {
+  background: var(--obsidian);
+  color: var(--beige);
+  border-color: var(--obsidian);
+}
+
+.dl-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border: 1px solid rgba(31, 35, 39, 0.45);
+  border-radius: 999px;
+  color: var(--obsidian);
+}
+
+.dl-search input {
+  width: 110px;
+  border: none;
+  background: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--obsidian);
+}
+
+.dl-search input::placeholder {
+  color: rgba(31, 35, 39, 0.5);
+}
+
+.dl-navlinks {
+  display: flex;
+  gap: clamp(16px, 2vw, 28px);
+}
+
+.dl-navlinks a {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--obsidian);
+  transition: color 0.25s ease;
+}
+
+.dl-navlinks a:hover {
+  color: var(--indigo);
+}
+
+/* ================================================================
+   Hero
+   ================================================================ */
+
+.dl-hero {
+  padding: clamp(46px, 6vw, 84px) 4vw 0;
+  text-align: center;
+}
+
+.dl-eyebrow {
+  margin: 0 0 18px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--indigo);
+}
+
+/* Same lockup as the nav/footer wordmark — a script initial ahead of
+   the serif rest — just larger, matching App.css's `.footer-wordmark`
+   scale rather than a bespoke poster treatment. */
+.dl-headline {
+  margin: 0 0 clamp(30px, 5vw, 56px);
+  font-family: var(--font-display);
+  font-weight: normal;
+  line-height: 1;
+  font-size: clamp(188px, 8vw, 188px);
+  color: var(--obsidian);
+}
+
+.dl-headline-accent {
+  color: var(--indigo);
+}
+
+.dl-heroimg {
+  position: relative;
+  margin: 0 auto;
+  max-width: 1080px;
+  height: clamp(320px, 42vw, 500px);
+  overflow: visible;
+  perspective: 1400px;
+}
+
+.dl-heroimg-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  overflow: hidden;
+  background:
+    radial-gradient(65% 60% at 25% 15%, rgba(244, 240, 232, 0.45), transparent 70%),
+    radial-gradient(50% 60% at 88% 25%, rgba(148, 172, 193, 0.2), transparent 65%),
+    linear-gradient(178deg, #d5ccbd 0%, #c9bfae 45%, #bcb19e 100%);
+}
+
+.dl-fig {
+  position: absolute;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* Left and right figures run taller than the photo panel on purpose —
+   they spill past its top edge instead of sitting neatly inside it,
+   the same "burst out of the frame" move `.statement-figure` uses in
+   App.css. The centre portrait is the calm counterpoint: sized to
+   fit fully inside the panel, no overflow. */
+
+/* heroleft.png is a wide 1536x1024 canvas with the back-view figure
+   inset and padded on transparent margins, not a tight portrait crop
+   — same asset the homepage hero uses via `.figure-left` in App.css,
+   with the same cover + object-position recipe that actually frames
+   the figure instead of the whole padded canvas. */
+.dl-fig-left {
+  left: 4%;
+  bottom: 0;
+  width: 36%;
+  height: 128%;
+  z-index: 1;
+  object-fit: cover;
+  object-position: 50% 100%;
+  opacity: 0.92;
+  transform: translateZ(-30px) rotateY(var(--tilt-x, 0deg)) rotateX(var(--tilt-y, 0deg));
+}
+
+.dl-fig-right {
+  right: 2%;
+  bottom: -5%;
+  width: 44%;
+  height: 140%;
+  z-index: 1;
+  object-fit: contain;
+  object-position: bottom center;
+  transform: translateZ(-30px) rotateY(var(--tilt-x, 0deg)) rotateX(var(--tilt-y, 0deg));
+}
+
+/* Contained — top and bottom flush with the panel, no leak. The
+   centre figure sits "closest" to the viewer (translateZ + a bigger
+   tilt multiplier), so the pointer-tilt reads as real depth: it swings
+   further than the two flanking figures behind it. */
+.dl-fig-center {
+  left: 55%;
+  top: 2%;
+  transform: translateX(-65%) translateY(-3%) translateZ(40px)
+    rotateY(calc(var(--tilt-x, 0deg) * 1.6)) rotateX(calc(var(--tilt-y, 0deg) * 1.6));
+  width: 58%;
+  height: 101%;
+  z-index: 2;
+  /* `contain` used to show the source canvas edge-to-edge, but that
+     canvas has a soft alpha-feathered vignette around the subject
+     (transparent corners fading in), which read as a blurry margin —
+     most visible along the bottom, where the feather runs widest.
+     `cover` crops in just enough to stay inside the sharp, opaque
+     center of the source instead of showing that feathered edge. */
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.dl-swipe-card {
+  position: absolute;
+  left: clamp(14px, 5%, 44px);
+  bottom: clamp(14px, 7%, 40px);
+  z-index: 5;
+  display: grid;
+  gap: 6px;
+  min-width: 168px;
+  padding: 16px 20px;
+  border-radius: 16px;
+  background: var(--beige);
+  box-shadow: 0 20px 44px rgba(31, 35, 39, 0.3);
+  animation: dl-float 4.5s ease-in-out infinite;
+}
+
+@keyframes dl-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+.dl-swipe-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(31, 35, 39, 0.5);
+}
+
+.dl-discover {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--obsidian);
+  transition: color 0.25s ease, gap 0.25s ease;
+}
+
+.dl-discover:hover {
+  color: var(--indigo);
+  gap: 11px;
+}
+
+/* ================================================================
+   Social row
+   ================================================================ */
+
+.dl-social {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(18px, 4vw, 38px);
+  margin: clamp(30px, 5vw, 48px) 0 0;
+  padding: 20px 4vw;
+  list-style: none;
+  border-top: 1px solid rgba(31, 35, 39, 0.12);
+  border-bottom: 1px solid rgba(31, 35, 39, 0.12);
+}
+
+.dl-social a {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--obsidian);
+  transition: color 0.25s ease;
+}
+
+.dl-social a:hover {
+  color: var(--indigo);
+}
+
+/* ================================================================
+   Marquee
+   ================================================================ */
+
+.dl-marquee {
+  overflow: hidden;
+  background: var(--obsidian);
+  padding: 14px 0;
+}
+
+.dl-marquee-track {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+  animation: dl-scroll 26s linear infinite;
+}
+
+.dl-marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 3rem;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--beige);
+  white-space: nowrap;
+}
+
+.dl-marquee-dot {
+  color: var(--denim);
+}
+
+@keyframes dl-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ================================================================
+   Peek row
+   ================================================================ */
+
+.dl-peekrow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: clamp(20px, 4vw, 34px) 4vw;
+  perspective: 1000px;
+}
+
+/* The grid item is now the `Reveal` wrapper div, not `.dl-peek` itself
+   — it needs its own block box since an anchor is inline by default
+   and would otherwise ignore aspect-ratio/sizing. */
+.dl-peek-cell {
+  display: block;
+}
+
+.dl-peek {
+  display: block;
+  position: relative;
+  aspect-ratio: 1 / 1.15;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(31, 35, 39, 0.06);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.45s ease;
+}
+
+.dl-peek:hover {
+  transform: perspective(700px) rotateX(5deg) rotateY(-5deg) translateY(-6px);
+  box-shadow: 0 24px 40px rgba(31, 35, 39, 0.22);
+}
+
+.dl-peek img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dl-peek:hover img {
+  transform: scale(1.08);
+}
+
+.dl-peek span {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(238, 235, 229, 0.92);
+  color: var(--obsidian);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+/* ================================================================
+   Back link
+   ================================================================ */
+
+.dl-back {
+  display: block;
+  padding: 8px 4vw 26px;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: rgba(31, 35, 39, 0.55);
+  transition: color 0.25s ease;
+}
+
+.dl-back:hover {
+  color: var(--indigo);
+}
+
+/* ================================================================
+   Responsive
+   ================================================================ */
+
+@media (max-width: 720px) {
+  .dl-filterbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dl-navlinks {
+    justify-content: space-between;
+  }
+
+  .dl-fig-left {
+    display: none;
+  }
+
+  .dl-fig-center {
+    width: 46%;
+  }
+
+  .dl-fig-right {
+    width: 48%;
+    height: 132%;
+  }
+
+  .dl-swipe-card {
+    min-width: 140px;
+    padding: 13px 16px;
+  }
+
+  .dl-peekrow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dl-peekrow > :last-child {
+    grid-column: span 2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dl-marquee-track {
+    animation: none;
+  }
+
+  .dl-swipe-card {
+    animation: none;
+  }
+
+  .dl-fig,
+  .dl-peek {
+    transition: none;
+  }
+}
