@@ -12,6 +12,7 @@ import {
 import './App.css'
 import { navigate } from './router'
 import { Reveal, usePrefersReducedMotion, useScrollY } from './motion'
+import { useCart } from './cart'
 import heroBack from './assets/heroleft.png'
 import heroFull from './assets/hero.png'
 import heroPortrait from './assets/heroright.png'
@@ -47,18 +48,18 @@ const LongArrow = ({ className = '' }: { className?: string }) => (
 /* ------------------------------------------------------------------ */
 
 const products = [
-  { name: 'Urban Commuter', price: '160 $', img: product1 },
-  { name: 'Charcoal Layer', price: '185 $', img: product2 },
-  { name: 'Winter Trench', price: '210 $', img: product3 },
-  { name: 'Soft Trench', price: '260 $', img: product4 },
-  { name: 'Winter City Layer', price: '300 $', img: product5 },
+  { name: 'Urban Commuter', price: '160 $', img: product1, handle: 'urban-commuter' },
+  { name: 'Charcoal Layer', price: '185 $', img: product2, handle: 'charcoal-layer' },
+  { name: 'Winter Trench', price: '210 $', img: product3, handle: 'winter-trench' },
+  { name: 'Soft Trench', price: '260 $', img: product4, handle: 'soft-trench' },
+  { name: 'Winter City Layer', price: '300 $', img: product5, handle: 'winter-city-layer' },
 ]
 
 const categories = [
-  'Essentials & Core',
-  'Outerwear & Layers',
-  'The Soft Palette',
-  'Accessories',
+  { name: 'Essentials & Core', slug: 'unisex' },
+  { name: 'Outerwear & Layers', slug: 'men' },
+  { name: 'The Soft Palette', slug: 'women' },
+  { name: 'Accessories', slug: 'unisex' },
 ]
 
 const collectionLeft = ['Tees', 'Hoodies', 'Sweats', 'Knitwear', 'Denim', 'Outerwear']
@@ -97,6 +98,7 @@ const marqueeItems = [
 function App() {
   const reducedMotion = usePrefersReducedMotion()
   const scrollY = useScrollY(reducedMotion)
+  const { count } = useCart()
 
   const parallax = (rate: number): CSSProperties =>
     reducedMotion ? {} : { transform: `translate3d(0, ${scrollY * rate}px, 0)` }
@@ -137,9 +139,18 @@ function App() {
         </a>
 
         <nav className="nav-actions" aria-label="Account and cart">
-          <button className="icon-btn" aria-label="Cart">
+          <a
+            href="/cart"
+            className="icon-btn cart-icon-btn"
+            aria-label={`Cart, ${count} items`}
+            onClick={(e) => {
+              e.preventDefault()
+              navigate('/cart')
+            }}
+          >
+            {count > 0 && <span className="cart-count">{count}</span>}
             <ShoppingBag size={19} strokeWidth={1.5} />
-          </button>
+          </a>
           <button className="icon-btn" aria-label="Wishlist">
             <Heart size={19} strokeWidth={1.5} />
           </button>
@@ -170,7 +181,9 @@ function App() {
           <img src={heroFull} alt="Model in an oversized hoodie and wide-leg washed jeans" />
         </div>
 
-        <button className="shop-now">SHOP NOW</button>
+        <button className="shop-now" onClick={() => navigate('/shop/popular')}>
+          SHOP NOW
+        </button>
       </section>
 
       {/* ---------------- Ready-to-wear ---------------- */}
@@ -178,7 +191,14 @@ function App() {
         <Reveal>
           <div className="section-head">
             <h2 className="section-title">READY-TO-WEAR</h2>
-            <a href="#" className="see-more">
+            <a
+              href="/shop/popular"
+              className="see-more"
+              onClick={(e) => {
+                e.preventDefault()
+                navigate('/shop/popular')
+              }}
+            >
               see more <LongArrow className="see-more-arrow" />
             </a>
           </div>
@@ -187,7 +207,14 @@ function App() {
         <div className="product-grid">
           {products.map((p, i) => (
             <Reveal key={p.name} delay={i * 90} className="product-cell">
-              <article className="product-card">
+              <a
+                href={`/product/${p.handle}`}
+                className="product-card"
+                onClick={(e) => {
+                  e.preventDefault()
+                  navigate(`/product/${p.handle}`)
+                }}
+              >
                 <div className="product-frame">
                   <div
                     className="product-img"
@@ -200,7 +227,7 @@ function App() {
                   <span className="product-name">{p.name}</span>
                   <span className="product-price">{p.price}</span>
                 </footer>
-              </article>
+              </a>
             </Reveal>
           ))}
         </div>
@@ -214,9 +241,16 @@ function App() {
 
         <div className="cat-list">
           {categories.map((c, i) => (
-            <Reveal key={c} delay={i * 80}>
-              <a href="#" className="cat-row">
-                <span className="cat-name">{c}&nbsp;/</span>
+            <Reveal key={c.name} delay={i * 80}>
+              <a
+                href={`/shop/${c.slug}`}
+                className="cat-row"
+                onClick={(e) => {
+                  e.preventDefault()
+                  navigate(`/shop/${c.slug}`)
+                }}
+              >
+                <span className="cat-name">{c.name}&nbsp;/</span>
                 <LongArrow className="cat-arrow" />
               </a>
             </Reveal>

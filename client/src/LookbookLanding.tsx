@@ -113,6 +113,16 @@ function LookbookLanding() {
             dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
             proident, sunt in culpa qui officia deserunt mollit anim.
           </p>
+          <a
+            href="/shop/popular"
+            className="lb-cta"
+            onClick={(e) => {
+              e.preventDefault()
+              navigate('/shop/popular')
+            }}
+          >
+            Shop The Edit →
+          </a>
         </Reveal>
       </section>
 

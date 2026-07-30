@@ -1,0 +1,329 @@
+/* ================================================================
+   Cart landing — line items, quantity controls, order summary, and
+   a demo checkout confirmation.
+   ================================================================ */
+
+.ct-page {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--beige);
+  overflow-x: hidden;
+}
+
+.ct-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 4vw;
+}
+
+.ct-logo {
+  font-family: var(--font-display);
+  font-size: 21px;
+  letter-spacing: 0.02em;
+  color: var(--obsidian);
+  white-space: nowrap;
+}
+
+.ct-continue {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--obsidian);
+  transition: color 0.25s ease;
+}
+
+.ct-continue:hover {
+  color: var(--indigo);
+}
+
+/* ================================================================
+   Empty / confirmation states
+   ================================================================ */
+
+.ct-empty,
+.ct-confirm {
+  display: grid;
+  place-items: center;
+  gap: 16px;
+  min-height: 55vh;
+  padding: 0 4vw;
+  text-align: center;
+  color: var(--obsidian);
+}
+
+.ct-confirm-icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--pastel-blue);
+  color: var(--indigo);
+}
+
+.ct-empty h1,
+.ct-confirm h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(28px, 4vw, 42px);
+}
+
+.ct-empty p,
+.ct-confirm p {
+  margin: 0;
+  max-width: 42ch;
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(31, 35, 39, 0.65);
+}
+
+.ct-btn-solid {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 30px;
+  border: none;
+  border-radius: 999px;
+  background: var(--indigo);
+  color: var(--beige);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.ct-btn-solid:hover {
+  background: var(--obsidian);
+  transform: translateY(-2px);
+}
+
+/* ================================================================
+   Cart
+   ================================================================ */
+
+.ct-main {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: clamp(24px, 4vw, 50px);
+  align-items: start;
+  padding: clamp(10px, 2vw, 20px) 4vw clamp(50px, 7vw, 80px);
+}
+
+.ct-lines {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ct-line {
+  display: grid;
+  grid-template-columns: 76px 1fr auto auto auto;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(31, 35, 39, 0.1);
+}
+
+.ct-line-img {
+  display: block;
+  width: 76px;
+  aspect-ratio: 3 / 4;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--hero-greige);
+}
+
+.ct-line-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.ct-line-info {
+  display: grid;
+  gap: 4px;
+}
+
+.ct-line-info a {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--obsidian);
+  transition: color 0.2s ease;
+}
+
+.ct-line-info a:hover {
+  color: var(--indigo);
+}
+
+.ct-line-size {
+  font-size: 12px;
+  color: rgba(31, 35, 39, 0.55);
+}
+
+.ct-line-price {
+  display: none;
+}
+
+.ct-line-qty {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 12px;
+  border: 1px solid rgba(31, 35, 39, 0.3);
+  border-radius: 999px;
+}
+
+.ct-line-qty button {
+  display: inline-grid;
+  place-items: center;
+  border: none;
+  background: none;
+  color: var(--obsidian);
+  transition: color 0.2s ease;
+}
+
+.ct-line-qty button:hover {
+  color: var(--indigo);
+}
+
+.ct-line-qty span {
+  min-width: 1.2ch;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ct-line-total {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--obsidian);
+  white-space: nowrap;
+}
+
+.ct-line-remove {
+  display: inline-grid;
+  place-items: center;
+  padding: 6px;
+  border: none;
+  background: none;
+  color: rgba(31, 35, 39, 0.4);
+  transition: color 0.2s ease;
+}
+
+.ct-line-remove:hover {
+  color: #b5493f;
+}
+
+/* ================================================================
+   Summary
+   ================================================================ */
+
+.ct-summary {
+  position: sticky;
+  top: 24px;
+  padding: 26px;
+  border-radius: 20px;
+  background: #f4f1ea;
+}
+
+.ct-summary h2 {
+  margin: 0 0 18px;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: 22px;
+  color: var(--obsidian);
+}
+
+.ct-summary-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  font-size: 13px;
+  color: rgba(31, 35, 39, 0.7);
+  border-bottom: 1px solid rgba(31, 35, 39, 0.1);
+}
+
+.ct-summary-total {
+  border-bottom: none;
+  padding-top: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--obsidian);
+}
+
+.ct-checkout {
+  width: 100%;
+  margin-top: 18px;
+  padding: 16px 24px;
+}
+
+/* ================================================================
+   Back link
+   ================================================================ */
+
+.ct-back {
+  display: block;
+  padding: 8px 4vw 40px;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: rgba(31, 35, 39, 0.55);
+  transition: color 0.25s ease;
+}
+
+.ct-back:hover {
+  color: var(--indigo);
+}
+
+/* ================================================================
+   Responsive
+   ================================================================ */
+
+@media (max-width: 800px) {
+  .ct-main {
+    grid-template-columns: 1fr;
+  }
+
+  .ct-line {
+    grid-template-columns: 60px 1fr auto;
+    grid-template-areas:
+      'img info remove'
+      'img qty total';
+    row-gap: 10px;
+  }
+
+  .ct-line-img {
+    grid-area: img;
+    width: 60px;
+  }
+
+  .ct-line-info {
+    grid-area: info;
+  }
+
+  .ct-line-remove {
+    grid-area: remove;
+    justify-self: end;
+  }
+
+  .ct-line-qty {
+    grid-area: qty;
+    justify-self: start;
+  }
+
+  .ct-line-total {
+    grid-area: total;
+    justify-self: end;
+  }
+
+  .ct-summary {
+    position: static;
+  }
+}

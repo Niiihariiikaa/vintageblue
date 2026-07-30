@@ -3,6 +3,7 @@ import { Search, ShoppingBag, Menu, ChevronDown, ArrowUpRight } from 'lucide-rea
 import './DropLanding.css'
 import { navigate } from './router'
 import { Reveal, usePrefersReducedMotion } from './motion'
+import { useCart } from './cart'
 import heroBack from './assets/heroleft.png'
 import heroFull from './assets/hero.png'
 import heroPortrait from './assets/heroright.png'
@@ -19,9 +20,9 @@ const socials = ['Instagram', 'Pinterest', 'TikTok', 'Threads']
 const marqueeItems = ['New Winter Drop 2026', 'Washed Denim', 'Soft Layers', 'Vintage Blue']
 
 const peeks = [
-  { img: product1, label: 'Beanies & Layers' },
-  { img: product2, label: 'Sunglasses & Bags' },
-  { img: product3, label: 'Coats & Boots' },
+  { img: product1, label: 'Beanies & Layers', handle: 'urban-commuter' },
+  { img: product2, label: 'Sunglasses & Bags', handle: 'charcoal-layer' },
+  { img: product3, label: 'Coats & Boots', handle: 'winter-trench' },
 ]
 
 /* ------------------------------------------------------------------ */
@@ -35,6 +36,7 @@ function goHome(e: MouseEvent) {
 
 function DropLanding() {
   const reducedMotion = usePrefersReducedMotion()
+  const { count } = useCart()
   const heroRef = useRef<HTMLDivElement>(null)
   const tiltFrame = useRef(0)
 
@@ -84,10 +86,18 @@ function DropLanding() {
             <span className="script-initial">V</span>intage Blue
           </a>
 
-          <div className="dl-cart" aria-label="Cart, 3 items">
-            <span className="dl-cart-count">3</span>
+          <a
+            href="/cart"
+            className="dl-cart"
+            aria-label={`Cart, ${count} items`}
+            onClick={(e) => {
+              e.preventDefault()
+              navigate('/cart')
+            }}
+          >
+            {count > 0 && <span className="dl-cart-count">{count}</span>}
             <ShoppingBag size={20} strokeWidth={1.6} />
-          </div>
+          </a>
         </header>
 
         {/* ---------------- Filter bar ---------------- */}
@@ -107,7 +117,14 @@ function DropLanding() {
 
           <nav className="dl-navlinks" aria-label="Shop by audience">
             {navLinks.map((l) => (
-              <a href="#" key={l}>
+              <a
+                href={`/shop/${l.toLowerCase()}`}
+                key={l}
+                onClick={(e) => {
+                  e.preventDefault()
+                  navigate(`/shop/${l.toLowerCase()}`)
+                }}
+              >
                 {l}
               </a>
             ))}
@@ -182,7 +199,14 @@ function DropLanding() {
         <div className="dl-peekrow" id="peek">
           {peeks.map((p, i) => (
             <Reveal key={p.label} delay={i * 100} className="dl-peek-cell">
-              <a href="#" className="dl-peek">
+              <a
+                href={`/product/${p.handle}`}
+                className="dl-peek"
+                onClick={(e) => {
+                  e.preventDefault()
+                  navigate(`/product/${p.handle}`)
+                }}
+              >
                 <img src={p.img} alt={p.label} />
                 <span>{p.label}</span>
               </a>

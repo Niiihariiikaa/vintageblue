@@ -79,6 +79,25 @@
   transition: color 0.25s ease, transform 0.25s ease;
 }
 
+.cart-icon-btn {
+  position: relative;
+}
+
+.cart-count {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--indigo);
+  color: var(--beige);
+  font-size: 9px;
+  font-weight: 700;
+}
+
 .icon-btn:hover {
   color: var(--indigo);
   transform: translateY(-1px);

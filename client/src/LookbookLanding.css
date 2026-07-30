@@ -159,8 +159,24 @@
   color: rgba(31, 35, 39, 0.72);
 }
 
-.lb-summary-copy-cell p:last-child {
-  margin-bottom: 0;
+.lb-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: var(--indigo);
+  color: var(--beige);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.lb-cta:hover {
+  background: var(--obsidian);
+  transform: translateY(-2px);
 }
 
 /* ================================================================

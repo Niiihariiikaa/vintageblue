@@ -9,11 +9,17 @@ import App from './App.tsx'
 import DropLanding from './DropLanding.tsx'
 import StoryLanding from './StoryLanding.tsx'
 import LookbookLanding from './LookbookLanding.tsx'
+import ShopLanding from './ShopLanding.tsx'
+import ProductLanding from './ProductLanding.tsx'
+import CartLanding from './CartLanding.tsx'
+import { CartProvider } from './cart.tsx'
 
 /**
  * A handful of pages, so a full router is overkill — this just
  * watches the path (including synthetic `popstate` events fired by
  * `navigate()` in router.ts) and swaps the top-level component.
+ * `/shop/:category` and `/product/:handle` are matched by prefix
+ * rather than pulling in a routing library for two dynamic segments.
  */
 function Router() {
   const [path, setPath] = useState(window.location.pathname)
@@ -27,11 +33,16 @@ function Router() {
   if (path === '/drop') return <DropLanding />
   if (path === '/story') return <StoryLanding />
   if (path === '/lookbook') return <LookbookLanding />
+  if (path === '/cart') return <CartLanding />
+  if (path.startsWith('/shop/')) return <ShopLanding category={path.slice('/shop/'.length)} />
+  if (path.startsWith('/product/')) return <ProductLanding handle={path.slice('/product/'.length)} />
   return <App />
 }
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Router />
+    <CartProvider>
+      <Router />
+    </CartProvider>
   </StrictMode>,
 )

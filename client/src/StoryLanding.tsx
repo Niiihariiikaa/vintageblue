@@ -35,10 +35,10 @@ const heroPhotos = [
 ]
 
 const works = [
-  { img: product1, tag: 'DENIM', label: 'Urban Commuter' },
-  { img: product2, tag: 'OUTERWEAR', label: 'Charcoal Layer' },
-  { img: product3, tag: 'COATS', label: 'Winter Trench' },
-  { img: product4, tag: 'KNITWEAR', label: 'Soft Trench' },
+  { img: product1, tag: 'DENIM', label: 'Urban Commuter', handle: 'urban-commuter' },
+  { img: product2, tag: 'OUTERWEAR', label: 'Charcoal Layer', handle: 'charcoal-layer' },
+  { img: product3, tag: 'COATS', label: 'Winter Trench', handle: 'winter-trench' },
+  { img: product4, tag: 'KNITWEAR', label: 'Soft Trench', handle: 'soft-trench' },
 ]
 
 const stats = [
@@ -225,7 +225,14 @@ function StoryLanding() {
           <div className="sl-works-grid">
             {works.map((w, i) => (
               <Reveal key={w.label} delay={i * 90} className="sl-work-cell">
-                <a href="/drop" className="sl-work" onClick={goDrop}>
+                <a
+                  href={`/product/${w.handle}`}
+                  className="sl-work"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    navigate(`/product/${w.handle}`)
+                  }}
+                >
                   <span className="sl-work-tag">{w.tag}</span>
                   <div className="sl-work-img" style={{ backgroundImage: `url(${w.img})` }} />
                   <span className="sl-work-name">{w.label}</span>
