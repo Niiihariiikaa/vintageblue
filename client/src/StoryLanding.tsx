@@ -3,6 +3,7 @@ import { ArrowUpRight, ArrowRight, Shirt, Layers, Gem, Leaf, Heart } from 'lucid
 import './StoryLanding.css'
 import { navigate } from './router'
 import { Reveal } from './motion'
+import Nav from './Nav'
 import heroPortrait from './assets/heroright.png'
 import heroFull from './assets/hero.png'
 import heroBack from './assets/heroleft.png'
@@ -16,7 +17,6 @@ import product5 from './assets/product5.png'
 /* Content                                                             */
 /* ------------------------------------------------------------------ */
 
-const navLinks = ['Shop', 'Lookbook', 'Journal', 'About']
 
 const specialties = [
   { icon: Shirt, label: 'Denim & Outerwear' },
@@ -80,48 +80,11 @@ function goDrop(e: MouseEvent) {
   navigate('/drop')
 }
 
-const navRoutes: Record<string, string> = {
-  Shop: '/drop',
-  Lookbook: '/lookbook',
-}
-
 function StoryLanding() {
   return (
     <div className="sl-page">
       {/* ---------------- Nav ---------------- */}
-      <header className="sl-nav">
-        <a href="/" className="sl-logo" onClick={goHome}>
-          <span className="script-initial">V</span>intage
-          <br />
-          Blue
-        </a>
-
-        <nav className="sl-navlinks" aria-label="Primary">
-          {navLinks.map((l) => {
-            const to = navRoutes[l]
-            return (
-              <a
-                href={to ?? '#'}
-                key={l}
-                onClick={
-                  to
-                    ? (e) => {
-                        e.preventDefault()
-                        navigate(to)
-                      }
-                    : undefined
-                }
-              >
-                {l}
-              </a>
-            )
-          })}
-        </nav>
-
-        <a href="/drop" className="sl-cta-pill" onClick={goDrop}>
-          Let's Shop <ArrowUpRight size={15} strokeWidth={1.8} />
-        </a>
-      </header>
+      <Nav />
 
       {/* ---------------- Hero ---------------- */}
       <section className="sl-hero">

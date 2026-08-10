@@ -108,62 +108,6 @@
    Nav
    ================================================================ */
 
-.sl-nav {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 26px 4vw;
-}
-
-.sl-logo {
-  font-family: var(--font-display);
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 1.05;
-  letter-spacing: 0.02em;
-  color: var(--obsidian);
-}
-
-.sl-navlinks {
-  display: flex;
-  gap: clamp(18px, 3vw, 34px);
-  padding-top: 6px;
-}
-
-.sl-navlinks a {
-  font-size: 12.5px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--obsidian);
-  transition: color 0.25s ease;
-}
-
-.sl-navlinks a:hover {
-  color: var(--indigo);
-}
-
-.sl-cta-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 22px;
-  border-radius: 999px;
-  background: var(--indigo);
-  color: var(--beige);
-  font-size: 12.5px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.sl-cta-pill:hover {
-  background: var(--obsidian);
-  transform: translateY(-2px);
-}
-
 /* ================================================================
    Hero
    ================================================================ */
@@ -916,16 +860,6 @@
 }
 
 @media (max-width: 640px) {
-  .sl-nav {
-    flex-wrap: wrap;
-  }
-
-  .sl-navlinks {
-    order: 3;
-    padding-top: 0;
-    gap: 16px;
-  }
-
   .sl-works-grid {
     grid-template-columns: 1fr 1fr;
   }

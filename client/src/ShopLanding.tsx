@@ -1,9 +1,9 @@
 import type { MouseEvent } from 'react'
-import { Search, ShoppingBag, Menu } from 'lucide-react'
+import { Search } from 'lucide-react'
 import './ShopLanding.css'
 import { navigate } from './router'
 import { Reveal } from './motion'
-import { useCart } from './cart'
+import Nav from './Nav'
 import { getProductsByCategory, formatPrice } from './catalog'
 
 const tabs: { label: string; slug: string }[] = [
@@ -28,26 +28,12 @@ function go(path: string) {
 }
 
 function ShopLanding({ category }: { category: string }) {
-  const { count } = useCart()
   const products = getProductsByCategory(category)
   const title = titles[category] ?? 'Shop All'
 
   return (
     <div className="sh-page">
-      <header className="sh-topbar">
-        <button className="sh-icon-btn" aria-label="Menu">
-          <Menu size={20} strokeWidth={1.6} />
-        </button>
-
-        <a href="/" className="sh-logo" onClick={go('/')}>
-          <span className="script-initial">V</span>intage Blue
-        </a>
-
-        <a href="/cart" className="sh-cart" onClick={go('/cart')} aria-label={`Cart, ${count} items`}>
-          {count > 0 && <span className="sh-cart-count">{count}</span>}
-          <ShoppingBag size={20} strokeWidth={1.6} />
-        </a>
-      </header>
+      <Nav />
 
       <nav className="sh-tabs" aria-label="Shop by category">
         {tabs.map((t) => (

@@ -1,9 +1,9 @@
 import { useRef, type MouseEvent } from 'react'
-import { Search, ShoppingBag, Menu, ChevronDown, ArrowUpRight } from 'lucide-react'
+import { Search, ChevronDown, ArrowUpRight } from 'lucide-react'
 import './DropLanding.css'
 import { navigate } from './router'
 import { Reveal, usePrefersReducedMotion } from './motion'
-import { useCart } from './cart'
+import Nav from './Nav'
 import heroBack from './assets/heroleft.png'
 import heroFull from './assets/hero.png'
 import heroPortrait from './assets/heroright.png'
@@ -36,7 +36,6 @@ function goHome(e: MouseEvent) {
 
 function DropLanding() {
   const reducedMotion = usePrefersReducedMotion()
-  const { count } = useCart()
   const heroRef = useRef<HTMLDivElement>(null)
   const tiltFrame = useRef(0)
 
@@ -77,28 +76,7 @@ function DropLanding() {
     <div className="dl-page">
       <div className="dl-frame">
         {/* ---------------- Top bar ---------------- */}
-        <header className="dl-topbar">
-          <button className="dl-icon-btn" aria-label="Menu">
-            <Menu size={20} strokeWidth={1.6} />
-          </button>
-
-          <a href="/" className="dl-logo" onClick={goHome}>
-            <span className="script-initial">V</span>intage Blue
-          </a>
-
-          <a
-            href="/cart"
-            className="dl-cart"
-            aria-label={`Cart, ${count} items`}
-            onClick={(e) => {
-              e.preventDefault()
-              navigate('/cart')
-            }}
-          >
-            {count > 0 && <span className="dl-cart-count">{count}</span>}
-            <ShoppingBag size={20} strokeWidth={1.6} />
-          </a>
-        </header>
+        <Nav />
 
         {/* ---------------- Filter bar ---------------- */}
         <div className="dl-filterbar">

@@ -2,6 +2,7 @@ import { useEffect, useRef, type MouseEvent } from 'react'
 import './LookbookLanding.css'
 import { navigate } from './router'
 import { Reveal } from './motion'
+import Nav from './Nav'
 import heroFull from './assets/hero.png'
 import product1 from './assets/product1.png'
 import product2 from './assets/product2.png'
@@ -56,6 +57,8 @@ function LookbookLanding() {
 
   return (
     <div className="lb-page">
+      <Nav />
+
       {/* ---------------- Meta row ---------------- */}
       <header className="lb-meta">
         <span>Vintage Blue Studio</span>

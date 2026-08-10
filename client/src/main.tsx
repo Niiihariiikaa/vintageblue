@@ -12,6 +12,8 @@ import LookbookLanding from './LookbookLanding.tsx'
 import ShopLanding from './ShopLanding.tsx'
 import ProductLanding from './ProductLanding.tsx'
 import CartLanding from './CartLanding.tsx'
+import ConceptLanding from './ConceptLanding.tsx'
+import HeritageLanding from './HeritageLanding.tsx'
 import { CartProvider } from './cart.tsx'
 
 /**
@@ -34,9 +36,11 @@ function Router() {
   if (path === '/story') return <StoryLanding />
   if (path === '/lookbook') return <LookbookLanding />
   if (path === '/cart') return <CartLanding />
+  if (path === '/concept') return <ConceptLanding />
+  if (path === '/winter') return <App />
   if (path.startsWith('/shop/')) return <ShopLanding category={path.slice('/shop/'.length)} />
   if (path.startsWith('/product/')) return <ProductLanding handle={path.slice('/product/'.length)} />
-  return <App />
+  return <HeritageLanding />
 }
 
 createRoot(document.getElementById('root')!).render(

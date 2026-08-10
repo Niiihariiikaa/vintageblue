@@ -2,6 +2,7 @@ import { useState, type MouseEvent } from 'react'
 import { Minus, Plus, X, ShoppingBag } from 'lucide-react'
 import './CartLanding.css'
 import { navigate } from './router'
+import Nav from './Nav'
 import { useCart } from './cart'
 import { getProductByHandle, formatPrice } from './catalog'
 
@@ -27,14 +28,7 @@ function CartLanding() {
 
   return (
     <div className="ct-page">
-      <header className="ct-topbar">
-        <a href="/" className="ct-logo" onClick={go('/')}>
-          <span className="script-initial">V</span>intage Blue
-        </a>
-        <a href="/shop/popular" className="ct-continue" onClick={go('/shop/popular')}>
-          Continue Shopping
-        </a>
-      </header>
+      <Nav />
 
       {placed ? (
         <div className="ct-confirm">

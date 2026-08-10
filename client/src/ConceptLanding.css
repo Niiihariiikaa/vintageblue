@@ -1,0 +1,326 @@
+/* ================================================================
+   Concept landing — a manifesto-style page about the brand's design
+   philosophy: a full-bleed hero, four numbered principles, an actual
+   swatch of the brand palette, two alternating feature sections, and
+   a closing CTA back into the shop/lookbook.
+   ================================================================ */
+
+.cn-page {
+  width: 100%;
+  background: var(--beige);
+  overflow-x: hidden;
+}
+
+.cn-eyebrow {
+  margin: 0 0 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--pastel-blue);
+}
+
+.cn-eyebrow-dark {
+  color: var(--indigo);
+}
+
+/* ================================================================
+   Hero
+   ================================================================ */
+
+.cn-hero {
+  position: relative;
+  height: clamp(480px, 58vw, 720px);
+  overflow: hidden;
+}
+
+.cn-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 15%;
+}
+
+.cn-hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(31, 35, 39, 0.75) 0%,
+    rgba(31, 35, 39, 0.15) 55%,
+    rgba(31, 35, 39, 0.35) 100%
+  );
+}
+
+.cn-hero-copy {
+  position: absolute;
+  left: 4vw;
+  right: 4vw;
+  bottom: clamp(30px, 5vw, 64px);
+  color: var(--beige);
+}
+
+.cn-hero-copy h1 {
+  margin: 0 0 18px;
+  font-family: var(--font-display);
+  font-weight: normal;
+  line-height: 0.98;
+  font-size: clamp(38px, 6.5vw, 90px);
+}
+
+.cn-hero-lede {
+  margin: 0;
+  max-width: 46ch;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: rgba(238, 235, 229, 0.85);
+}
+
+/* ================================================================
+   Manifesto
+   ================================================================ */
+
+.cn-manifesto {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: rgba(31, 35, 39, 0.1);
+  border-top: 1px solid rgba(31, 35, 39, 0.1);
+  border-bottom: 1px solid rgba(31, 35, 39, 0.1);
+}
+
+.cn-principle-cell {
+  background: var(--beige);
+}
+
+.cn-principle {
+  height: 100%;
+  padding: clamp(30px, 5vw, 54px) clamp(20px, 5vw, 60px);
+}
+
+.cn-principle-n {
+  display: block;
+  margin-bottom: 18px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--indigo);
+}
+
+.cn-principle h2 {
+  margin: 0 0 14px;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(22px, 2.6vw, 30px);
+  color: var(--obsidian);
+}
+
+.cn-principle p {
+  margin: 0;
+  max-width: 42ch;
+  font-size: 14px;
+  line-height: 1.75;
+  color: rgba(31, 35, 39, 0.68);
+}
+
+/* ================================================================
+   Palette
+   ================================================================ */
+
+.cn-palette {
+  padding: clamp(50px, 7vw, 90px) 4vw;
+  background: var(--obsidian);
+  color: var(--beige);
+  text-align: center;
+}
+
+.cn-palette .cn-eyebrow {
+  display: block;
+}
+
+.cn-palette-heading {
+  margin: 0 0 clamp(36px, 5vw, 58px);
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(28px, 4vw, 46px);
+  color: var(--beige);
+}
+
+.cn-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(24px, 4vw, 46px);
+}
+
+.cn-swatch {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+
+.cn-swatch-chip {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(238, 235, 229, 0.18);
+}
+
+.cn-swatch-name {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--beige);
+}
+
+.cn-swatch-hex {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: rgba(238, 235, 229, 0.55);
+}
+
+/* ================================================================
+   Feature sections
+   ================================================================ */
+
+.cn-feature {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(24px, 4vw, 60px);
+  padding: clamp(50px, 7vw, 90px) 4vw;
+}
+
+.cn-feature-reverse {
+  direction: rtl;
+}
+
+.cn-feature-reverse .cn-feature-copy-cell,
+.cn-feature-reverse .cn-feature-img-cell {
+  direction: ltr;
+}
+
+.cn-feature-img {
+  aspect-ratio: 4 / 5;
+  border-radius: 22px;
+  overflow: hidden;
+  background: var(--hero-greige);
+}
+
+.cn-feature-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.cn-feature-copy-cell h2 {
+  margin: 0 0 18px;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(26px, 3.2vw, 40px);
+  color: var(--obsidian);
+}
+
+.cn-feature-copy-cell p {
+  margin: 0;
+  max-width: 46ch;
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: rgba(31, 35, 39, 0.68);
+}
+
+/* ================================================================
+   Closing CTA
+   ================================================================ */
+
+.cn-cta {
+  padding: clamp(60px, 8vw, 100px) 4vw;
+  text-align: center;
+  border-top: 1px solid rgba(31, 35, 39, 0.1);
+}
+
+.cn-cta h2 {
+  margin: 0 0 30px;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(34px, 5.5vw, 64px);
+  color: var(--obsidian);
+}
+
+.cn-cta-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.cn-btn-solid {
+  display: inline-flex;
+  align-items: center;
+  padding: 15px 32px;
+  border-radius: 999px;
+  background: var(--indigo);
+  color: var(--beige);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.cn-btn-solid:hover {
+  background: var(--obsidian);
+  transform: translateY(-2px);
+}
+
+.cn-btn-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--obsidian);
+  transition: color 0.25s ease;
+}
+
+.cn-btn-text:hover {
+  color: var(--indigo);
+}
+
+/* ================================================================
+   Back link
+   ================================================================ */
+
+.cn-back {
+  display: block;
+  padding: 0 4vw 40px;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: rgba(31, 35, 39, 0.55);
+  transition: color 0.25s ease;
+}
+
+.cn-back:hover {
+  color: var(--indigo);
+}
+
+/* ================================================================
+   Responsive
+   ================================================================ */
+
+@media (max-width: 800px) {
+  .cn-manifesto {
+    grid-template-columns: 1fr;
+  }
+
+  .cn-feature,
+  .cn-feature-reverse {
+    grid-template-columns: 1fr;
+    direction: ltr;
+  }
+
+  .cn-feature-reverse {
+    direction: ltr;
+  }
+
+  .cn-feature-reverse .cn-feature-img-cell {
+    order: -1;
+  }
+}

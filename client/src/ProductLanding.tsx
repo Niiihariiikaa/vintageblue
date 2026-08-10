@@ -1,8 +1,9 @@
 import { useState, type MouseEvent } from 'react'
-import { Minus, Plus, ShoppingBag, Check } from 'lucide-react'
+import { Minus, Plus, Check } from 'lucide-react'
 import './ProductLanding.css'
 import { navigate } from './router'
 import { Reveal } from './motion'
+import Nav from './Nav'
 import { useCart } from './cart'
 import { getProductByHandle, PRODUCTS, formatPrice } from './catalog'
 
@@ -15,7 +16,7 @@ function go(path: string) {
 
 function ProductLanding({ handle }: { handle: string }) {
   const product = getProductByHandle(handle)
-  const { addItem, count } = useCart()
+  const { addItem } = useCart()
 
   const [activeImg, setActiveImg] = useState(0)
   const [size, setSize] = useState<string | null>(null)
@@ -26,11 +27,7 @@ function ProductLanding({ handle }: { handle: string }) {
   if (!product) {
     return (
       <div className="pd-page">
-        <header className="pd-topbar">
-          <a href="/" className="pd-logo" onClick={go('/')}>
-            <span className="script-initial">V</span>intage Blue
-          </a>
-        </header>
+        <Nav />
         <div className="pd-notfound">
           <h1>We couldn't find that piece.</h1>
           <a href="/shop/popular" className="pd-btn-solid" onClick={go('/shop/popular')}>
@@ -58,15 +55,7 @@ function ProductLanding({ handle }: { handle: string }) {
 
   return (
     <div className="pd-page">
-      <header className="pd-topbar">
-        <a href="/" className="pd-logo" onClick={go('/')}>
-          <span className="script-initial">V</span>intage Blue
-        </a>
-        <a href="/cart" className="pd-cart" onClick={go('/cart')} aria-label={`Cart, ${count} items`}>
-          {count > 0 && <span className="pd-cart-count">{count}</span>}
-          <ShoppingBag size={20} strokeWidth={1.6} />
-        </a>
-      </header>
+      <Nav />
 
       <a
         href={`/shop/${product.categories[0]}`}
