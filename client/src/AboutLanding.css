@@ -1,0 +1,408 @@
+/* ================================================================
+   About — a long-form brand narrative page: editorial prose columns,
+   chip lists for values/regions/partners, a dark promise banner, and
+   a closing manifesto grid. Mirrors the eyebrow/heading/prose
+   patterns already established on the Story and Concept pages.
+   ================================================================ */
+
+.ab-page {
+  width: 100%;
+  background: var(--beige);
+  overflow-x: hidden;
+}
+
+.ab-eyebrow {
+  margin: 0 0 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 225, 0.85);
+}
+
+.ab-eyebrow-dark {
+  color: var(--indigo);
+}
+
+.ab-mt {
+  margin-top: 40px;
+}
+
+/* ================================================================
+   Hero
+   ================================================================ */
+
+.ab-hero {
+  padding: clamp(56px, 9vw, 110px) 4vw clamp(50px, 7vw, 80px);
+  text-align: center;
+}
+
+.ab-hero .ab-eyebrow {
+  color: var(--indigo);
+}
+
+.ab-title {
+  margin: 0 0 22px;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(38px, 6vw, 76px);
+  color: var(--obsidian);
+}
+
+.ab-rule {
+  display: inline-block;
+  width: 64px;
+  height: 2px;
+  margin-bottom: 22px;
+  background: var(--indigo);
+}
+
+.ab-tagline {
+  margin: 0 0 40px;
+  font-family: var(--font-script);
+  font-size: clamp(24px, 3vw, 34px);
+  color: var(--indigo);
+}
+
+.ab-prose {
+  max-width: 62ch;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.ab-hero .ab-prose {
+  text-align: center;
+}
+
+.ab-prose p {
+  margin: 0 0 18px;
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: rgba(31, 35, 39, 0.7);
+}
+
+.ab-prose p:last-child {
+  margin-bottom: 0;
+}
+
+.ab-prose strong {
+  font-weight: 700;
+  color: var(--obsidian);
+}
+
+/* ================================================================
+   Section shell
+   ================================================================ */
+
+.ab-section {
+  padding: clamp(56px, 8vw, 96px) 4vw;
+}
+
+.ab-section-tint {
+  background: var(--pastel-blue);
+}
+
+.ab-section-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.ab-section-inner .ab-prose {
+  text-align: left;
+}
+
+.ab-heading {
+  margin: 0 0 20px;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(24px, 3.2vw, 36px);
+  letter-spacing: 0.03em;
+  color: var(--obsidian);
+}
+
+/* ================================================================
+   Chip rows — regions, partners, values, personality
+   ================================================================ */
+
+.ab-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.ab-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(31, 35, 39, 0.2);
+  background: #f4f1ea;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--obsidian);
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.ab-chip:hover {
+  border-color: var(--indigo);
+  transform: translateY(-2px);
+}
+
+.ab-chip svg {
+  flex-shrink: 0;
+  color: var(--indigo);
+}
+
+.ab-chip-solid {
+  border-color: transparent;
+  background: var(--indigo);
+  color: var(--beige);
+}
+
+.ab-chip-solid svg {
+  color: var(--beige);
+}
+
+/* ================================================================
+   Craft strip — small proof-of-craft gallery
+   ================================================================ */
+
+.ab-craft-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  max-width: 720px;
+  margin: 44px auto 0;
+}
+
+.ab-craft-cell {
+  aspect-ratio: 3 / 4;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #f4ede1;
+}
+
+.ab-craft-cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ================================================================
+   Checklists — sustainability, why vintage blue
+   ================================================================ */
+
+.ab-check-list {
+  display: grid;
+  gap: 16px;
+  margin: 28px 0;
+  text-align: left;
+}
+
+.ab-check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.ab-check-row svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: var(--indigo);
+}
+
+.ab-check-row p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: rgba(31, 35, 39, 0.75);
+}
+
+/* ================================================================
+   Vision / Mission duo
+   ================================================================ */
+
+.ab-duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.ab-duo-cell {
+  position: relative;
+  padding: 36px 32px 32px;
+  border-radius: 24px;
+  background: #f4f1ea;
+  text-align: left;
+}
+
+.ab-duo-icon {
+  display: block;
+  margin-bottom: 16px;
+  color: var(--indigo);
+}
+
+.ab-duo-copy {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.75;
+  color: rgba(31, 35, 39, 0.75);
+}
+
+/* ================================================================
+   Brand promise — dark photographic banner
+   ================================================================ */
+
+.ab-promise {
+  position: relative;
+  padding: clamp(70px, 10vw, 130px) 6vw;
+  overflow: hidden;
+  background: var(--obsidian);
+  text-align: center;
+}
+
+.ab-promise-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 30%;
+}
+
+.ab-promise-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 12, 9, 0.55) 0%,
+    rgba(15, 12, 9, 0.72) 100%
+  );
+}
+
+.ab-promise-inner {
+  position: relative;
+  z-index: 2;
+}
+
+.ab-promise-copy {
+  max-width: 46ch;
+  margin: 0 auto;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(18px, 2.2vw, 24px);
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  color: #f4ede1;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* ================================================================
+   Goals — numbered manifesto grid
+   ================================================================ */
+
+.ab-goals-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 34px 44px;
+  margin-top: 32px;
+  text-align: left;
+}
+
+.ab-goal-n {
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--font-display);
+  font-size: 30px;
+  color: var(--indigo);
+}
+
+.ab-goal p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: rgba(31, 35, 39, 0.75);
+}
+
+/* ================================================================
+   Closing CTA
+   ================================================================ */
+
+.ab-cta {
+  padding: clamp(60px, 8vw, 100px) 4vw;
+  text-align: center;
+}
+
+.ab-cta h2 {
+  margin: 0 0 26px;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(32px, 5vw, 58px);
+  color: var(--obsidian);
+}
+
+.ab-cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 30px;
+  border-radius: 999px;
+  background: var(--obsidian);
+  color: var(--beige);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.ab-cta-link:hover {
+  background: var(--indigo);
+  transform: translateY(-2px);
+}
+
+/* ================================================================
+   Back link
+   ================================================================ */
+
+.ab-back {
+  display: block;
+  padding: 0 4vw 50px;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: rgba(31, 35, 39, 0.55);
+  transition: color 0.25s ease;
+}
+
+.ab-back:hover {
+  color: var(--indigo);
+}
+
+/* ================================================================
+   Responsive
+   ================================================================ */
+
+@media (max-width: 720px) {
+  .ab-duo {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .ab-goals-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ab-craft-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

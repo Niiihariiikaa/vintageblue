@@ -10,6 +10,7 @@ import heroBlackFront from './assets/heromiddle.png'
 import heroBlackBack from './assets/hero-right.png'
 
 export type Category = 'men' | 'women' | 'unisex'
+export type ColorFamily = 'Blues' | 'Browns' | 'Neutrals' | 'Greens'
 
 export interface Product {
   id: string
@@ -22,9 +23,15 @@ export interface Product {
   description: string
   details: string[]
   sizes: string[]
+  type: string
+  color: string
+  colorFamily: ColorFamily
+  inStock: boolean
 }
 
 export const SIZES = ['XS', 'S', 'M', 'L', 'XL']
+export const TYPES = ['Hoodie', 'Jacket', 'Trench', 'Overcoat']
+export const COLOR_FAMILIES: ColorFamily[] = ['Blues', 'Browns', 'Neutrals', 'Greens']
 
 export const PRODUCTS: Product[] = [
   {
@@ -39,6 +46,10 @@ export const PRODUCTS: Product[] = [
       'A slouchy beanie, garment-dyed sweatshirt, and wide-leg denim, built for easy everyday layering when the temperature won’t make up its mind.',
     details: ['Garment-dyed cotton fleece', 'Relaxed, dropped-shoulder fit', 'Wide-leg denim, mid-wash'],
     sizes: SIZES,
+    type: 'Hoodie',
+    color: 'Charcoal Grey',
+    colorFamily: 'Neutrals',
+    inStock: true,
   },
   {
     id: '2',
@@ -51,6 +62,10 @@ export const PRODUCTS: Product[] = [
       'A boxy zip jacket paired with a compact duffel and tonal sunglasses — the kind of layer that quietly does the most work in an outfit.',
     details: ['Water-resistant shell', 'Boxy, cropped silhouette', 'Matching duffel included'],
     sizes: SIZES,
+    type: 'Jacket',
+    color: 'Charcoal',
+    colorFamily: 'Neutrals',
+    inStock: true,
   },
   {
     id: '3',
@@ -64,6 +79,10 @@ export const PRODUCTS: Product[] = [
       'A relaxed wool trench worn open over a pleated mini, finished with tall boots for a look that moves easily from desk to dinner.',
     details: ['Brushed wool blend', 'Relaxed, unstructured cut', 'Falls just past the knee'],
     sizes: SIZES,
+    type: 'Trench',
+    color: 'Camel',
+    colorFamily: 'Browns',
+    inStock: true,
   },
   {
     id: '4',
@@ -76,6 +95,10 @@ export const PRODUCTS: Product[] = [
       'An oversized coat wrapped with a chunky scarf over a knit mini dress — deliberately soft, deliberately warm.',
     details: ['Brushed wool-blend coating', 'Oversized, relaxed fit', 'Scarf sold separately'],
     sizes: SIZES,
+    type: 'Trench',
+    color: 'Oatmeal',
+    colorFamily: 'Neutrals',
+    inStock: false,
   },
   {
     id: '5',
@@ -89,6 +112,10 @@ export const PRODUCTS: Product[] = [
       'A double-breasted overcoat layered over tailored separates, built for the coldest days without losing the silhouette.',
     details: ['Double-breasted wool overcoat', 'Fully lined', 'Tailored, structured shoulder'],
     sizes: SIZES,
+    type: 'Overcoat',
+    color: 'Navy',
+    colorFamily: 'Blues',
+    inStock: true,
   },
   {
     id: '6',
@@ -102,6 +129,10 @@ export const PRODUCTS: Product[] = [
       'Our signature oversized hoodie in brushed navy fleece, cut generously through the body and finished with a drawcord hood.',
     details: ['420gsm brushed cotton fleece', 'Oversized, dropped-shoulder fit', 'Kangaroo pocket, drawcord hood'],
     sizes: SIZES,
+    type: 'Hoodie',
+    color: 'Navy',
+    colorFamily: 'Blues',
+    inStock: true,
   },
   {
     id: '7',
@@ -114,6 +145,10 @@ export const PRODUCTS: Product[] = [
       'The same signature fit in soft-touch black fleece, paired here with wide-leg denim and a slouchy crossbody.',
     details: ['420gsm brushed cotton fleece', 'Oversized, dropped-shoulder fit', 'Kangaroo pocket, drawcord hood'],
     sizes: SIZES,
+    type: 'Hoodie',
+    color: 'Black',
+    colorFamily: 'Neutrals',
+    inStock: true,
   },
 ]
 

@@ -12,9 +12,50 @@
   background: var(--beige);
 }
 
-.gnav-menu-btn {
+.gnav-logo {
   justify-self: start;
-  display: inline-grid;
+  font-family: var(--font-display);
+  font-size: 20px;
+  letter-spacing: 0.02em;
+  color: var(--obsidian);
+  white-space: nowrap;
+}
+
+.gnav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 3vw, 40px);
+}
+
+.gnav-links a,
+.gnav-more {
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--obsidian);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+.gnav-links a:hover,
+.gnav-more:hover {
+  color: var(--indigo);
+}
+
+.gnav-actions {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.gnav-menu-btn {
+  display: none;
   place-items: center;
   padding: 6px;
   border: none;
@@ -28,17 +69,7 @@
   transform: translateY(-1px);
 }
 
-.gnav-logo {
-  justify-self: center;
-  font-family: var(--font-display);
-  font-size: 20px;
-  letter-spacing: 0.02em;
-  color: var(--obsidian);
-  white-space: nowrap;
-}
-
 .gnav-cart {
-  justify-self: end;
   position: relative;
   display: inline-grid;
   place-items: center;
@@ -152,6 +183,16 @@
 
 .gnav-drawer-cart:hover {
   color: var(--indigo);
+}
+
+@media (max-width: 860px) {
+  .gnav-links {
+    display: none;
+  }
+
+  .gnav-menu-btn {
+    display: inline-grid;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,7 +1,8 @@
 /* ================================================================
-   Shop landing — category/listing page for Men, Women, Unisex, and
-   Popular. Full-bleed, same brand system as the other pages: a clean
-   top bar, pill category tabs, and a responsive product grid.
+   Shop landing — category/listing page for Men, Unisex, and Popular.
+   A left filter sidebar (Type / Size / Color / Availability) plus a
+   toolbar of search + sort sits above a responsive product grid; on
+   narrow viewports the sidebar becomes a slide-in drawer.
    ================================================================ */
 
 .sh-page {
@@ -47,13 +48,49 @@
   color: var(--beige);
 }
 
+/* ================================================================
+   Heading + toolbar
+   ================================================================ */
+
+.sh-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: clamp(30px, 5vw, 54px) 4vw 0;
+}
+
+.sh-heading h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: normal;
+  text-transform: capitalize;
+  font-size: clamp(32px, 5vw, 60px);
+  color: var(--obsidian);
+}
+
+.sh-count {
+  margin: 10px 4vw 0;
+  padding-bottom: clamp(16px, 2.5vw, 24px);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(31, 35, 39, 0.5);
+}
+
+.sh-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .sh-search {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-left: auto;
   padding: 9px 16px;
-  border: 1px solid rgba(31, 35, 39, 0.45);
+  border: 1px solid rgba(31, 35, 39, 0.3);
   border-radius: 999px;
   color: var(--obsidian);
 }
@@ -72,34 +109,164 @@
   color: rgba(31, 35, 39, 0.5);
 }
 
-/* ================================================================
-   Heading
-   ================================================================ */
-
-.sh-heading {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-  padding: clamp(30px, 5vw, 54px) 4vw clamp(20px, 3vw, 30px);
-}
-
-.sh-heading h1 {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: normal;
-  text-transform: capitalize;
-  font-size: clamp(36px, 6vw, 76px);
+.sh-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border: 1px solid rgba(31, 35, 39, 0.3);
+  border-radius: 999px;
+  font-size: 12px;
   color: var(--obsidian);
 }
 
-.sh-heading p {
-  margin: 0;
+.sh-sort span {
+  color: rgba(31, 35, 39, 0.5);
+}
+
+.sh-sort select {
+  border: none;
+  background: none;
+  outline: none;
+  font-family: inherit;
   font-size: 12px;
+  font-weight: 600;
+  color: var(--obsidian);
+}
+
+.sh-filter-btn {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border: 1px solid rgba(31, 35, 39, 0.3);
+  border-radius: 999px;
+  background: none;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--obsidian);
+}
+
+.sh-filter-btn em {
+  display: inline-grid;
+  place-items: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--indigo);
+  color: var(--beige);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* ================================================================
+   Active filter chips
+   ================================================================ */
+
+.sh-active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 0 4vw 20px;
+}
+
+.sh-active-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid rgba(31, 35, 39, 0.25);
+  border-radius: 999px;
+  background: #f4ede1;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--obsidian);
+  transition: border-color 0.25s ease;
+}
+
+.sh-active-chip:hover {
+  border-color: var(--indigo);
+  color: var(--indigo);
+}
+
+.sh-clear-all-inline {
+  padding: 6px 4px;
+  border: none;
+  background: none;
+  font-size: 11.5px;
+  font-weight: 600;
+  text-decoration: underline;
+  color: rgba(31, 35, 39, 0.55);
+}
+
+.sh-clear-all-inline:hover {
+  color: var(--indigo);
+}
+
+/* ================================================================
+   Layout — sidebar + grid
+   ================================================================ */
+
+.sh-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 30px;
+  padding: 0 4vw clamp(50px, 7vw, 90px);
+}
+
+.sh-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.sh-filter-group h3 {
+  margin: 0 0 12px;
+  font-size: 11.5px;
+  font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(31, 35, 39, 0.5);
-  white-space: nowrap;
+  color: var(--obsidian);
+}
+
+.sh-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 0;
+  font-size: 13px;
+  color: rgba(31, 35, 39, 0.75);
+  cursor: pointer;
+}
+
+.sh-filter-row input {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--indigo);
+}
+
+.sh-filter-row span {
+  flex: 1;
+}
+
+.sh-filter-row em {
+  font-size: 11.5px;
+  font-style: normal;
+  color: rgba(31, 35, 39, 0.4);
+}
+
+.sh-clear-all {
+  align-self: flex-start;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: underline;
+  color: var(--indigo);
 }
 
 /* ================================================================
@@ -108,9 +275,9 @@
 
 .sh-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
-  padding: 0 4vw clamp(50px, 7vw, 90px);
+  align-content: start;
 }
 
 .sh-card {
@@ -151,6 +318,12 @@
   text-transform: uppercase;
 }
 
+.sh-badge-out {
+  left: auto;
+  right: 10px;
+  background: var(--obsidian);
+}
+
 .sh-card-info {
   display: flex;
   justify-content: space-between;
@@ -170,6 +343,81 @@
   padding: 0 4vw 60px;
   text-align: center;
   color: rgba(31, 35, 39, 0.55);
+}
+
+/* ================================================================
+   Mobile filter drawer
+   ================================================================ */
+
+.sh-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(31, 35, 39, 0);
+  pointer-events: none;
+  transition: background 0.35s ease;
+}
+
+.sh-drawer-overlay.open {
+  background: rgba(31, 35, 39, 0.55);
+  pointer-events: auto;
+}
+
+.sh-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: min(340px, 86vw);
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding: 22px 26px 30px;
+  overflow-y: auto;
+  background: var(--beige);
+  box-shadow: 30px 0 60px rgba(31, 35, 39, 0.25);
+  transform: translateX(-100%);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sh-drawer-overlay.open .sh-drawer {
+  transform: translateX(0);
+}
+
+.sh-drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sh-drawer-head h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: 24px;
+  color: var(--obsidian);
+}
+
+.sh-drawer-head button {
+  display: inline-grid;
+  place-items: center;
+  padding: 6px;
+  border: none;
+  background: none;
+  color: var(--obsidian);
+}
+
+.sh-drawer-apply {
+  margin-top: auto;
+  padding: 15px;
+  border: none;
+  border-radius: 999px;
+  background: var(--obsidian);
+  color: var(--beige);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 /* ================================================================
@@ -194,19 +442,44 @@
    Responsive
    ================================================================ */
 
-@media (max-width: 900px) {
+@media (max-width: 980px) {
+  .sh-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sh-sidebar {
+    display: none;
+  }
+
+  .sh-filter-btn {
+    display: inline-flex;
+  }
+
   .sh-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 640px) {
-  .sh-search {
-    margin-left: 0;
+  .sh-heading {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sh-controls {
     width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .sh-search {
+    flex: 1;
   }
 
   .sh-search input {
     width: 100%;
+  }
+
+  .sh-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
