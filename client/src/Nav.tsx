@@ -5,15 +5,20 @@ import { navigate } from './router'
 import { useCart } from './cart'
 
 const primaryLinks = [
+  { label: 'Shirts', to: '/shop/shirts' },
+  { label: 'Denims', to: '/shop/denims' },
+  { label: 'Cargos', to: '/shop/cargos' },
   { label: 'Men', to: '/shop/men' },
   { label: 'Unisex', to: '/shop/unisex' },
   { label: 'The Drop', to: '/drop' },
-  { label: 'Our Story', to: '/story' },
   { label: 'About Us', to: '/about' },
 ]
 
 const allLinks = [
   { label: 'Shop Popular', to: '/shop/popular' },
+  { label: 'Shirts', to: '/shop/shirts' },
+  { label: 'Denims', to: '/shop/denims' },
+  { label: 'Cargos', to: '/shop/cargos' },
   { label: 'Men', to: '/shop/men' },
   { label: 'Unisex', to: '/shop/unisex' },
   { label: 'The Drop', to: '/drop' },

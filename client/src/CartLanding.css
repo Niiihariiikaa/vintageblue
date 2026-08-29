@@ -117,6 +117,14 @@
   object-position: top center;
 }
 
+.ct-line-placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: rgba(31, 35, 39, 0.4);
+}
+
 .ct-line-info {
   display: grid;
   gap: 4px;

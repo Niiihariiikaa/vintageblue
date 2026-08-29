@@ -1,5 +1,5 @@
 import { useMemo, useState, type MouseEvent } from 'react'
-import { Search, SlidersHorizontal, X } from 'lucide-react'
+import { Search, SlidersHorizontal, Shirt, X } from 'lucide-react'
 import './ShopLanding.css'
 import { navigate } from './router'
 import { Reveal } from './motion'
@@ -15,6 +15,9 @@ import {
 
 const tabs: { label: string; slug: string }[] = [
   { label: 'Popular', slug: 'popular' },
+  { label: 'Shirts', slug: 'shirts' },
+  { label: 'Denims', slug: 'denims' },
+  { label: 'Cargos', slug: 'cargos' },
   { label: 'Men', slug: 'men' },
   { label: 'Unisex', slug: 'unisex' },
 ]
@@ -24,6 +27,9 @@ const titles: Record<string, string> = {
   men: 'Menswear',
   women: 'Womenswear',
   unisex: 'Unisex Edit',
+  shirts: 'Shirts',
+  denims: 'Denims',
+  cargos: 'Cargos',
 }
 
 type SortKey = 'featured' | 'price-asc' | 'price-desc' | 'name-asc' | 'name-desc'
@@ -266,7 +272,19 @@ function ShopLanding({ category }: { category: string }) {
             <Reveal key={p.id} delay={(i % 4) * 70} className="sh-card-cell">
               <a href={`/product/${p.handle}`} className="sh-card" onClick={go(`/product/${p.handle}`)}>
                 <div className="sh-card-img">
-                  <img src={p.images[0]} alt={p.name} />
+                  {p.images.length > 0 ? (
+                    <>
+                      <img className="sh-card-img-primary" src={p.images[0]} alt={p.name} />
+                      {p.images[1] && (
+                        <img className="sh-card-img-secondary" src={p.images[1]} alt="" aria-hidden="true" />
+                      )}
+                    </>
+                  ) : (
+                    <div className="sh-card-placeholder">
+                      <Shirt size={26} strokeWidth={1.1} />
+                      <span>Coming Soon</span>
+                    </div>
+                  )}
                   {p.popular && <span className="sh-badge">Popular</span>}
                   {!p.inStock && <span className="sh-badge sh-badge-out">Sold Out</span>}
                 </div>

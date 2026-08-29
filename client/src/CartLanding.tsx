@@ -1,5 +1,5 @@
 import { useState, type MouseEvent } from 'react'
-import { Minus, Plus, X, ShoppingBag } from 'lucide-react'
+import { Minus, Plus, X, ShoppingBag, Shirt } from 'lucide-react'
 import './CartLanding.css'
 import { navigate } from './router'
 import Nav from './Nav'
@@ -66,7 +66,13 @@ function CartLanding() {
                     className="ct-line-img"
                     onClick={go(`/product/${product.handle}`)}
                   >
-                    <img src={product.images[0]} alt={product.name} />
+                    {product.images.length > 0 ? (
+                      <img src={product.images[0]} alt={product.name} />
+                    ) : (
+                      <div className="ct-line-placeholder">
+                        <Shirt size={18} strokeWidth={1.2} />
+                      </div>
+                    )}
                   </a>
                   <div className="ct-line-info">
                     <a

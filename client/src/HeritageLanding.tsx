@@ -58,6 +58,8 @@ function HeritageLanding() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [look, setLook] = useState(0)
   const active = anatomyLooks[look]
+  const prevData = anatomyLooks[(look - 1 + anatomyLooks.length) % anatomyLooks.length]
+  const nextData = anatomyLooks[(look + 1) % anatomyLooks.length]
 
   const prevLook = () => setLook((i) => (i - 1 + anatomyLooks.length) % anatomyLooks.length)
   const nextLook = () => setLook((i) => (i + 1) % anatomyLooks.length)
@@ -209,83 +211,87 @@ function HeritageLanding() {
           <h2 className="hr-products-title">the way we wear it.</h2>
         </Reveal>
 
-        <Reveal delay={80} className="hr-split">
-          <div className="hr-split-image">
-            <img src={active.model} alt={active.modelAlt} />
-
-            <svg
-              className="hr-split-lines"
-              viewBox="0 0 300 400"
-              preserveAspectRatio="none"
-              aria-hidden="true"
+        <Reveal delay={80} className="hr-anatomy-cell">
+          <div className="hr-anatomy">
+            <button
+              type="button"
+              className="hr-anatomy-peek hr-anatomy-peek-left"
+              aria-label={`Show ${prevData.shirt.label} look`}
+              onClick={prevLook}
             >
-              <line x1="168" y1="108" x2="268" y2="108" />
-              <circle cx="168" cy="108" r="4" />
-              <text x="273" y="112">
-                1
-              </text>
-
-              <line x1="144" y1="236" x2="268" y2="236" />
-              <circle cx="144" cy="236" r="4" />
-              <text x="273" y="240">
-                2
-              </text>
-            </svg>
+              <img src={prevData.model} alt="" />
+              <span className="hr-anatomy-peek-label">Prev Look</span>
+            </button>
 
             <button
               type="button"
-              className="hr-split-nav hr-split-prev"
+              className="hr-anatomy-nav hr-anatomy-prev"
               aria-label="Previous look"
               onClick={prevLook}
             >
               <ChevronLeft size={18} strokeWidth={1.8} />
             </button>
+
+            <div className="hr-anatomy-stage">
+              <p className="hr-anatomy-caption">{active.title}</p>
+
+              <img className="hr-anatomy-model" src={active.model} alt={active.modelAlt} />
+
+              <svg
+                className="hr-anatomy-lines"
+                viewBox="0 0 200 300"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <line x1="168" y1="58" x2="112" y2="81" />
+                <circle cx="112" cy="81" r="2.5" />
+                <line x1="32" y1="222" x2="96" y2="178" />
+                <circle cx="96" cy="178" r="2.5" />
+              </svg>
+
+              <a href="/shop/men" className="hr-detail-card hr-detail-1" onClick={go('/shop/men')}>
+                <span className="hr-detail-tag">{active.shirt.label}</span>
+                <img src={active.shirt.img} alt="" />
+              </a>
+
+              <a href="/shop/men" className="hr-detail-card hr-detail-2" onClick={go('/shop/men')}>
+                <span className="hr-detail-tag">{active.jeans.label}</span>
+                <img src={active.jeans.img} alt="" />
+              </a>
+
+              <span className="hr-anatomy-label">Get The Look</span>
+            </div>
+
             <button
               type="button"
-              className="hr-split-nav hr-split-next"
+              className="hr-anatomy-nav hr-anatomy-next"
               aria-label="Next look"
               onClick={nextLook}
             >
               <ChevronRight size={18} strokeWidth={1.8} />
             </button>
+
+            <button
+              type="button"
+              className="hr-anatomy-peek hr-anatomy-peek-right"
+              aria-label={`Show ${nextData.shirt.label} look`}
+              onClick={nextLook}
+            >
+              <img src={nextData.model} alt="" />
+              <span className="hr-anatomy-peek-label">Next Look</span>
+            </button>
           </div>
 
-          <div className="hr-split-copy">
-            <span className="hr-split-index">Look {String(look + 1).padStart(2, '0')}</span>
-            <p className="hr-split-desc">{active.title}</p>
-
-            <ul className="hr-split-pieces">
-              <li>
-                <a href="/shop/men" onClick={go('/shop/men')}>
-                  <span className="hr-split-marker">1</span>
-                  <img src={active.shirt.img} alt="" />
-                  <span>{active.shirt.label}</span>
-                </a>
-              </li>
-              <li>
-                <a href="/shop/men" onClick={go('/shop/men')}>
-                  <span className="hr-split-marker">2</span>
-                  <img src={active.jeans.img} alt="" />
-                  <span>{active.jeans.label}</span>
-                </a>
-              </li>
-            </ul>
-
-            <a href="/shop/men" className="hr-split-cta" onClick={go('/shop/men')}>
-              Shop This Look <ArrowRight size={16} strokeWidth={1.8} />
-            </a>
-
-            <div className="hr-anatomy-dots">
-              {anatomyLooks.map((l, i) => (
-                <button
-                  key={l.title}
-                  type="button"
-                  className={`hr-anatomy-dot${i === look ? ' active' : ''}`}
-                  aria-label={`Show look ${i + 1}`}
-                  onClick={() => setLook(i)}
-                />
-              ))}
-            </div>
+          <div className="hr-anatomy-dots">
+            {anatomyLooks.map((l, i) => (
+              <button
+                key={l.title}
+                type="button"
+                className={`hr-anatomy-dot${i === look ? ' active' : ''}`}
+                aria-label={`Show look ${i + 1}`}
+                onClick={() => setLook(i)}
+              />
+            ))}
           </div>
         </Reveal>
       </section>

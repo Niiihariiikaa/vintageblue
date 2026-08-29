@@ -297,11 +297,55 @@
   height: 100%;
   object-fit: cover;
   object-position: top center;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.sh-card:hover .sh-card-img img {
+.sh-card-img-primary {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+}
+
+.sh-card-img-secondary {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0;
+  transform: translateX(4%);
+  transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sh-card:hover .sh-card-img-primary {
   transform: scale(1.06);
+}
+
+.sh-card:hover .sh-card-img-secondary {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.sh-card-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    135deg,
+    var(--hero-greige),
+    var(--hero-greige) 14px,
+    #d8cfbe 14px,
+    #d8cfbe 28px
+  );
+  color: rgba(31, 35, 39, 0.5);
+}
+
+.sh-card-placeholder span {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .sh-badge {

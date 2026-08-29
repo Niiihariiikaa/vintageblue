@@ -1,16 +1,30 @@
 import type { MouseEvent } from 'react'
-import { Check, ArrowUpRight, Compass, Target, MapPin, Handshake } from 'lucide-react'
+import { Check, ArrowUpRight } from 'lucide-react'
 import Nav from './Nav'
 import './AboutLanding.css'
 import { navigate } from './router'
 import { Reveal } from './motion'
 import promiseBg from './assets2/herobg.png'
-import craft1 from './assets2/product1.png'
-import craft2 from './assets2/product2.png'
-import craft3 from './assets2/product3.png'
-import craft4 from './assets2/product4.png'
+import about1 from './assets2/About1.png'
+import about2 from './assets2/About2.png'
+import about3 from './assets2/About3.png'
 
-const craftShots = [craft1, craft2, craft3, craft4]
+const features = [
+  {
+    img: about1,
+    alt: 'Model leaning against a weathered doorway in wide-leg denim',
+    eyebrow: 'Since 2006',
+    heading: 'Denim, Worn Like It’s Yours.',
+    copy: 'Not styled for a shoot — styled for the street. Every fit is built to lean into a doorway, catch the light, and mean it.',
+  },
+  {
+    img: about2,
+    alt: 'Model walking through a convenience store aisle in relaxed denim',
+    eyebrow: 'Everyday Wear',
+    heading: 'Built For The Real Day.',
+    copy: 'Late-night runs, long shifts, longer weekends — our fits move the way life actually happens, not just how it photographs.',
+  },
+]
 
 const regions = [
   'Punjab',
@@ -83,6 +97,21 @@ function go(path: string) {
   }
 }
 
+type Feature = (typeof features)[number]
+
+function FeatureBanner({ img, alt, eyebrow, heading, copy }: Feature) {
+  return (
+    <section className="ab-feature">
+      <img className="ab-feature-img" src={img} alt={alt} loading="lazy" />
+      <Reveal className="ab-feature-card ab-feature-card-left">
+        <p className="ab-eyebrow">{eyebrow}</p>
+        <h2 className="ab-feature-heading">{heading}</h2>
+        <p className="ab-feature-copy">{copy}</p>
+      </Reveal>
+    </section>
+  )
+}
+
 function AboutLanding() {
   return (
     <div className="ab-page">
@@ -90,52 +119,56 @@ function AboutLanding() {
 
       {/* ---------------- Hero / intro ---------------- */}
       <section className="ab-hero">
-        <Reveal>
-          <p className="ab-eyebrow">Est. 2006</p>
-          <h1 className="ab-title">
-            <span className="script-initial">V</span>intage Blue Jeanswear
-          </h1>
-          <span className="ab-rule" aria-hidden="true" />
-          <p className="ab-tagline">Crafted Through Heritage. Designed for Today.</p>
-        </Reveal>
+        <div className="ab-hero-grid">
+          <Reveal className="ab-hero-heading">
+            <p className="ab-eyebrow">Est. 2006</p>
+            <h1 className="ab-title">
+              <span className="script-initial">A</span>bout Us
+            </h1>
+            <span className="ab-rule" aria-hidden="true" />
+          </Reveal>
 
-        <Reveal delay={80} className="ab-prose">
-          <p>
-            Established in 2006, Vintage Blue Jeanswear was founded with a singular
-            vision — to create denim that embodies authenticity, craftsmanship, and
-            enduring style.
-          </p>
-          <p>
-            What began as a dedicated men's denim label has evolved into a
-            contemporary menswear brand, redefining everyday essentials with
-            collections that seamlessly balance timeless design and modern
-            functionality. Since expanding into a complete menswear portfolio in
-            2022, Vintage Blue has introduced thoughtfully designed shirts,
-            t-shirts, trousers, cargos, jackets, and elevated wardrobe staples for
-            the modern man.
-          </p>
-          <p>
-            Every garment is created with an uncompromising focus on fit, fabric,
-            and finish — combining premium materials with refined construction to
-            deliver clothing that feels as exceptional as it looks.
-          </p>
-          <p>
-            Today, Vintage Blue Jeanswear proudly serves customers across Punjab,
-            Jammu &amp; Kashmir, Himachal Pradesh, Uttarakhand, Western Uttar
-            Pradesh, Rajasthan, Jharkhand, and Bihar, with a steadily expanding
-            presence across India.
-          </p>
-        </Reveal>
+          <div className="ab-hero-copy">
+            <Reveal delay={80} className="ab-prose">
+              <p>
+                Established in 2006, Vintage Blue Jeanswear was founded with a singular
+                vision — to create denim that embodies authenticity, craftsmanship, and
+                enduring style.
+              </p>
+              <p>
+                What began as a dedicated men's denim label has evolved into a
+                contemporary menswear brand, redefining everyday essentials with
+                collections that seamlessly balance timeless design and modern
+                functionality. Since expanding into a complete menswear portfolio in
+                2022, Vintage Blue has introduced thoughtfully designed shirts,
+                t-shirts, trousers, cargos, jackets, and elevated wardrobe staples for
+                the modern man.
+              </p>
+              <p>
+                Every garment is created with an uncompromising focus on fit, fabric,
+                and finish — combining premium materials with refined construction to
+                deliver clothing that feels as exceptional as it looks.
+              </p>
+              <p>
+                Today, Vintage Blue Jeanswear proudly serves customers across Punjab,
+                Jammu &amp; Kashmir, Himachal Pradesh, Uttarakhand, Western Uttar
+                Pradesh, Rajasthan, Jharkhand, and Bihar, with a steadily expanding
+                presence across India.
+              </p>
+            </Reveal>
 
-        <Reveal delay={120} className="ab-chip-row">
-          {regions.map((r) => (
-            <span key={r} className="ab-chip">
-              <MapPin size={13} strokeWidth={2} />
-              {r}
-            </span>
-          ))}
-        </Reveal>
+            <Reveal delay={120} className="ab-chip-row">
+              {regions.map((r) => (
+                <span key={r} className="ab-chip">
+                  {r}
+                </span>
+              ))}
+            </Reveal>
+          </div>
+        </div>
       </section>
+
+      <FeatureBanner {...features[0]} />
 
       {/* ---------------- Manufacturing excellence ---------------- */}
       <section className="ab-section">
@@ -171,24 +204,15 @@ function AboutLanding() {
           <Reveal delay={120} className="ab-chip-row">
             {partners.map((p) => (
               <span key={p} className="ab-chip">
-                <Handshake size={13} strokeWidth={2} />
                 {p}
               </span>
             ))}
           </Reveal>
         </div>
-
-        <div className="ab-craft-strip">
-          {craftShots.map((img, i) => (
-            <Reveal key={img} delay={i * 70} className="ab-craft-cell">
-              <img src={img} alt="" aria-hidden="true" />
-            </Reveal>
-          ))}
-        </div>
       </section>
 
       {/* ---------------- Sustainability ---------------- */}
-      <section className="ab-section ab-section-tint">
+      <section className="ab-section">
         <div className="ab-section-inner">
           <Reveal>
             <p className="ab-eyebrow ab-eyebrow-dark">Sustainability</p>
@@ -223,11 +247,12 @@ function AboutLanding() {
         </div>
       </section>
 
+      <FeatureBanner {...features[1]} />
+
       {/* ---------------- Vision & Mission ---------------- */}
       <section className="ab-section">
         <div className="ab-duo">
           <Reveal className="ab-duo-cell">
-            <Compass size={22} strokeWidth={1.6} className="ab-duo-icon" />
             <p className="ab-eyebrow ab-eyebrow-dark">Our Vision</p>
             <p className="ab-duo-copy">
               To become one of India's most admired menswear brands by combining
@@ -237,7 +262,6 @@ function AboutLanding() {
           </Reveal>
 
           <Reveal delay={80} className="ab-duo-cell">
-            <Target size={22} strokeWidth={1.6} className="ab-duo-icon" />
             <p className="ab-eyebrow ab-eyebrow-dark">Our Mission</p>
             <p className="ab-duo-copy">
               To create contemporary menswear that delivers uncompromising
@@ -250,7 +274,7 @@ function AboutLanding() {
       </section>
 
       {/* ---------------- Brand philosophy ---------------- */}
-      <section className="ab-section ab-section-tint">
+      <section className="ab-section">
         <div className="ab-section-inner">
           <Reveal>
             <p className="ab-eyebrow ab-eyebrow-dark">Brand Philosophy</p>
@@ -276,7 +300,7 @@ function AboutLanding() {
           </Reveal>
           <Reveal delay={60} className="ab-chip-row">
             {values.map((v) => (
-              <span key={v} className="ab-chip ab-chip-solid">
+              <span key={v} className="ab-chip">
                 {v}
               </span>
             ))}
@@ -309,41 +333,48 @@ function AboutLanding() {
         </Reveal>
       </section>
 
-      {/* ---------------- Why Vintage Blue ---------------- */}
-      <section className="ab-section">
-        <div className="ab-section-inner">
-          <Reveal>
-            <p className="ab-eyebrow ab-eyebrow-dark">Why Vintage Blue Jeanswear</p>
+      {/* ---------------- Why Vintage Blue (in-image feature) ---------------- */}
+      <section className="ab-feature ab-feature-tall">
+        <img
+          className="ab-feature-img"
+          src={about3}
+          alt="Model pulling on a denim jacket in studio light"
+          loading="lazy"
+        />
+        <div className="ab-feature-card-center-wrap">
+          <Reveal className="ab-feature-card ab-feature-card-why">
+            <h2 className="ab-feature-heading">Why Vintage Blue Jeanswear</h2>
+            <div className="ab-feature-checklist">
+              {whyVintageBlue.map((w) => (
+                <div key={w} className="ab-feature-check-row">
+                  <Check size={15} strokeWidth={2} />
+                  <p>{w}</p>
+                </div>
+              ))}
+            </div>
           </Reveal>
-
-          <div className="ab-check-list">
-            {whyVintageBlue.map((w, i) => (
-              <Reveal key={w} delay={i * 50} className="ab-check-row">
-                <Check size={16} strokeWidth={2} />
-                <p>{w}</p>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </section>
 
       {/* ---------------- Our goals ---------------- */}
-      <section className="ab-section ab-section-tint">
+      <section className="ab-section ab-section-flush">
         <div className="ab-section-inner">
           <Reveal>
             <p className="ab-eyebrow ab-eyebrow-dark">Looking Ahead</p>
             <h2 className="ab-heading">our goals</h2>
           </Reveal>
+        </div>
 
-          <div className="ab-goals-grid">
-            {goals.map((g, i) => (
-              <Reveal key={g} delay={i * 60} className="ab-goal">
-                <span className="ab-goal-n">{String(i + 1).padStart(2, '0')}</span>
+        <Reveal delay={80} className="ab-goals-marquee">
+          <div className="ab-goals-track">
+            {[...goals, ...goals].map((g, i) => (
+              <div className="ab-goal-card" key={i} aria-hidden={i >= goals.length}>
+                <span className="ab-goal-n">{String((i % goals.length) + 1).padStart(2, '0')}</span>
                 <p>{g}</p>
-              </Reveal>
+              </div>
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* ---------------- Closing CTA ---------------- */}

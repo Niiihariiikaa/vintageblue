@@ -55,6 +55,31 @@
   object-position: top center;
 }
 
+.pd-gallery-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    135deg,
+    var(--hero-greige),
+    var(--hero-greige) 18px,
+    #d8cfbe 18px,
+    #d8cfbe 36px
+  );
+  color: rgba(31, 35, 39, 0.5);
+}
+
+.pd-gallery-placeholder span {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .pd-thumbs {
   display: flex;
   gap: 10px;
@@ -225,9 +250,7 @@
 }
 
 .pd-details {
-  margin: 30px 0 0;
-  padding: 22px 0 0;
-  border-top: 1px solid rgba(31, 35, 39, 0.12);
+  margin: 14px 0 0;
   display: grid;
   gap: 8px;
   list-style: none;
@@ -246,6 +269,112 @@
   position: absolute;
   left: 0;
   color: var(--indigo);
+}
+
+/* ================================================================
+   Delivery info
+   ================================================================ */
+
+.pd-delivery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  margin: 18px 0 0;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: #f4ede1;
+}
+
+.pd-delivery span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: rgba(31, 35, 39, 0.7);
+}
+
+.pd-delivery svg {
+  flex-shrink: 0;
+  color: var(--indigo);
+}
+
+.pd-delivery strong {
+  font-weight: 700;
+  color: var(--obsidian);
+}
+
+/* ================================================================
+   Accordion
+   ================================================================ */
+
+.pd-accordion {
+  margin-top: 26px;
+  border-top: 1px solid rgba(31, 35, 39, 0.12);
+}
+
+.pd-accordion-item {
+  border-bottom: 1px solid rgba(31, 35, 39, 0.12);
+}
+
+.pd-accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px 2px;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--obsidian);
+  cursor: pointer;
+}
+
+.pd-accordion-trigger svg {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+  color: rgba(31, 35, 39, 0.55);
+}
+
+.pd-accordion-trigger svg.open {
+  transform: rotate(180deg);
+}
+
+.pd-accordion-body {
+  padding: 0 2px 20px;
+  display: grid;
+  gap: 12px;
+}
+
+.pd-accordion-body p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(31, 35, 39, 0.68);
+}
+
+.pd-size-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+
+.pd-size-table th,
+.pd-size-table td {
+  padding: 9px 10px;
+  text-align: left;
+  border-bottom: 1px solid rgba(31, 35, 39, 0.1);
+  color: rgba(31, 35, 39, 0.7);
+}
+
+.pd-size-table th {
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 10.5px;
+  color: rgba(31, 35, 39, 0.5);
 }
 
 /* ================================================================
@@ -292,6 +421,15 @@
 
 .pd-related-card:hover .pd-related-img img {
   transform: scale(1.06);
+}
+
+.pd-related-placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  background: var(--hero-greige);
+  color: rgba(31, 35, 39, 0.4);
 }
 
 .pd-related-info {
