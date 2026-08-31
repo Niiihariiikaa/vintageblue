@@ -15,6 +15,12 @@
    ================================================================ */
 
 .hr-hero {
+  /* Sticky and pinned just below the fixed nav so the Products section
+     below can scroll up over it — rounded top corners and all — reading
+     as the next card in a stack rather than a plain scroll transition. */
+  position: sticky;
+  top: 72px;
+  z-index: 1;
   background: var(--beige);
 }
 
@@ -24,7 +30,6 @@
      exactly one viewport on load rather than overflowing it. */
   height: calc(100vh - 72px);
   height: calc(100dvh - 72px);
-  border-radius: 0 0 32px 32px;
   overflow: hidden;
   background: var(--obsidian);
 }
@@ -74,7 +79,7 @@
   position: absolute;
   z-index: 3;
   bottom: 0;
-  left: 50%;
+  left: 29%;
   transform: translateX(-50%);
   height: 90%;
   width: auto;
@@ -126,8 +131,12 @@
    ================================================================ */
 
 .hr-products {
+  position: relative;
+  z-index: 2;
   padding: clamp(60px, 8vw, 100px) 4vw;
+  border-radius: 32px 32px 0 0;
   background: var(--beige);
+  box-shadow: 0 -50px 90px rgba(15, 12, 9, 0.35);
   text-align: center;
 }
 
@@ -139,12 +148,17 @@
    purpose — the display serif's lowercase glyphs render as small
    caps (by design, used everywhere else on the brand), which reads
    as an unwanted "all caps" look for this particular heading. */
-.hr-products-title {
-  margin: 8px 0 44px;
-  font-family: var(--font-script);
-  font-weight: normal;
-  font-size: clamp(34px, 4.6vw, 54px);
-  color: var(--obsidian);
+/* Same font, size, and look as the small uppercase eyebrow labels
+   (var(--font-body), 12px) — standing in for both the old eyebrow
+   and the heading, at the eyebrow's own size rather than a big one. */
+.hr-products-heading {
+  margin: 0 0 44px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--indigo);
 }
 
 .hr-grid {
@@ -583,13 +597,12 @@
    ================================================================ */
 
 .hr-footer {
-  padding: 0 3vw 3vw;
-  background: var(--beige);
+  padding: 0;
+  background: var(--obsidian);
 }
 
 .hr-footer-inner {
   padding: clamp(50px, 6vw, 76px) 5vw clamp(30px, 4vw, 44px);
-  border-radius: 32px;
   background: var(--obsidian);
   color: rgba(244, 237, 225, 0.75);
 }
@@ -708,6 +721,7 @@
   }
 
   .hr-cutout {
+    left: -6%;
     height: 82%;
   }
 

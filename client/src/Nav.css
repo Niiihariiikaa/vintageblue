@@ -1,15 +1,29 @@
 /* ================================================================
    Shared nav — logo, cart, and a slide-out drawer. Used identically
    on every page, styled neutrally (beige/obsidian/indigo) so it sits
-   comfortably on top of any page's own theme.
+   comfortably on top of any page's own theme. Fixed at a constant
+   height so it reads as one consistent rectangle across every page
+   and scroll position; `.gnav-spacer` (rendered right after it)
+   reserves that same height in normal flow so page content isn't
+   hidden underneath it.
    ================================================================ */
 
 .gnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 500;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  padding: 20px 4vw;
+  height: 72px;
+  padding: 0 4vw;
   background: var(--beige);
+}
+
+.gnav-spacer {
+  height: 72px;
 }
 
 .gnav-logo {

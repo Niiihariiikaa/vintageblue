@@ -83,6 +83,8 @@ function Nav() {
         </div>
       </header>
 
+      <div className="gnav-spacer" aria-hidden="true" />
+
       <div
         className={`gnav-overlay${open ? ' open' : ''}`}
         onClick={() => setOpen(false)}

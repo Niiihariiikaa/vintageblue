@@ -24,10 +24,6 @@
   color: var(--indigo);
 }
 
-.ab-mt {
-  margin-top: 40px;
-}
-
 /* ================================================================
    Hero
    ================================================================ */
@@ -173,10 +169,20 @@
   text-align: left;
 }
 
+.ab-check-list-center {
+  max-width: 46ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .ab-check-row {
   display: flex;
   align-items: flex-start;
   gap: 12px;
+}
+
+.ab-check-list-center .ab-check-row {
+  justify-content: center;
 }
 
 .ab-check-row svg {
@@ -231,34 +237,51 @@
 
 .ab-feature-img {
   position: absolute;
-  inset: 0;
+  inset: -10% 0;
   z-index: 0;
   width: 100%;
-  height: 100%;
+  height: 120%;
   object-fit: cover;
   object-position: center 18%;
+  will-change: transform;
+}
+
+/* A gradient scrim rather than a floating glass card — matches how
+   the rest of the site handles text over photo (Heritage hero, the
+   Weekend Edit banner), so this page's photo moments feel like part
+   of the same brand rather than a one-off experiment. */
+.ab-feature-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    0deg,
+    rgba(15, 12, 9, 0.92) 0%,
+    rgba(15, 12, 9, 0.55) 50%,
+    rgba(15, 12, 9, 0.1) 85%,
+    rgba(15, 12, 9, 0) 100%
+  );
 }
 
 .ab-feature-card {
   position: absolute;
-  z-index: 1;
-  bottom: clamp(24px, 5vw, 64px);
-  max-width: min(560px, 90vw);
-  padding: clamp(32px, 4vw, 48px);
-  border-radius: 22px;
-  background: rgba(232, 230, 218, 0.62);
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 24px 60px rgba(15, 12, 9, 0.28);
+  z-index: 2;
+  bottom: clamp(28px, 5vw, 64px);
+  max-width: min(520px, 88vw);
 }
 
 .ab-feature-card-left {
   left: clamp(20px, 6vw, 64px);
 }
 
+.ab-feature-card.reveal {
+  transition:
+    opacity 1.1s ease var(--reveal-delay, 0ms),
+    transform 1.1s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
+}
+
 .ab-feature-card .ab-eyebrow {
-  color: var(--indigo);
+  color: var(--denim);
 }
 
 .ab-feature-heading {
@@ -266,67 +289,16 @@
   font-family: var(--font-display);
   font-weight: normal;
   font-size: clamp(28px, 3.4vw, 42px);
-  color: var(--obsidian);
+  color: #f4ede1;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.45);
 }
 
 .ab-feature-copy {
   margin: 0;
   font-size: 15px;
   line-height: 1.75;
-  color: rgba(31, 35, 39, 0.78);
-}
-
-/* ---- "Why Vintage Blue" — big, centered card with a checklist ---- */
-
-.ab-feature-tall {
-  height: clamp(620px, 78vw, 980px);
-}
-
-.ab-feature-card-center-wrap {
-  position: absolute;
-  z-index: 1;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: min(760px, 92vw);
-}
-
-.ab-feature-card-why {
-  position: static;
-  bottom: auto;
-  width: 100%;
-  max-width: none;
-  background: rgba(232, 230, 218, 0.88);
-}
-
-.ab-feature-card-why .ab-feature-heading {
-  margin-bottom: 22px;
-  font-size: clamp(28px, 3.2vw, 38px);
-}
-
-.ab-feature-checklist {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px 32px;
-}
-
-.ab-feature-check-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-}
-
-.ab-feature-check-row svg {
-  flex-shrink: 0;
-  margin-top: 3px;
-  color: var(--indigo);
-}
-
-.ab-feature-check-row p {
-  margin: 0;
-  font-size: 13.5px;
-  line-height: 1.6;
-  color: rgba(31, 35, 39, 0.78);
+  color: rgba(244, 237, 225, 0.85);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
 }
 
 /* ================================================================
@@ -343,12 +315,13 @@
 
 .ab-promise-bg {
   position: absolute;
-  inset: 0;
+  inset: -10% 0;
   z-index: 0;
   width: 100%;
-  height: 100%;
+  height: 120%;
   object-fit: cover;
   object-position: 60% 30%;
+  will-change: transform;
 }
 
 .ab-promise-scrim {
@@ -357,14 +330,22 @@
   z-index: 1;
   background: linear-gradient(
     180deg,
-    rgba(15, 12, 9, 0.55) 0%,
-    rgba(15, 12, 9, 0.72) 100%
+    rgba(15, 12, 9, 0.6) 0%,
+    rgba(15, 12, 9, 0.78) 35%,
+    rgba(15, 12, 9, 0.78) 65%,
+    rgba(15, 12, 9, 0.6) 100%
   );
 }
 
 .ab-promise-inner {
   position: relative;
   z-index: 2;
+}
+
+.ab-promise-inner.reveal {
+  transition:
+    opacity 1.1s ease var(--reveal-delay, 0ms),
+    transform 1.1s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
 }
 
 .ab-promise-copy {
@@ -377,59 +358,6 @@
   letter-spacing: 0.01em;
   color: #f4ede1;
   text-shadow: 0 2px 30px rgba(0, 0, 0, 0.4);
-}
-
-/* ================================================================
-   Goals — marquee of cards
-   ================================================================ */
-
-.ab-section-flush {
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.ab-goals-marquee {
-  overflow: hidden;
-  margin-top: 36px;
-  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-}
-
-.ab-goals-track {
-  display: flex;
-  width: max-content;
-  gap: 18px;
-  padding: 0 4vw;
-  animation: ab-goals-scroll 36s linear infinite;
-}
-
-.ab-goal-card {
-  flex-shrink: 0;
-  width: 280px;
-  padding: 26px 28px;
-  border-radius: 20px;
-  background: #f4f1ea;
-  text-align: left;
-}
-
-.ab-goal-n {
-  display: block;
-  margin-bottom: 10px;
-  font-family: var(--font-display);
-  font-size: 30px;
-  color: var(--indigo);
-}
-
-.ab-goal-card p {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.6;
-  color: rgba(31, 35, 39, 0.75);
-}
-
-@keyframes ab-goals-scroll {
-  to {
-    transform: translateX(-50%);
-  }
 }
 
 /* ================================================================
@@ -507,16 +435,8 @@
     gap: 20px;
   }
 
-  .ab-goal-card {
-    width: 240px;
-  }
-
   .ab-feature {
     height: clamp(420px, 130vw, 620px);
-  }
-
-  .ab-feature-tall {
-    height: clamp(560px, 175vw, 860px);
   }
 
   .ab-feature-card,
@@ -524,25 +444,5 @@
     left: 16px;
     right: 16px;
     max-width: none;
-  }
-
-  .ab-feature-card-center-wrap {
-    top: auto;
-    bottom: 24px;
-    left: 16px;
-    right: 16px;
-    width: auto;
-    transform: none;
-  }
-
-  .ab-feature-checklist {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ab-goals-track {
-    animation: none;
-    overflow-x: auto;
   }
 }

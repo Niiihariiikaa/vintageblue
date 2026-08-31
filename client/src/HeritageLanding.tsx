@@ -113,8 +113,7 @@ function HeritageLanding() {
       {/* ---------------- Products ---------------- */}
       <section className="hr-products" id="hr-products">
         <Reveal>
-          <p className="hr-eyebrow hr-eyebrow-dark">The Edit</p>
-          <h2 className="hr-products-title">built to wear in.</h2>
+          <h2 className="hr-products-heading">built to wear in.</h2>
         </Reveal>
 
         <div className="hr-grid">
@@ -207,8 +206,7 @@ function HeritageLanding() {
       {/* ---------------- Lookbook ---------------- */}
       <section className="hr-lookbook">
         <Reveal>
-          <p className="hr-eyebrow hr-eyebrow-dark">Lookbook</p>
-          <h2 className="hr-products-title">the way we wear it.</h2>
+          <h2 className="hr-products-heading">the way we wear it.</h2>
         </Reveal>
 
         <Reveal delay={80} className="hr-anatomy-cell">
