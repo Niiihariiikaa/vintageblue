@@ -19,7 +19,24 @@
   align-items: center;
   height: 72px;
   padding: 0 4vw;
-  background: var(--beige);
+  background: rgba(232, 230, 218, 0.3);
+  backdrop-filter: blur(6px) saturate(140%);
+  -webkit-backdrop-filter: blur(6px) saturate(140%);
+  border-bottom: 1px solid transparent;
+  transition: background 0.45s ease, backdrop-filter 0.45s ease, border-color 0.45s ease;
+}
+
+.gnav-scrolled {
+  background: rgba(232, 230, 218, 0.72);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border-bottom-color: rgba(31, 35, 39, 0.07);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gnav {
+    transition: none;
+  }
 }
 
 .gnav-spacer {
@@ -58,6 +75,81 @@
 
 .gnav-links a:hover,
 .gnav-more:hover {
+  color: var(--indigo);
+}
+
+/* ================================================================
+   Products dropdown
+   ================================================================ */
+
+.gnav-dropdown {
+  position: relative;
+}
+
+.gnav-dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--obsidian);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+.gnav-dropdown-trigger:hover {
+  color: var(--indigo);
+}
+
+.gnav-dropdown-trigger svg {
+  transition: transform 0.25s ease;
+}
+
+.gnav-dropdown-trigger svg.open {
+  transform: rotate(180deg);
+}
+
+.gnav-dropdown-panel {
+  position: absolute;
+  top: calc(100% + 16px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 170px;
+  padding: 10px;
+  border-radius: 16px;
+  background: var(--beige);
+  box-shadow: 0 20px 50px rgba(15, 12, 9, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.gnav-dropdown-panel.open {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.gnav-dropdown-panel a {
+  padding: 9px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.gnav-dropdown-panel a:hover {
+  background: rgba(58, 85, 113, 0.1);
   color: var(--indigo);
 }
 

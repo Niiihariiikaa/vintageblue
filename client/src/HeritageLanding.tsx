@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState, type CSSProperties, type MouseEvent } from 'react'
-import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Check, ChevronLeft, ChevronRight, Plus, Star } from 'lucide-react'
 import Nav from './Nav'
 import './HeritageLanding.css'
 import { navigate } from './router'
 import { Reveal, usePrefersReducedMotion, useScrollY } from './motion'
+import { getProductByHandle, formatPrice } from './catalog'
+import { useCart } from './cart'
 import heroBg from './assets2/herobg.png'
 import heroCutout from './assets2/herocutout.png'
 import product1 from './assets2/product1.png'
@@ -18,20 +20,34 @@ import model2 from './assets2/model2.png'
 import model2Shirt from './assets2/model2-shirt.png'
 import model2Jeans from './assets2/model2-jeans.png'
 
-const anatomyLooks = [
+interface LookItem {
+  img: string
+  label: string
+  handle: string
+  rating: number
+  reviews: number
+}
+
+const anatomyLooks: {
+  title: string
+  model: string
+  modelAlt: string
+  shirt: LookItem
+  jeans: LookItem
+}[] = [
   {
     title: 'Corduroy shirt in washed sand, worn open over relaxed denim.',
     model: model1,
     modelAlt: 'Model wearing a tan corduroy shirt and wide-leg jeans',
-    shirt: { img: model1Shirt, label: 'The Shirt' },
-    jeans: { img: model1Jeans, label: 'The Denim' },
+    shirt: { img: model1Shirt, label: 'The Shirt', handle: 'garment-dyed-overshirt', rating: 4.8, reviews: 132 },
+    jeans: { img: model1Jeans, label: 'The Denim', handle: 'wide-leg-denim', rating: 4.6, reviews: 87 },
   },
   {
     title: 'Shearling-collar trucker layered over black wash denim.',
     model: model2,
     modelAlt: 'Model wearing a shearling-collar corduroy trucker jacket and black jeans',
-    shirt: { img: model2Shirt, label: 'The Jacket' },
-    jeans: { img: model2Jeans, label: 'The Denim' },
+    shirt: { img: model2Shirt, label: 'The Jacket', handle: 'charcoal-layer', rating: 4.9, reviews: 204 },
+    jeans: { img: model2Jeans, label: 'The Denim', handle: 'raw-selvedge-jean', rating: 4.7, reviews: 96 },
   },
 ]
 
@@ -54,12 +70,79 @@ function go(path: string) {
   }
 }
 
+/**
+ * Replaces the old side "peek" preview of the next/prev look (a
+ * faded, low-contrast thumbnail people found hard to read) with a
+ * proper shoppable card for one piece of the *current* look — photo,
+ * rating, price pulled live from the catalog, and a real add-to-cart
+ * action with its own confirmation state.
+ */
+function ShopLookCard({ item }: { item: LookItem }) {
+  const { addItem } = useCart()
+  const [added, setAdded] = useState(false)
+  const product = getProductByHandle(item.handle)
+  if (!product) return null
+
+  const handleAdd = () => {
+    addItem(product.handle, 'M', 1)
+    setAdded(true)
+    window.setTimeout(() => setAdded(false), 1800)
+  }
+
+  return (
+    <div className="hr-shop-card">
+      <a href={`/product/${product.handle}`} className="hr-shop-card-img" onClick={go(`/product/${product.handle}`)}>
+        <img src={item.img} alt={product.name} />
+        <span className="hr-shop-card-tag">{item.label}</span>
+      </a>
+
+      <div className="hr-shop-card-body">
+        <a
+          href={`/product/${product.handle}`}
+          className="hr-shop-card-name"
+          onClick={go(`/product/${product.handle}`)}
+        >
+          {product.name}
+        </a>
+
+        <div className="hr-shop-card-rating">
+          <span className="hr-shop-card-stars" aria-hidden="true">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star key={i} size={10} strokeWidth={0} fill="currentColor" />
+            ))}
+          </span>
+          <span>
+            {item.rating} ({item.reviews})
+          </span>
+        </div>
+
+        <div className="hr-shop-card-footer">
+          <span className="hr-shop-card-price">{formatPrice(product.price)}</span>
+          <button
+            type="button"
+            className={`hr-shop-card-add${added ? ' added' : ''}`}
+            onClick={handleAdd}
+          >
+            {added ? (
+              <>
+                <Check size={13} strokeWidth={2.4} /> Added
+              </>
+            ) : (
+              <>
+                <Plus size={13} strokeWidth={2.4} /> Add
+              </>
+            )}
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function HeritageLanding() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [look, setLook] = useState(0)
   const active = anatomyLooks[look]
-  const prevData = anatomyLooks[(look - 1 + anatomyLooks.length) % anatomyLooks.length]
-  const nextData = anatomyLooks[(look + 1) % anatomyLooks.length]
 
   const prevLook = () => setLook((i) => (i - 1 + anatomyLooks.length) % anatomyLooks.length)
   const nextLook = () => setLook((i) => (i + 1) % anatomyLooks.length)
@@ -211,15 +294,7 @@ function HeritageLanding() {
 
         <Reveal delay={80} className="hr-anatomy-cell">
           <div className="hr-anatomy">
-            <button
-              type="button"
-              className="hr-anatomy-peek hr-anatomy-peek-left"
-              aria-label={`Show ${prevData.shirt.label} look`}
-              onClick={prevLook}
-            >
-              <img src={prevData.model} alt="" />
-              <span className="hr-anatomy-peek-label">Prev Look</span>
-            </button>
+            <ShopLookCard item={active.shirt} />
 
             <button
               type="button"
@@ -247,12 +322,20 @@ function HeritageLanding() {
                 <circle cx="96" cy="178" r="2.5" />
               </svg>
 
-              <a href="/shop/men" className="hr-detail-card hr-detail-1" onClick={go('/shop/men')}>
+              <a
+                href={`/product/${active.shirt.handle}`}
+                className="hr-detail-card hr-detail-1"
+                onClick={go(`/product/${active.shirt.handle}`)}
+              >
                 <span className="hr-detail-tag">{active.shirt.label}</span>
                 <img src={active.shirt.img} alt="" />
               </a>
 
-              <a href="/shop/men" className="hr-detail-card hr-detail-2" onClick={go('/shop/men')}>
+              <a
+                href={`/product/${active.jeans.handle}`}
+                className="hr-detail-card hr-detail-2"
+                onClick={go(`/product/${active.jeans.handle}`)}
+              >
                 <span className="hr-detail-tag">{active.jeans.label}</span>
                 <img src={active.jeans.img} alt="" />
               </a>
@@ -269,15 +352,7 @@ function HeritageLanding() {
               <ChevronRight size={18} strokeWidth={1.8} />
             </button>
 
-            <button
-              type="button"
-              className="hr-anatomy-peek hr-anatomy-peek-right"
-              aria-label={`Show ${nextData.shirt.label} look`}
-              onClick={nextLook}
-            >
-              <img src={nextData.model} alt="" />
-              <span className="hr-anatomy-peek-label">Next Look</span>
-            </button>
+            <ShopLookCard item={active.jeans} />
           </div>
 
           <div className="hr-anatomy-dots">
