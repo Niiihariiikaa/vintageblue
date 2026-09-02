@@ -144,10 +144,6 @@
   max-width: 560px;
 }
 
-.ab-chip-row-left {
-  margin-top: 24px;
-}
-
 .ab-chip {
   display: inline-flex;
   align-items: center;

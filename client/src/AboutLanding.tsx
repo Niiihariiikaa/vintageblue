@@ -10,8 +10,6 @@ import about3 from './assets2/About3.png'
 
 const regions = ['Punjab', 'J&K', 'Himachal Pradesh', 'Uttarakhand', 'W. Uttar Pradesh', 'Rajasthan', 'Jharkhand', 'Bihar']
 
-const partners = ['The Souled Store', 'Octave Metal', 'Monte Carlo']
-
 const values = ['Craftsmanship', 'Authenticity', 'Quality', 'Responsibility', 'Innovation', 'Timeless']
 
 function go(path: string) {
@@ -82,14 +80,6 @@ function AboutLanding() {
             years in fabric sourcing, with a growing shift to organic, recycled
             materials built to last.
           </p>
-
-          <div className="ab-chip-row ab-chip-row-left">
-            {partners.map((p) => (
-              <span key={p} className="ab-chip ab-chip-light">
-                {p}
-              </span>
-            ))}
-          </div>
         </Reveal>
       </section>
 

@@ -54,7 +54,7 @@
 .lb-line-1 {
   top: 10%;
   left: 4vw;
-  font-size: clamp(46px, 9vw, 128px);
+  font-size: clamp(56px, 11vw, 156px);
 }
 
 .lb-line-2 {
@@ -62,7 +62,7 @@
   left: 4vw;
   right: 4vw;
   text-align: center;
-  font-size: clamp(56px, 11.5vw, 168px);
+  font-size: clamp(68px, 14vw, 204px);
 }
 
 .lb-hero-photo {
@@ -117,30 +117,263 @@
 }
 
 /* ================================================================
+   The Looks — alternating full-outfit spreads with a shoppable
+   breakdown of the pieces in each.
+   ================================================================ */
+
+.lb-looks {
+  padding: clamp(50px, 7vw, 90px) 4vw clamp(20px, 3vw, 40px);
+}
+
+.lb-looks-head {
+  margin-bottom: clamp(30px, 5vw, 56px);
+  text-align: center;
+}
+
+.lb-looks-eyebrow {
+  margin: 0 0 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--indigo);
+}
+
+.lb-looks-head h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(28px, 3.6vw, 44px);
+  color: var(--obsidian);
+}
+
+.lb-look {
+  display: grid;
+  grid-template-columns: 0.85fr 1fr;
+  align-items: center;
+  gap: clamp(30px, 5vw, 64px);
+  padding: clamp(30px, 4vw, 50px) 0;
+}
+
+.lb-look:not(:last-child) {
+  border-bottom: 1px solid rgba(31, 35, 39, 0.1);
+}
+
+.lb-look-reverse {
+  grid-template-columns: 1fr 0.85fr;
+}
+
+.lb-look-reverse .lb-look-photo {
+  order: 2;
+}
+
+.lb-look-photo {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  max-width: 420px;
+  margin: 0 auto;
+  border-radius: 26px;
+  overflow: hidden;
+  background: #f4ede1;
+}
+
+.lb-look-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.lb-look-n {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 1;
+  padding: 6px 13px;
+  border-radius: 999px;
+  background: rgba(244, 237, 225, 0.9);
+  color: var(--obsidian);
+  font-family: var(--font-display);
+  font-size: 14px;
+}
+
+.lb-look-caption {
+  margin: 0 0 18px;
+  max-width: 40ch;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--obsidian);
+}
+
+.lb-look-details {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 28px;
+  padding: 0;
+  list-style: none;
+  max-width: 42ch;
+}
+
+.lb-look-details li {
+  padding-left: 16px;
+  position: relative;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(31, 35, 39, 0.65);
+}
+
+.lb-look-details li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--indigo);
+}
+
+.lb-look-pieces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.lb-piece {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1 1 220px;
+  padding: 14px;
+  border-radius: 18px;
+  background: #f4ede1;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.lb-piece:hover {
+  background: #efe6d4;
+  transform: translateY(-2px);
+}
+
+.lb-piece img {
+  width: 68px;
+  height: 68px;
+  border-radius: 12px;
+  object-fit: cover;
+  object-position: top center;
+  flex-shrink: 0;
+}
+
+.lb-piece-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  padding-right: 38px;
+}
+
+.lb-piece-tag {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(31, 35, 39, 0.5);
+}
+
+.lb-piece-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--obsidian);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lb-piece-price {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--indigo);
+}
+
+.lb-piece-add {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 50%;
+  background: var(--obsidian);
+  color: var(--beige);
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.lb-piece-add:hover {
+  transform: scale(1.08);
+}
+
+.lb-piece-add.added {
+  background: var(--indigo);
+}
+
+/* ================================================================
+   Mood — a two-up candid/street spread between the shoppable looks
+   and the philosophy panel.
+   ================================================================ */
+
+.lb-mood {
+  padding: clamp(20px, 3vw, 40px) 4vw clamp(50px, 7vw, 90px);
+}
+
+.lb-mood-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(16px, 3vw, 28px);
+}
+
+.lb-mood-photo {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #f4ede1;
+}
+
+.lb-mood-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lb-mood-cell:hover .lb-mood-photo img {
+  transform: scale(1.05);
+}
+
+.lb-mood-caption {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(244, 237, 225, 0.9);
+  color: var(--obsidian);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ================================================================
    Vision / summary
    ================================================================ */
 
 .lb-summary {
-  display: grid;
-  grid-template-columns: 0.85fr 1.3fr;
-  gap: clamp(24px, 4vw, 50px);
-  align-items: center;
   padding: clamp(50px, 7vw, 90px) 4vw;
 }
 
-.lb-summary-photo {
-  padding: 16px;
-  border-radius: 26px;
-  background: var(--obsidian);
-}
-
-.lb-summary-photo img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  border-radius: 16px;
-  object-fit: cover;
-  object-position: top center;
+.lb-summary-copy-cell {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .lb-summary-copy-cell h2 {
@@ -152,7 +385,7 @@
 }
 
 .lb-summary-copy-cell p {
-  margin: 0 0 18px;
+  margin: 0 auto 18px;
   max-width: 62ch;
   font-size: 14px;
   line-height: 1.75;
@@ -177,6 +410,39 @@
 .lb-cta:hover {
   background: var(--obsidian);
   transform: translateY(-2px);
+}
+
+.lb-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(24px, 4vw, 46px);
+  margin-top: clamp(30px, 4vw, 46px);
+  padding-top: clamp(24px, 3vw, 36px);
+  border-top: 1px solid rgba(31, 35, 39, 0.12);
+}
+
+.lb-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.lb-stat-n {
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(30px, 3.4vw, 42px);
+  color: var(--indigo);
+}
+
+.lb-stat-label {
+  max-width: 16ch;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(31, 35, 39, 0.55);
 }
 
 /* ================================================================
@@ -245,13 +511,18 @@
   padding: clamp(50px, 7vw, 90px) 4vw;
 }
 
+.lb-goals .lb-looks-head {
+  margin-bottom: clamp(30px, 5vw, 50px);
+}
+
 .lb-goals-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(20px, 3vw, 40px);
+  gap: clamp(20px, 3vw, 32px);
 }
 
 .lb-goal {
+  display: block;
   text-align: center;
 }
 
@@ -320,9 +591,22 @@
     grid-template-columns: 1fr;
   }
 
+  .lb-mood-grid {
+    grid-template-columns: 1fr;
+  }
+
   .lb-goals-grid {
     grid-template-columns: 1fr;
     gap: 40px;
+  }
+
+  .lb-look,
+  .lb-look-reverse {
+    grid-template-columns: 1fr;
+  }
+
+  .lb-look-reverse .lb-look-photo {
+    order: 0;
   }
 }
 
@@ -338,11 +622,11 @@
   }
 
   .lb-line-1 {
-    font-size: clamp(38px, 12vw, 70px);
+    font-size: clamp(46px, 14vw, 84px);
   }
 
   .lb-line-2 {
-    font-size: clamp(44px, 15vw, 90px);
+    font-size: clamp(54px, 18vw, 108px);
   }
 
   .lb-tagline-right {
