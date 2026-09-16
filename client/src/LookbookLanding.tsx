@@ -6,10 +6,19 @@ import { Reveal } from './motion'
 import Nav from './Nav'
 import { getProductByHandle, formatPrice } from './catalog'
 import { useCart } from './cart'
-import heroAbout from './assets2/hero-about.png'
+import lbTileR1C1 from './assets2/lb-tile-r1c1.png'
+import lbTileR1C2 from './assets2/lb-tile-r1c2.png'
+import lbTileR2C2 from './assets2/lb-tile-r2c2.png'
+import lbTileR2C3 from './assets2/lb-tile-r2c3.png'
+import lbTileR3C1 from './assets2/lb-tile-r3c1.png'
+import lbTileR3C2 from './assets2/lb-tile-r3c2.png'
+import lbTileR3C3 from './assets2/lb-tile-r3c3.png'
+import pant3 from './assets2/pants/pant3.png'
+import product2 from './assets2/product2.png'
 import about1 from './assets2/About1.png'
 import about2 from './assets2/About2.png'
-import goalPhoto from './assets/product1.png'
+import goalPhoto1 from './assets2/product1.png'
+import goalPhoto2 from './assets2/product3.png'
 import product4 from './assets2/product4.png'
 import model1 from './assets2/Model1.png'
 import model1Shirt from './assets2/model1-shirt.png'
@@ -23,23 +32,46 @@ import denimVideo from './assets/video1.mp4'
 /* Content                                                             */
 /* ------------------------------------------------------------------ */
 
+/** The lifestyle photo sliced into a precise, gapless 3×3 grid (row-major
+ *  order), so most tiles reassemble the original image exactly when laid
+ *  edge to edge. The top-right corner (plain background, no part of the
+ *  model) is swapped for a shoppable flat lay of the shirt he's wearing;
+ *  the trouser flat lay sits in row 2, column 1. */
+const gridCells: {
+  type: 'photo' | 'product'
+  img: string
+  alt: string
+  label?: string
+  to?: string
+}[] = [
+  { type: 'photo', img: lbTileR1C1, alt: '' },
+  { type: 'photo', img: lbTileR1C2, alt: 'Model in a chambray shirt' },
+  { type: 'product', img: product2, alt: 'Light wash denim western shirt, flat lay', label: 'Shop The Shirt', to: '/shop/shirts' },
+  { type: 'product', img: pant3, alt: 'Navy chino trousers, flat lay', label: 'Shop The Trouser', to: '/shop/pants' },
+  { type: 'photo', img: lbTileR2C2, alt: '' },
+  { type: 'photo', img: lbTileR2C3, alt: '' },
+  { type: 'photo', img: lbTileR3C1, alt: '' },
+  { type: 'photo', img: lbTileR3C2, alt: '' },
+  { type: 'photo', img: lbTileR3C3, alt: '' },
+]
+
 const goals = [
   {
     title: 'Comfort First',
     copy: 'Oversized fits and brushed fleece built for everyday ease.',
-    img: goalPhoto,
+    img: goalPhoto1,
     to: '/shop/shirts',
   },
   {
     title: 'Timeless Cuts',
     copy: 'Considered silhouettes that outlast every trend cycle.',
-    img: goalPhoto,
+    img: goalPhoto2,
     to: '/shop/men',
   },
   {
     title: 'Conscious Fabric',
     copy: 'Responsibly sourced denim and wool, season after season.',
-    img: goalPhoto,
+    img: product4,
     to: '/shop/denims',
   },
 ]
@@ -166,34 +198,38 @@ function LookbookLanding() {
         <span>@vintageblue.studio</span>
       </header>
 
-      {/* ---------------- Hero collage ---------------- */}
-      <section className="lb-hero" aria-label="Winter Lookbook">
-        <p className="lb-tagline lb-tagline-right">
-          Layering made
-          <br />
-          effortless
-          <br />
-          this season.
-        </p>
+      {/* ---------------- Hero grid mosaic ---------------- */}
+      <section className="lb-grid-hero" aria-label="The Weekend Edit lookbook">
+        <div className="lb-grid-mosaic">
+          {gridCells.map((cell, i) =>
+            cell.type === 'product' ? (
+              <a
+                key={i}
+                href={cell.to}
+                className="lb-grid-tile lb-grid-tile-product"
+                onClick={go(cell.to!)}
+              >
+                <img src={cell.img} alt={cell.alt} />
+                <span className="lb-grid-tag">{cell.label}</span>
+              </a>
+            ) : (
+              <div key={i} className="lb-grid-tile" aria-hidden={!cell.alt}>
+                <img src={cell.img} alt={cell.alt} />
+              </div>
+            ),
+          )}
+        </div>
 
-        <h1 className="lb-line lb-line-1">Winter</h1>
+        <span className="lb-grid-brand">
+          <span className="lb-grid-brand-mark">
+            <span className="script-initial">V</span>intage Blue
+          </span>
+          <span className="lb-grid-brand-tag">The Weekend Edit</span>
+        </span>
 
-        <img
-          src={heroAbout}
-          alt="Model crouching in sunglasses, wearing a shearling-collar jacket and dark denim"
-          className="lb-hero-photo"
-        />
-
-        <h1 className="lb-line lb-line-2">Lookbook</h1>
-
-        <p className="lb-tagline lb-tagline-left">
-          Unlocking cozy comfort
-          <br />
-          with intentional design.
-        </p>
-
-        <span className="lb-credit lb-credit-left">Presented by Vintage Blue</span>
-        <span className="lb-credit lb-credit-right">Presented by Vintage Blue</span>
+        <a href="/shop/men" className="lb-grid-cta" onClick={go('/shop/men')}>
+          Shop This Look →
+        </a>
       </section>
 
       {/* ---------------- The Looks ---------------- */}
@@ -332,10 +368,43 @@ function LookbookLanding() {
         </div>
       </section>
 
-      <footer className="lb-foot">
-        <a href="/" className="lb-back" onClick={goHome}>
-          ← Back to the full site
-        </a>
+      <footer className="lb-footer">
+        <div className="lb-footer-brand">
+          <p className="lb-footer-wordmark">
+            <span className="script-initial">V</span>intage Blue
+          </p>
+          <p className="lb-footer-tag">Menswear built on fit, fabric, and finish. Ludhiana, Punjab — since 2006.</p>
+        </div>
+
+        <div className="lb-footer-col">
+          <h3>Shop</h3>
+          <a href="/shop/popular" onClick={go('/shop/popular')}>Popular</a>
+          <a href="/drop" onClick={go('/drop')}>New Drop</a>
+          <a href="/shop/pants" onClick={go('/shop/pants')}>Pants</a>
+          <a href="/shop/men" onClick={go('/shop/men')}>Men</a>
+        </div>
+
+        <div className="lb-footer-col">
+          <h3>Brand</h3>
+          <a href="/about" onClick={go('/about')}>About Us</a>
+          <a href="/story" onClick={go('/story')}>Our Story</a>
+          <a href="/lookbook" onClick={go('/lookbook')}>Lookbook</a>
+          <a href="/contact" onClick={go('/contact')}>Contact Us</a>
+        </div>
+
+        <div className="lb-footer-col">
+          <h3>Help</h3>
+          <a href="#">Sizing &amp; Fit</a>
+          <a href="#">Shipping &amp; Returns</a>
+          <a href="#">Denim Care</a>
+        </div>
+
+        <div className="lb-footer-bottom">
+          <span>© 2026 Vintage Blue — All Rights Reserved</span>
+          <a href="/" onClick={goHome}>
+            ← Back to the full site
+          </a>
+        </div>
       </footer>
     </div>
   )

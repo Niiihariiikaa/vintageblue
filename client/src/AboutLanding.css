@@ -1,46 +1,101 @@
 /* ================================================================
-   About — a fully photographic page. Three full-bleed sections
-   (hero, story, closing), each a photo with a gradient scrim; text
-   either sits directly on the photo or floats in a frosted card
-   over it. No flat/solid-color blocks anywhere on the page.
+   About — an editorial brand page: a full-bleed photo hero, a dark
+   stat bar, alternating photo/copy split sections with numbered
+   eyebrows, a "six non-negotiables" values grid, a region band, a
+   closing photo statement, and a proper footer. No flat filler
+   sections — every beat is either a photograph or a considered
+   typographic moment.
    ================================================================ */
 
 .ab-page {
   width: 100%;
-  background: var(--obsidian);
+  background: var(--beige);
   overflow-x: hidden;
 }
 
 .ab-eyebrow {
-  margin: 0 0 14px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.24em;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 16px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--denim);
+  color: var(--indigo);
+}
+
+.ab-eyebrow-light {
+  color: rgba(244, 237, 225, 0.85);
+}
+
+.ab-rule {
+  display: inline-block;
+  width: 26px;
+  height: 1px;
+  background: rgba(244, 237, 225, 0.6);
+}
+
+.ab-rule-dark {
+  background: rgba(58, 85, 113, 0.45);
 }
 
 /* ================================================================
-   Block — shared full-bleed photo section
+   Ticker
    ================================================================ */
 
-.ab-block {
+.ab-ticker {
+  overflow: hidden;
+  background: var(--obsidian);
+  padding: 10px 0;
+}
+
+.ab-ticker-track {
+  display: flex;
+  gap: 2.5rem;
+  width: max-content;
+  animation: ab-ticker-scroll 22s linear infinite;
+}
+
+.ab-ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 2.5rem;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 225, 0.8);
+  white-space: nowrap;
+}
+
+.ab-ticker-dot {
+  color: var(--denim);
+}
+
+@keyframes ab-ticker-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ab-ticker-track {
+    animation: none;
+  }
+}
+
+/* ================================================================
+   Hero
+   ================================================================ */
+
+.ab-hero {
   position: relative;
-  width: 100%;
-  height: clamp(560px, 84vw, 880px);
+  height: clamp(620px, 86vh, 900px);
   overflow: hidden;
 }
 
-.ab-block-hero {
-  height: calc(100vh - 72px);
-  min-height: 560px;
-}
-
-.ab-block-tall {
-  height: clamp(640px, 92vw, 980px);
-}
-
-.ab-block-img {
+.ab-hero-img {
   position: absolute;
   inset: -10% 0;
   z-index: 0;
@@ -51,87 +106,291 @@
   will-change: transform;
 }
 
-.ab-block-scrim {
+.ab-hero-scrim {
   position: absolute;
   inset: 0;
   z-index: 1;
   background: linear-gradient(
-    0deg,
-    rgba(15, 12, 9, 0.92) 0%,
-    rgba(15, 12, 9, 0.55) 45%,
-    rgba(15, 12, 9, 0.15) 80%,
-    rgba(15, 12, 9, 0) 100%
-  );
-}
-
-.ab-block-scrim-hero {
-  background: linear-gradient(
     180deg,
-    rgba(15, 12, 9, 0.35) 0%,
+    rgba(15, 12, 9, 0.15) 0%,
     rgba(15, 12, 9, 0.1) 30%,
-    rgba(15, 12, 9, 0.78) 100%
+    rgba(15, 12, 9, 0.82) 100%
   );
 }
 
-.ab-block-scrim-strong {
-  background: linear-gradient(
-    180deg,
-    rgba(15, 12, 9, 0.55) 0%,
-    rgba(15, 12, 9, 0.8) 30%,
-    rgba(15, 12, 9, 0.84) 70%,
-    rgba(15, 12, 9, 0.62) 100%
-  );
-}
-
-/* ================================================================
-   Content directly on photo — hero + closing block
-   ================================================================ */
-
-.ab-block-content {
+.ab-hero-content {
   position: relative;
   z-index: 2;
-  height: 100%;
   display: flex;
-  flex-direction: column;
-  padding: 0 6vw;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  flex-wrap: wrap;
+  height: 100%;
+  padding: 0 4vw clamp(40px, 6vw, 70px);
 }
 
-.ab-block-content-hero {
-  justify-content: flex-end;
-  align-items: flex-start;
-  padding-bottom: clamp(50px, 8vw, 100px);
-  text-align: left;
-}
-
-.ab-block-content-center {
-  justify-content: center;
+.ab-hero-eyebrow {
+  display: flex;
   align-items: center;
-  gap: 26px;
-  text-align: center;
-  padding-top: 72px;
+  gap: 14px;
+  margin: 0 0 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 225, 0.75);
 }
 
-.ab-title {
-  margin: 0 0 18px;
+.ab-hero-title {
+  margin: 0;
   font-family: var(--font-display);
   font-weight: normal;
-  font-size: clamp(46px, 7vw, 90px);
+  line-height: 0.88;
+  font-size: clamp(72px, 11vw, 160px);
   color: #f4ede1;
-  text-shadow: 0 4px 40px rgba(0, 0, 0, 0.5);
+}
+
+.ab-hero-title span {
+  display: block;
+}
+
+.ab-hero-title-accent {
+  color: var(--denim);
 }
 
 .ab-hero-lede {
-  margin: 0 0 28px;
-  max-width: 46ch;
-  font-size: clamp(15px, 1.6vw, 18px);
+  max-width: 34ch;
+}
+
+.ab-hero-lede p {
+  margin: 0;
+  font-size: 15px;
   line-height: 1.7;
-  color: rgba(244, 237, 225, 0.85);
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+  color: rgba(244, 237, 225, 0.9);
 }
 
 /* ================================================================
-   Chips — hero/closing overlays and the story card
+   Stats
    ================================================================ */
+
+.ab-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--obsidian);
+}
+
+.ab-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: clamp(28px, 4vw, 44px) clamp(20px, 3vw, 36px);
+  border-left: 1px solid rgba(244, 237, 225, 0.14);
+}
+
+.ab-stat:first-child {
+  border-left: none;
+}
+
+.ab-stat-n {
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(30px, 3.4vw, 44px);
+  color: #f4ede1;
+}
+
+.ab-stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 225, 0.55);
+}
+
+/* ================================================================
+   Split — photo + copy
+   ================================================================ */
+
+.ab-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: clamp(560px, 66vw, 800px);
+}
+
+.ab-split-media {
+  position: relative;
+  overflow: hidden;
+}
+
+.ab-split-img {
+  position: absolute;
+  inset: -10% 0;
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+  object-position: center 15%;
+  will-change: transform;
+}
+
+.ab-split-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+  padding: clamp(40px, 6vw, 90px);
+  background: var(--obsidian);
+}
+
+.ab-split-copy .ab-eyebrow {
+  color: var(--denim);
+}
+
+.ab-split-copy .ab-rule-dark {
+  background: rgba(244, 237, 225, 0.4);
+}
+
+.ab-split-heading {
+  margin: 0 0 20px;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(32px, 3.6vw, 48px);
+  line-height: 1.1;
+  color: #f4ede1;
+}
+
+.ab-split-heading em {
+  font-style: italic;
+  color: var(--denim);
+}
+
+.ab-split-lede {
+  margin: 0;
+  max-width: 46ch;
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: rgba(244, 237, 225, 0.8);
+}
+
+.ab-fact-list {
+  display: grid;
+}
+
+.ab-fact {
+  display: flex;
+  gap: 18px;
+  padding: 18px 0;
+  border-top: 1px solid rgba(244, 237, 225, 0.2);
+}
+
+.ab-fact-n {
+  flex-shrink: 0;
+  padding-top: 2px;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(244, 237, 225, 0.5);
+}
+
+.ab-fact h3 {
+  margin: 0 0 4px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #f4ede1;
+}
+
+.ab-fact p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: rgba(244, 237, 225, 0.72);
+}
+
+/* ================================================================
+   Values — six non-negotiables
+   ================================================================ */
+
+.ab-values {
+  padding: clamp(56px, 8vw, 96px) 4vw;
+  background: var(--beige);
+}
+
+.ab-values-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: clamp(30px, 5vw, 50px);
+}
+
+.ab-values-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(31, 35, 39, 0.45);
+}
+
+.ab-values-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid rgba(31, 35, 39, 0.14);
+  border-left: 1px solid rgba(31, 35, 39, 0.14);
+}
+
+.ab-value {
+  padding: clamp(24px, 3vw, 34px);
+  border-right: 1px solid rgba(31, 35, 39, 0.14);
+  border-bottom: 1px solid rgba(31, 35, 39, 0.14);
+}
+
+.ab-value-n {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(31, 35, 39, 0.4);
+}
+
+.ab-value h3 {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(19px, 2vw, 24px);
+  color: var(--obsidian);
+}
+
+.ab-value p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: rgba(31, 35, 39, 0.65);
+}
+
+.ab-value-accent {
+  grid-column: span 2;
+  border-right: 1px solid rgba(31, 35, 39, 0.14);
+  border-bottom: 1px solid rgba(31, 35, 39, 0.14);
+  background: var(--hero-greige);
+}
+
+/* ================================================================
+   Reach — region band
+   ================================================================ */
+
+.ab-reach {
+  padding: clamp(40px, 6vw, 60px) 4vw;
+  background: var(--obsidian);
+}
+
+.ab-reach .ab-eyebrow {
+  color: var(--denim);
+}
+
+.ab-reach .ab-rule-dark {
+  background: rgba(244, 237, 225, 0.4);
+}
 
 .ab-chip-row {
   display: flex;
@@ -139,126 +398,156 @@
   gap: 10px;
 }
 
-.ab-block-content-center .ab-chip-row {
-  justify-content: center;
-  max-width: 560px;
-}
-
 .ab-chip {
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 16px;
-  border-radius: 999px;
-  font-size: 12.5px;
-  font-weight: 600;
-  transition: border-color 0.25s ease, background 0.25s ease;
-}
-
-.ab-chip-light {
+  padding: 9px 18px;
   border: 1px solid rgba(244, 237, 225, 0.35);
-  color: rgba(244, 237, 225, 0.92);
-  background: rgba(244, 237, 225, 0.07);
-}
-
-.ab-chip-light:hover {
-  border-color: rgba(244, 237, 225, 0.7);
-  background: rgba(244, 237, 225, 0.16);
+  border-radius: 4px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #f4ede1;
 }
 
 /* ================================================================
-   Floating card — story & craft section
+   Promise
    ================================================================ */
 
-.ab-card {
+.ab-promise {
+  position: relative;
+  min-height: clamp(480px, 60vw, 680px);
+  overflow: hidden;
+}
+
+.ab-promise-img {
   position: absolute;
+  inset: -10% 0;
+  z-index: 0;
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+  object-position: 50% 20%;
+  will-change: transform;
+}
+
+.ab-promise-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(15, 12, 9, 0.5);
+}
+
+.ab-promise-content {
+  position: relative;
   z-index: 2;
-  bottom: clamp(28px, 5vw, 64px);
-  max-width: min(560px, 90vw);
-  padding: clamp(30px, 4vw, 44px);
-  border-radius: 22px;
-  background: rgba(15, 12, 9, 0.55);
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-  border: 1px solid rgba(244, 237, 225, 0.14);
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  height: 100%;
+  min-height: clamp(480px, 60vw, 680px);
+  padding: 70px 6vw;
+  text-align: center;
+  justify-content: center;
 }
 
-.ab-card-left {
-  left: clamp(20px, 6vw, 64px);
-}
-
-.ab-card-heading {
-  margin: 0 0 14px;
+.ab-promise-heading {
+  margin: 0;
+  max-width: 18ch;
   font-family: var(--font-display);
   font-weight: normal;
-  font-size: clamp(26px, 3.2vw, 38px);
+  font-size: clamp(30px, 4.6vw, 62px);
+  line-height: 1.15;
   color: #f4ede1;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.4);
 }
 
-.ab-card-copy {
-  margin: 0;
-  font-size: 14.5px;
-  line-height: 1.75;
-  color: rgba(244, 237, 225, 0.8);
-}
-
-/* ================================================================
-   Promise + CTA — inside the closing block
-   ================================================================ */
-
-.ab-promise-copy {
-  max-width: 52ch;
-  margin: 0;
-  font-family: var(--font-body);
-  font-size: clamp(17px, 2vw, 22px);
-  line-height: 1.65;
-  color: #f4ede1;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
-}
-
-.ab-cta-link {
+.ab-promise-cta {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 15px 30px;
-  border-radius: 999px;
+  padding: 17px 34px;
+  border-radius: 4px;
   background: #f4ede1;
   color: var(--obsidian);
-  font-size: 12.5px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   transition: background 0.3s ease, transform 0.3s ease;
 }
 
-.ab-cta-link:hover {
+.ab-promise-cta:hover {
   background: var(--denim);
   transform: translateY(-2px);
 }
 
 /* ================================================================
-   Back link
+   Footer
    ================================================================ */
 
-.ab-back {
-  display: block;
-  padding: 30px 4vw 50px;
-  text-align: center;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  color: rgba(244, 237, 225, 0.5);
+.ab-footer {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 30px;
+  padding: clamp(50px, 7vw, 76px) 4vw 30px;
   background: var(--obsidian);
+}
+
+.ab-footer-wordmark {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: #f4ede1;
+}
+
+.ab-footer-tag {
+  margin: 0;
+  max-width: 34ch;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(244, 237, 225, 0.55);
+}
+
+.ab-footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ab-footer-col h3 {
+  margin: 0 0 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 225, 0.5);
+}
+
+.ab-footer-col a {
+  font-size: 13.5px;
+  color: rgba(244, 237, 225, 0.8);
   transition: color 0.25s ease;
 }
 
-.ab-back:hover {
+.ab-footer-col a:hover {
   color: var(--denim);
 }
 
-/* Slower, more cinematic reveal for full-bleed photo content —
-   every section on this page is a photo, so the default text-block
-   timing (used elsewhere on the site) feels too quick here. */
-.ab-block .reveal {
+.ab-footer-bottom {
+  grid-column: 1 / -1;
+  margin-top: clamp(30px, 5vw, 50px);
+  padding-top: 24px;
+  border-top: 1px solid rgba(244, 237, 225, 0.12);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 225, 0.4);
+}
+
+/* Slower, cinematic reveal for the photo-driven sections. */
+.ab-hero .reveal,
+.ab-promise .reveal {
   transition:
     opacity 1s ease var(--reveal-delay, 0ms),
     transform 1s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
@@ -268,14 +557,51 @@
    Responsive
    ================================================================ */
 
-@media (max-width: 720px) {
-  .ab-card {
-    left: 16px;
-    right: 16px;
-    max-width: none;
+@media (max-width: 980px) {
+  .ab-split {
+    grid-template-columns: 1fr;
   }
 
-  .ab-block-content-hero {
-    padding-bottom: 40px;
+  .ab-split-media {
+    min-height: 380px;
+  }
+
+  .ab-values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ab-value-accent {
+    display: none;
+  }
+
+  .ab-footer {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ab-footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .ab-hero-content {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .ab-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ab-stat:nth-child(3) {
+    border-left: none;
+  }
+
+  .ab-values-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ab-footer {
+    grid-template-columns: 1fr;
   }
 }

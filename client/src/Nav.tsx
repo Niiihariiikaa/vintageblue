@@ -10,6 +10,7 @@ const productLinks = [
   { label: 'Shirts', to: '/shop/shirts' },
   { label: 'Denims', to: '/shop/denims' },
   { label: 'Cargos', to: '/shop/cargos' },
+  { label: 'Pants', to: '/shop/pants' },
   { label: 'Men', to: '/shop/men' },
   { label: 'Unisex', to: '/shop/unisex' },
 ]
@@ -20,6 +21,7 @@ const allLinks = [
   { label: 'Shirts', to: '/shop/shirts' },
   { label: 'Denims', to: '/shop/denims' },
   { label: 'Cargos', to: '/shop/cargos' },
+  { label: 'Pants', to: '/shop/pants' },
   { label: 'Men', to: '/shop/men' },
   { label: 'Unisex', to: '/shop/unisex' },
   { label: 'The Drop', to: '/drop' },

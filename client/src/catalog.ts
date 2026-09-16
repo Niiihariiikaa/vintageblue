@@ -10,6 +10,10 @@ import heroBlackFront from './assets/heromiddle.png'
 import heroBlackBack from './assets/hero-right.png'
 import shirt1a from './assets2/shirt1a.png'
 import shirt1b from './assets2/shirt1b.png'
+import pant1 from './assets2/pants/pant1.png'
+import pant2 from './assets2/pants/pant2.png'
+import pant3 from './assets2/pants/pant3.png'
+import pant4 from './assets2/pants/pant4.png'
 
 export type Category = 'men' | 'women' | 'unisex'
 export type ColorFamily = 'Blues' | 'Browns' | 'Neutrals' | 'Greens'
@@ -32,7 +36,7 @@ export interface Product {
 }
 
 export const SIZES = ['XS', 'S', 'M', 'L', 'XL']
-export const TYPES = ['Hoodie', 'Jacket', 'Trench', 'Overcoat', 'Shirt', 'Denim', 'Cargo']
+export const TYPES = ['Hoodie', 'Jacket', 'Trench', 'Overcoat', 'Shirt', 'Denim', 'Cargo', 'Trouser']
 export const COLOR_FAMILIES: ColorFamily[] = ['Blues', 'Browns', 'Neutrals', 'Greens']
 
 /** Garment-type nav categories (`/shop/:slug`) that filter by `type` rather than gender. */
@@ -40,6 +44,7 @@ export const TYPE_SLUGS: Record<string, string> = {
   Shirt: 'shirts',
   Denim: 'denims',
   Cargo: 'cargos',
+  Trouser: 'pants',
 }
 
 export const PRODUCTS: Product[] = [
@@ -325,6 +330,74 @@ export const PRODUCTS: Product[] = [
     sizes: SIZES,
     type: 'Cargo',
     color: 'Stone',
+    colorFamily: 'Neutrals',
+    inStock: true,
+  },
+
+  /* ---------------- Trousers ---------------- */
+  {
+    id: '18',
+    handle: 'weekend-trouser-olive',
+    name: 'Weekend Trouser — Olive',
+    price: 140,
+    categories: ['men', 'unisex'],
+    popular: true,
+    images: [pant1],
+    description:
+      'A relaxed, elastic-waist chino in washed olive cotton — built for the days between weekdays, easy on and easier to live in.',
+    details: ['Washed cotton twill', 'Elastic, drawcord-free waistband', 'Relaxed, uncropped leg'],
+    sizes: SIZES,
+    type: 'Trouser',
+    color: 'Olive',
+    colorFamily: 'Greens',
+    inStock: true,
+  },
+  {
+    id: '19',
+    handle: 'weekend-trouser-black',
+    name: 'Weekend Trouser — Black',
+    price: 140,
+    categories: ['men', 'unisex'],
+    images: [pant2],
+    description:
+      'The same relaxed elastic-waist cut in a clean black wash — the trouser that quietly works with everything else in the closet.',
+    details: ['Washed cotton twill', 'Elastic, drawcord-free waistband', 'Relaxed, uncropped leg'],
+    sizes: SIZES,
+    type: 'Trouser',
+    color: 'Black',
+    colorFamily: 'Neutrals',
+    inStock: true,
+  },
+  {
+    id: '20',
+    handle: 'weekend-trouser-navy',
+    name: 'Weekend Trouser — Navy',
+    price: 140,
+    categories: ['men', 'unisex'],
+    popular: true,
+    images: [pant3],
+    description:
+      'A deep navy take on the weekend trouser, cut with the same relaxed leg and elastic waistband — the pair seen throughout the lookbook.',
+    details: ['Washed cotton twill', 'Elastic, drawcord-free waistband', 'Relaxed, uncropped leg'],
+    sizes: SIZES,
+    type: 'Trouser',
+    color: 'Navy',
+    colorFamily: 'Blues',
+    inStock: true,
+  },
+  {
+    id: '21',
+    handle: 'weekend-trouser-taupe',
+    name: 'Weekend Trouser — Taupe',
+    price: 140,
+    categories: ['men', 'unisex'],
+    images: [pant4],
+    description:
+      'A warm taupe colorway of the weekend trouser — a quiet neutral built to pair with almost anything in rotation.',
+    details: ['Washed cotton twill', 'Elastic, drawcord-free waistband', 'Relaxed, uncropped leg'],
+    sizes: SIZES,
+    type: 'Trouser',
+    color: 'Taupe',
     colorFamily: 'Neutrals',
     inStock: true,
   },

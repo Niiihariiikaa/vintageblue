@@ -79,9 +79,9 @@
   position: absolute;
   z-index: 3;
   bottom: 0;
-  left: 29%;
+  left: 18%;
   transform: translateX(-50%);
-  height: 90%;
+  height: 98%;
   width: auto;
   max-width: none;
   object-fit: contain;
@@ -138,6 +138,15 @@
   background: var(--beige);
   box-shadow: 0 -50px 90px rgba(15, 12, 9, 0.35);
   text-align: center;
+}
+
+/* The first "next card" (Built To Wear In.) also pins in place so the
+   one after it (the pants row) can stack up and cover it in turn —
+   same trick as the hero below it. Both share `.hr-products` for the
+   rounded-top/shadow "next card" look; only this one needs to stick. */
+.hr-products-sticky {
+  position: sticky;
+  top: 72px;
 }
 
 .hr-eyebrow-dark {
@@ -795,7 +804,7 @@
   }
 
   .hr-cutout {
-    left: -6%;
+    left: -14%;
     height: 82%;
   }
 

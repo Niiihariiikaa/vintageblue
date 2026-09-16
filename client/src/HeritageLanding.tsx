@@ -12,6 +12,10 @@ import product1 from './assets2/product1.png'
 import product2 from './assets2/product2.png'
 import product3 from './assets2/product3.png'
 import product4 from './assets2/product4.png'
+import pant1 from './assets2/pants/pant1.png'
+import pant2 from './assets2/pants/pant2.png'
+import pant3 from './assets2/pants/pant3.png'
+import pant4 from './assets2/pants/pant4.png'
 import collectionVideo from './assets/video1.mp4'
 import model1 from './assets2/Model1.png'
 import model1Shirt from './assets2/model1-shirt.png'
@@ -56,6 +60,13 @@ const products = [
   { name: 'Western Denim Shirt', price: '165 $', img: product2 },
   { name: 'Corduroy Overshirt', price: '210 $', img: product3 },
   { name: 'Classic Denim Jacket', price: '240 $', img: product4 },
+]
+
+const pantsProducts = [
+  { name: 'Weekend Trouser — Olive', price: '140 $', img: pant1 },
+  { name: 'Weekend Trouser — Black', price: '140 $', img: pant2 },
+  { name: 'Weekend Trouser — Navy', price: '140 $', img: pant3 },
+  { name: 'Weekend Trouser — Taupe', price: '140 $', img: pant4 },
 ]
 
 const weekendLeft = ['Truckers', 'Overshirts', 'Chore Coats', 'Flannel', 'Shearling']
@@ -194,7 +205,7 @@ function HeritageLanding() {
       </section>
 
       {/* ---------------- Products ---------------- */}
-      <section className="hr-products" id="hr-products">
+      <section className="hr-products hr-products-sticky" id="hr-products">
         <Reveal>
           <h2 className="hr-products-heading">built to wear in.</h2>
         </Reveal>
@@ -203,6 +214,29 @@ function HeritageLanding() {
           {products.map((p, i) => (
             <Reveal key={p.name} delay={i * 90} className="hr-card-cell">
               <a href="/shop/men" className="hr-card" onClick={go('/shop/men')}>
+                <div className="hr-card-img">
+                  <img src={p.img} alt={p.name} />
+                </div>
+                <div className="hr-card-info">
+                  <span>{p.name}</span>
+                  <span>{p.price}</span>
+                </div>
+              </a>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* ---------------- Pants ---------------- */}
+      <section className="hr-products">
+        <Reveal>
+          <h2 className="hr-products-heading">weekend trousers.</h2>
+        </Reveal>
+
+        <div className="hr-grid">
+          {pantsProducts.map((p, i) => (
+            <Reveal key={p.name} delay={i * 90} className="hr-card-cell">
+              <a href="/shop/pants" className="hr-card" onClick={go('/shop/pants')}>
                 <div className="hr-card-img">
                   <img src={p.img} alt={p.name} />
                 </div>

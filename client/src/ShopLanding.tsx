@@ -18,6 +18,7 @@ const tabs: { label: string; slug: string }[] = [
   { label: 'Shirts', slug: 'shirts' },
   { label: 'Denims', slug: 'denims' },
   { label: 'Cargos', slug: 'cargos' },
+  { label: 'Pants', slug: 'pants' },
   { label: 'Men', slug: 'men' },
   { label: 'Unisex', slug: 'unisex' },
 ]
@@ -30,6 +31,7 @@ const titles: Record<string, string> = {
   shirts: 'Shirts',
   denims: 'Denims',
   cargos: 'Cargos',
+  pants: 'Pants',
 }
 
 type SortKey = 'featured' | 'price-asc' | 'price-desc' | 'name-asc' | 'name-desc'

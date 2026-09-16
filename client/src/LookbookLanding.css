@@ -30,90 +30,146 @@
 }
 
 /* ================================================================
-   Hero collage
+   Hero grid mosaic — the lifestyle photo sliced into a precise,
+   gapless 3×3 grid (see `gridTiles` — exact thirds of the source
+   image, no resize/crop drift) and reassembled edge to edge with a
+   thin hairline seam between tiles. A floating brand tag and shop
+   CTA sit on top as overlays rather than consuming a tile, so the
+   nine-part reassembly stays exact.
    ================================================================ */
 
-.lb-hero {
+.lb-grid-hero {
   position: relative;
-  height: clamp(520px, 58vw, 740px);
-  overflow: hidden;
-  padding: 0 4vw;
+  /* Matches the sliced source photo's real proportions (1060×1484)
+     so the full image always shows intact — object-fit: cover on the
+     tiles would otherwise crop top/bottom to fit a shorter box. */
+  aspect-ratio: 1060 / 1484;
+  background: var(--obsidian);
 }
 
-.lb-line {
+.lb-grid-mosaic {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 2px;
+  height: 100%;
+}
+
+.lb-grid-tile {
+  position: relative;
+  overflow: hidden;
+  background: #f4ede1;
+}
+
+.lb-grid-tile img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lb-grid-tile-product {
+  display: block;
+  cursor: pointer;
+}
+
+.lb-grid-tile-product img {
+  object-fit: contain;
+  /* A percentage `padding` is always relative to the element's width
+     — even top/bottom — so on these tall cells it shrank the image
+     far more side-to-side than top-to-bottom. `transform: scale`
+     shrinks evenly in both directions regardless of the box's shape. */
+  transform: scale(0.96);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lb-grid-tile-product:hover img {
+  transform: scale(1);
+}
+
+.lb-grid-tag {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  z-index: 1;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(31, 35, 39, 0.88);
+  color: #f4ede1;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.lb-grid-tile-product:hover .lb-grid-tag {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.lb-grid-brand {
   position: absolute;
   z-index: 1;
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: normal;
-  line-height: 0.85;
-  color: var(--indigo);
-  white-space: nowrap;
-}
-
-.lb-line-1 {
-  top: 10%;
-  left: 4vw;
-  font-size: clamp(56px, 11vw, 156px);
-}
-
-.lb-line-2 {
-  bottom: 6%;
-  left: 4vw;
-  right: 4vw;
-  text-align: center;
-  font-size: clamp(68px, 14vw, 204px);
-}
-
-.lb-hero-photo {
-  position: absolute;
-  z-index: 2;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -46%);
-  height: 90%;
-  width: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 34px 44px rgba(31, 35, 39, 0.28));
-}
-
-.lb-tagline {
-  position: absolute;
-  z-index: 3;
-  margin: 0;
-  max-width: 22ch;
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--obsidian);
-}
-
-.lb-tagline-right {
-  top: 6%;
-  right: 4vw;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  padding: 12px 18px;
+  border-radius: 4px;
+  background: rgba(31, 35, 39, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   text-align: right;
 }
 
-.lb-tagline-left {
-  top: 36%;
-  left: 4vw;
-  max-width: 19ch;
+.lb-grid-brand-mark {
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(15px, 1.8vw, 20px);
+  color: #f4ede1;
 }
 
-.lb-credit {
+.lb-grid-brand-tag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--denim);
+}
+
+.lb-grid-cta {
   position: absolute;
-  z-index: 3;
-  bottom: 2%;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  color: rgba(31, 35, 39, 0.55);
+  z-index: 1;
+  left: 16px;
+  bottom: 16px;
+  padding: 12px 22px;
+  border-radius: 4px;
+  background: #f4ede1;
+  color: var(--obsidian);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
-.lb-credit-left {
-  left: 4vw;
+.lb-grid-cta:hover {
+  background: var(--denim);
+  transform: translateY(-2px);
 }
 
-.lb-credit-right {
-  right: 4vw;
+@media (max-width: 640px) {
+  .lb-grid-brand,
+  .lb-grid-cta {
+    padding: 9px 14px;
+    font-size: 10.5px;
+  }
 }
 
 /* ================================================================
@@ -566,20 +622,93 @@
    Footer
    ================================================================ */
 
-.lb-foot {
-  padding: 0 4vw clamp(40px, 6vw, 64px);
-  text-align: center;
+.lb-footer {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 30px;
+  padding: clamp(50px, 7vw, 76px) 4vw 30px;
+  background: var(--obsidian);
 }
 
-.lb-back {
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  color: rgba(31, 35, 39, 0.55);
+.lb-footer-wordmark {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: #f4ede1;
+}
+
+.lb-footer-tag {
+  margin: 0;
+  max-width: 34ch;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(244, 237, 225, 0.55);
+}
+
+.lb-footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lb-footer-col h3 {
+  margin: 0 0 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 225, 0.5);
+}
+
+.lb-footer-col a {
+  font-size: 13.5px;
+  color: rgba(244, 237, 225, 0.8);
   transition: color 0.25s ease;
 }
 
-.lb-back:hover {
-  color: var(--indigo);
+.lb-footer-col a:hover {
+  color: var(--denim);
+}
+
+.lb-footer-bottom {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(30px, 5vw, 50px);
+  padding-top: 24px;
+  border-top: 1px solid rgba(244, 237, 225, 0.12);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 225, 0.4);
+}
+
+.lb-footer-bottom a {
+  color: rgba(244, 237, 225, 0.4);
+  transition: color 0.25s ease;
+}
+
+.lb-footer-bottom a:hover {
+  color: var(--denim);
+}
+
+@media (max-width: 900px) {
+  .lb-footer {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .lb-footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .lb-footer {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ================================================================
