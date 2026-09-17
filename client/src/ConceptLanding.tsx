@@ -31,9 +31,9 @@ const principles = [
 ]
 
 const palette = [
-  { name: 'Indigo', hex: '#3A5571', varName: '--indigo' },
-  { name: 'Denim', hex: '#94ACC1', varName: '--denim' },
-  { name: 'Pastel Blue', hex: '#CDD9E5', varName: '--pastel-blue' },
+  { name: 'Indigo', hex: '#1F2327', varName: '--indigo' },
+  { name: 'Denim', hex: '#CFC7B6', varName: '--denim' },
+  { name: 'Pastel Blue', hex: '#F4F1EA', varName: '--pastel-blue' },
   { name: 'Obsidian', hex: '#1F2327', varName: '--obsidian' },
   { name: 'Beige', hex: '#E8E6DA', varName: '--beige' },
 ]

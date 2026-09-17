@@ -156,11 +156,12 @@
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  transition: background 0.3s ease, transform 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .lb-grid-cta:hover {
-  background: var(--denim);
+  background: var(--obsidian);
+  color: #f4ede1;
   transform: translateY(-2px);
 }
 

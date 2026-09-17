@@ -63,7 +63,7 @@
   overflow: hidden;
   background:
     radial-gradient(70% 60% at 30% 20%, rgba(244, 240, 232, 0.4), transparent 70%),
-    radial-gradient(50% 60% at 85% 30%, rgba(148, 172, 193, 0.18), transparent 65%),
+    radial-gradient(50% 60% at 85% 30%, rgba(244, 237, 225, 0.35), transparent 65%),
     linear-gradient(178deg, #d5ccbd 0%, #c9bfae 45%, #bcb19e 100%);
 }
 
@@ -199,8 +199,8 @@
 }
 
 .shop-now:hover {
-  background: var(--denim);
-  color: var(--obsidian);
+  background: var(--obsidian);
+  color: #f4ede1;
   transform: translateY(-2px);
 }
 
@@ -961,7 +961,7 @@
 }
 
 .journal-card:hover {
-  background: var(--pastel-blue);
+  background: #efe6d4;
   transform: translateY(-4px);
 }
 

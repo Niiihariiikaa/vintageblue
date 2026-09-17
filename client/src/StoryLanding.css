@@ -97,7 +97,9 @@
 
 .sl-flower {
   position: absolute;
-  color: var(--denim);
+  /* Decorative, on a light ground — the one blue at low opacity,
+     since a light accent here would read as nothing at all. */
+  color: rgba(31, 35, 39, 0.32);
   font-size: 34px;
   line-height: 1;
   pointer-events: none;
@@ -134,8 +136,8 @@
   right: 2%;
   width: clamp(320px, 32vw, 560px);
   height: clamp(320px, 32vw, 560px);
-  background: var(--pastel-blue);
-  opacity: 0.7;
+  background: var(--hero-greige);
+  opacity: 0.55;
 }
 
 .sl-blob-b {
@@ -143,8 +145,8 @@
   right: 18%;
   width: clamp(180px, 18vw, 300px);
   height: clamp(180px, 18vw, 300px);
-  background: var(--denim);
-  opacity: 0.35;
+  background: var(--hero-greige);
+  opacity: 0.55;
 }
 
 .sl-flower-1 {
@@ -210,7 +212,7 @@
   border-radius: 62% 38% 55% 45% / 48% 52% 40% 58%;
   overflow: hidden;
   aspect-ratio: 3 / 3.4;
-  box-shadow: 0 40px 70px rgba(31, 35, 39, 0.2), 0 0 0 14px rgba(148, 172, 193, 0.25);
+  box-shadow: 0 40px 70px rgba(31, 35, 39, 0.2), 0 0 0 14px rgba(201, 191, 174, 0.55);
 }
 
 /* Three campaign shots take turns "on stage" — each plays the same
@@ -713,7 +715,7 @@
   font-family: var(--font-display);
   font-size: 40px;
   line-height: 1;
-  color: var(--denim);
+  color: rgba(31, 35, 39, 0.35);
 }
 
 .sl-quote blockquote {
@@ -765,7 +767,7 @@
   top: 12%;
   right: 8%;
   font-size: 46px;
-  color: var(--denim);
+  color: rgba(31, 35, 39, 0.28);
 }
 
 .sl-cta-headline {
@@ -816,7 +818,7 @@
 }
 
 .sl-back:hover {
-  color: var(--denim);
+  color: var(--obsidian);
 }
 
 /* ================================================================

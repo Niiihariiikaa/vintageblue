@@ -149,7 +149,7 @@
 }
 
 .gnav-dropdown-panel a:hover {
-  background: rgba(58, 85, 113, 0.1);
+  background: rgba(31, 35, 39, 0.08);
   color: var(--indigo);
 }
 

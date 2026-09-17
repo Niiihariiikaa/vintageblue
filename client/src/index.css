@@ -23,10 +23,17 @@
 }
 
 :root {
-  --indigo: #3a5571;
-  --denim: #94acc1;
-  --pastel-blue: #cdd9e5;
+  /* One blue only — the deep near-black used in every footer. The old
+     mid-blue (`--indigo`) and light blue (`--pastel-blue`, `--denim`)
+     are kept as names so the ~140 existing usages keep working, but
+     they no longer resolve to a second or third blue: `--indigo` is
+     now that same single blue, while the two that sat on *dark*
+     backgrounds (where this blue would be invisible) resolve to warm
+     neutrals instead. */
   --obsidian: #1f2327;
+  --indigo: var(--obsidian);
+  --denim: #cfc7b6;
+  --pastel-blue: #f4f1ea;
   --beige: #e8e6da;
   --hero-greige: #c9bfae;
   --font-display: 'New Icon Serif', serif;
@@ -77,13 +84,36 @@ a {
 }
 
 /* Scroll-reveal wrapper — styles for the shared `Reveal` component
-   (see motion.tsx), used by both the homepage and the drop landing. */
+   (see motion.tsx). The component always emits one variant class, so
+   the entry state lives on the variant and `.reveal` itself only
+   carries the timing. Keeping the from-state off `.reveal` matters:
+   a shared `clip-path` reset would otherwise clip the drop shadows of
+   every card that reveals with a plain fade-up. */
 .reveal {
+  transition:
+    opacity 0.9s ease var(--reveal-delay, 0ms),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
+}
+
+.reveal-rise {
   opacity: 0;
   transform: translateY(30px);
-  transition:
-    opacity 0.8s ease var(--reveal-delay, 0ms),
-    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
+}
+
+.reveal-fade {
+  opacity: 0;
+}
+
+/* Wipes open from the top edge — for photography, where a fade would
+   show the image half-transparent over the page behind it.
+
+   The clip sits on the *children*, never on the observed wrapper:
+   Chrome factors an element's own `clip-path` into its intersection
+   rect, so a fully clipped wrapper reports zero intersection, the
+   observer never fires, and the image stays hidden forever. */
+.reveal-mask > * {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1.15s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
 }
 
 .reveal.in {
@@ -91,10 +121,19 @@ a {
   transform: none;
 }
 
+.reveal-mask.in > * {
+  clip-path: inset(0 0 0 0);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
+  .reveal,
+  .reveal-rise,
+  .reveal-fade,
+  .reveal-mask,
+  .reveal-mask > * {
     opacity: 1;
     transform: none;
+    clip-path: none;
     transition: none;
   }
 }

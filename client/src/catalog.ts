@@ -14,6 +14,8 @@ import pant1 from './assets2/pants/pant1.png'
 import pant2 from './assets2/pants/pant2.png'
 import pant3 from './assets2/pants/pant3.png'
 import pant4 from './assets2/pants/pant4.png'
+import model1Jeans from './assets2/model1-jeans.png'
+import model2Jeans from './assets2/model2-jeans.png'
 
 export type Category = 'men' | 'women' | 'unisex'
 export type ColorFamily = 'Blues' | 'Browns' | 'Neutrals' | 'Greens'
@@ -241,7 +243,7 @@ export const PRODUCTS: Product[] = [
     name: 'Raw Selvedge Jean',
     price: 175,
     categories: ['men'],
-    images: [],
+    images: [model2Jeans],
     description: 'Coming soon — deep indigo selvedge denim, unwashed.',
     details: ['Details coming soon'],
     sizes: SIZES,
@@ -271,7 +273,7 @@ export const PRODUCTS: Product[] = [
     name: 'Wide-Leg Denim',
     price: 165,
     categories: ['women', 'unisex'],
-    images: [],
+    images: [model1Jeans],
     description: 'Coming soon — relaxed wide-leg denim with a high rise.',
     details: ['Details coming soon'],
     sizes: SIZES,

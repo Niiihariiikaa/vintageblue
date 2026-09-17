@@ -1,170 +1,231 @@
 /* ================================================================
-   Product landing — the product detail page: image gallery, size +
-   quantity selection, add-to-cart, and a related-products row.
+   Product detail page
+   ----------------------------------------------------------------
+   Laid out the way a large retailer's PDP is: a breadcrumb trail, a
+   full-height column of photography on the left, and a narrow buy
+   panel on the right that sticks while the photos scroll past it.
+   Square edges, hairline rules and small type throughout — the
+   rounded, editorial card language of the landing pages would fight
+   the density this page needs.
    ================================================================ */
 
 .pd-page {
   width: 100%;
   min-height: 100vh;
-  background: var(--beige);
-  overflow-x: hidden;
-}
-
-
-.pd-breadcrumb {
-  display: inline-block;
-  margin: 18px 4vw 0;
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  text-transform: capitalize;
-  color: rgba(31, 35, 39, 0.55);
-  transition: color 0.25s ease;
-}
-
-.pd-breadcrumb:hover {
-  color: var(--indigo);
+  padding-bottom: clamp(60px, 8vw, 110px);
+  background: #f4ede1;
+  color: var(--obsidian);
 }
 
 /* ================================================================
-   Main
+   Breadcrumb
    ================================================================ */
 
-.pd-main {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: clamp(24px, 4vw, 56px);
-  padding: clamp(20px, 3vw, 34px) 4vw clamp(40px, 6vw, 70px);
-}
-
-.pd-gallery {
-  display: grid;
-  gap: 12px;
-}
-
-.pd-gallery-main {
-  aspect-ratio: 4 / 5;
-  border-radius: 22px;
-  overflow: hidden;
-  background: var(--hero-greige);
-}
-
-.pd-gallery-main img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-}
-
-.pd-gallery-placeholder {
+.pd-crumbs {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 14px;
-  width: 100%;
-  height: 100%;
-  background: repeating-linear-gradient(
-    135deg,
-    var(--hero-greige),
-    var(--hero-greige) 18px,
-    #d8cfbe 18px,
-    #d8cfbe 36px
-  );
-  color: rgba(31, 35, 39, 0.5);
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 22px 4vw 18px;
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  color: rgba(31, 35, 39, 0.55);
 }
 
-.pd-gallery-placeholder span {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+.pd-crumbs a {
+  color: rgba(31, 35, 39, 0.7);
+  transition: color 0.2s ease;
 }
 
-.pd-thumbs {
-  display: flex;
-  gap: 10px;
+.pd-crumbs a:hover {
+  color: var(--obsidian);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
-.pd-thumb {
-  width: 68px;
-  height: 68px;
-  border: 2px solid transparent;
-  border-radius: 12px;
+.pd-crumbs span[aria-current] {
+  color: var(--obsidian);
+}
+
+.pd-crumbs svg {
+  flex-shrink: 0;
+  opacity: 0.45;
+}
+
+/* ================================================================
+   Two-column shell
+   ================================================================ */
+
+.pd-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(330px, 30vw, 420px);
+  align-items: start;
+  gap: clamp(20px, 3vw, 56px);
+  padding: 0 4vw;
+}
+
+/* ================================================================
+   Photography
+   ================================================================ */
+
+.pd-media {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+/* One photo shouldn't sit in half a column looking like a mistake. */
+.pd-media-single {
+  grid-template-columns: 1fr;
+}
+
+.pd-shot {
+  position: relative;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
-  padding: 0;
-  background: var(--hero-greige);
-  transition: border-color 0.25s ease;
+  background: var(--beige);
 }
 
-.pd-thumb img {
+.pd-media-single .pd-shot {
+  aspect-ratio: 4 / 5;
+}
+
+.pd-shot img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top center;
+  object-position: center;
 }
 
-.pd-thumb.active {
-  border-color: var(--indigo);
-}
-
-.pd-info {
-  padding-top: 8px;
-}
-
-.pd-tag {
-  display: inline-block;
-  margin-bottom: 14px;
-  padding: 5px 14px;
-  border-radius: 999px;
-  background: var(--indigo);
-  color: var(--beige);
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+.pd-shot-empty {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  color: rgba(31, 35, 39, 0.4);
+  font-size: 11.5px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
-.pd-info h1 {
-  margin: 0 0 8px;
+/* ================================================================
+   Buy panel
+   ================================================================ */
+
+.pd-panel {
+  position: sticky;
+  top: 96px;
+  padding-bottom: 10px;
+}
+
+.pd-flag {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 4px 10px;
+  background: var(--obsidian);
+  color: #f4ede1;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.pd-name {
+  margin: 0 0 10px;
   font-family: var(--font-display);
   font-weight: normal;
-  font-size: clamp(30px, 3.6vw, 46px);
+  font-size: clamp(24px, 2.4vw, 34px);
+  line-height: 1.05;
   color: var(--obsidian);
 }
 
 .pd-price {
-  margin: 0 0 22px;
-  font-size: 20px;
+  margin: 0;
+  font-size: 17px;
   font-weight: 600;
-  color: var(--indigo);
 }
 
-.pd-desc {
-  margin: 0 0 30px;
-  max-width: 48ch;
-  font-size: 14.5px;
-  line-height: 1.75;
-  color: rgba(31, 35, 39, 0.72);
+.pd-price-note {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: rgba(31, 35, 39, 0.5);
 }
 
-.pd-label {
-  display: block;
-  margin-bottom: 10px;
+.pd-block {
+  padding-top: 24px;
+}
+
+.pd-block-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pd-block-label {
+  margin: 0 0 12px;
   font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: rgba(31, 35, 39, 0.6);
+}
+
+.pd-block-label strong {
   font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(31, 35, 39, 0.55);
+  color: var(--obsidian);
 }
 
-.pd-label em {
-  font-style: normal;
-  color: #b5493f;
+.pd-guide-link {
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 11.5px;
+  color: var(--obsidian);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
-.pd-sizes {
-  margin-bottom: 24px;
+/* ---------------- Colourway swatches ---------------- */
+
+.pd-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
+
+.pd-swatch {
+  display: block;
+  width: 52px;
+  height: 66px;
+  overflow: hidden;
+  background: var(--beige);
+  box-shadow: inset 0 0 0 1px rgba(31, 35, 39, 0.12);
+  transition: box-shadow 0.2s ease;
+}
+
+.pd-swatch img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pd-swatch:hover {
+  box-shadow: inset 0 0 0 1px rgba(31, 35, 39, 0.45);
+}
+
+.pd-swatch.active {
+  box-shadow: inset 0 0 0 1px rgba(31, 35, 39, 0.12);
+  outline: 1px solid var(--obsidian);
+  outline-offset: 3px;
+}
+
+.pd-swatch-empty {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--hero-greige);
+}
+
+/* ---------------- Sizes ---------------- */
 
 .pd-size-row {
   display: flex;
@@ -173,277 +234,281 @@
 }
 
 .pd-size {
-  min-width: 46px;
-  padding: 10px 14px;
-  border: 1px solid rgba(31, 35, 39, 0.35);
-  border-radius: 10px;
+  min-width: 52px;
+  padding: 13px 10px;
+  border: 1px solid rgba(31, 35, 39, 0.28);
   background: none;
-  font-size: 12.5px;
-  font-weight: 600;
   color: var(--obsidian);
-  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
 }
 
-.pd-size:hover {
-  border-color: var(--indigo);
+.pd-size:hover:not(:disabled) {
+  border-color: var(--obsidian);
 }
 
 .pd-size.active {
-  background: var(--obsidian);
   border-color: var(--obsidian);
-  color: var(--beige);
+  background: var(--obsidian);
+  color: #f4ede1;
 }
 
-.pd-qty-row {
-  margin-bottom: 28px;
+.pd-size:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  text-decoration: line-through;
 }
 
-.pd-stepper {
-  display: inline-flex;
-  align-items: center;
-  gap: 18px;
-  padding: 8px 16px;
-  border: 1px solid rgba(31, 35, 39, 0.35);
-  border-radius: 999px;
+.pd-size-error {
+  margin: 11px 0 0;
+  font-size: 11.5px;
+  color: #b5493f;
 }
 
-.pd-stepper button {
-  display: inline-grid;
-  place-items: center;
-  border: none;
-  background: none;
-  color: var(--obsidian);
-  transition: color 0.2s ease;
-}
+/* ---------------- Add to bag ---------------- */
 
-.pd-stepper button:hover {
-  color: var(--indigo);
-}
-
-.pd-stepper span {
-  min-width: 1.2ch;
-  text-align: center;
-  font-size: 13px;
-  font-weight: 600;
+.pd-actions {
+  display: flex;
+  gap: 8px;
+  padding-top: 24px;
 }
 
 .pd-add {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  padding: 17px 24px;
-  border: none;
-  border-radius: 999px;
-  background: var(--indigo);
-  color: var(--beige);
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.pd-add:hover {
-  background: var(--obsidian);
-  transform: translateY(-2px);
-}
-
-.pd-details {
-  margin: 14px 0 0;
-  display: grid;
-  gap: 8px;
-  list-style: none;
-}
-
-.pd-details li {
-  padding-left: 16px;
-  position: relative;
-  font-size: 13px;
-  line-height: 1.6;
-  color: rgba(31, 35, 39, 0.65);
-}
-
-.pd-details li::before {
-  content: '—';
-  position: absolute;
-  left: 0;
-  color: var(--indigo);
-}
-
-/* ================================================================
-   Delivery info
-   ================================================================ */
-
-.pd-delivery {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 22px;
-  margin: 18px 0 0;
-  padding: 14px 18px;
-  border-radius: 14px;
-  background: #f4ede1;
-}
-
-.pd-delivery span {
+  flex: 1;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 12.5px;
-  color: rgba(31, 35, 39, 0.7);
-}
-
-.pd-delivery svg {
-  flex-shrink: 0;
-  color: var(--indigo);
-}
-
-.pd-delivery strong {
-  font-weight: 700;
-  color: var(--obsidian);
-}
-
-/* ================================================================
-   Accordion
-   ================================================================ */
-
-.pd-accordion {
-  margin-top: 26px;
-  border-top: 1px solid rgba(31, 35, 39, 0.12);
-}
-
-.pd-accordion-item {
-  border-bottom: 1px solid rgba(31, 35, 39, 0.12);
-}
-
-.pd-accordion-trigger {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 16px 2px;
+  justify-content: center;
+  gap: 9px;
+  padding: 17px 20px;
   border: none;
-  background: none;
-  font-family: inherit;
-  font-size: 13px;
+  background: var(--obsidian);
+  color: #f4ede1;
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--obsidian);
-  cursor: pointer;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: background 0.25s ease;
 }
 
-.pd-accordion-trigger svg {
+.pd-add:hover:not(:disabled) {
+  background: #34393f;
+}
+
+.pd-add:disabled {
+  background: rgba(31, 35, 39, 0.35);
+  cursor: not-allowed;
+}
+
+.pd-fav {
   flex-shrink: 0;
-  transition: transform 0.3s ease;
-  color: rgba(31, 35, 39, 0.55);
+  display: grid;
+  place-items: center;
+  width: 54px;
+  border: 1px solid rgba(31, 35, 39, 0.28);
+  background: none;
+  color: var(--obsidian);
+  transition: border-color 0.2s ease, color 0.2s ease;
 }
 
-.pd-accordion-trigger svg.open {
-  transform: rotate(180deg);
+.pd-fav:hover {
+  border-color: var(--obsidian);
 }
 
-.pd-accordion-body {
-  padding: 0 2px 20px;
+.pd-fav.active {
+  border-color: var(--obsidian);
+  color: #b5493f;
+}
+
+/* ---------------- Service promises ---------------- */
+
+.pd-service {
+  margin: 26px 0 0;
+  padding: 20px 0 0;
+  border-top: 1px solid rgba(31, 35, 39, 0.14);
+  list-style: none;
   display: grid;
   gap: 12px;
 }
 
-.pd-accordion-body p {
+.pd-service li {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: rgba(31, 35, 39, 0.72);
+}
+
+.pd-service svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--obsidian);
+}
+
+.pd-service strong {
+  font-weight: 600;
+  color: var(--obsidian);
+}
+
+/* ---------------- Accordions ---------------- */
+
+.pd-acc {
+  margin-top: 26px;
+  border-top: 1px solid rgba(31, 35, 39, 0.14);
+}
+
+.pd-acc-item {
+  border-bottom: 1px solid rgba(31, 35, 39, 0.14);
+}
+
+.pd-acc-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 17px 0;
+  border: none;
+  background: none;
+  color: var(--obsidian);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-align: left;
+}
+
+.pd-acc-trigger svg {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.pd-acc-trigger svg.open {
+  transform: rotate(180deg);
+}
+
+.pd-acc-body {
+  padding: 0 0 20px;
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: rgba(31, 35, 39, 0.72);
+}
+
+.pd-acc-body p {
+  margin: 0 0 12px;
+}
+
+.pd-acc-body p:last-child {
+  margin-bottom: 0;
+}
+
+.pd-bullets {
   margin: 0;
-  font-size: 13px;
-  line-height: 1.7;
-  color: rgba(31, 35, 39, 0.68);
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+}
+
+.pd-meta {
+  margin-top: 12px;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(31, 35, 39, 0.45);
 }
 
 .pd-size-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 12.5px;
+  font-size: 12px;
 }
 
 .pd-size-table th,
 .pd-size-table td {
-  padding: 9px 10px;
-  text-align: left;
+  padding: 9px 6px;
   border-bottom: 1px solid rgba(31, 35, 39, 0.1);
-  color: rgba(31, 35, 39, 0.7);
+  text-align: left;
 }
 
 .pd-size-table th {
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  font-size: 10.5px;
   color: rgba(31, 35, 39, 0.5);
 }
 
+.pd-artno {
+  margin: 20px 0 0;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(31, 35, 39, 0.4);
+}
+
 /* ================================================================
-   Related
+   You might also like
    ================================================================ */
 
 .pd-related {
-  padding: clamp(30px, 5vw, 50px) 4vw clamp(50px, 7vw, 80px);
-  border-top: 1px solid rgba(31, 35, 39, 0.1);
+  padding: clamp(56px, 7vw, 96px) 4vw 0;
 }
 
 .pd-related h2 {
-  margin: 0 0 26px;
+  margin: 0 0 24px;
   font-family: var(--font-display);
   font-weight: normal;
-  font-size: clamp(24px, 2.8vw, 32px);
+  font-size: clamp(22px, 2.4vw, 34px);
   color: var(--obsidian);
 }
 
 .pd-related-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: clamp(8px, 1.2vw, 16px);
 }
 
 .pd-related-card {
   display: block;
+  color: var(--obsidian);
 }
 
 .pd-related-img {
   aspect-ratio: 3 / 4;
-  border-radius: 14px;
   overflow: hidden;
-  background: var(--hero-greige);
+  background: var(--beige);
 }
 
 .pd-related-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top center;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .pd-related-card:hover .pd-related-img img {
-  transform: scale(1.06);
+  transform: scale(1.04);
 }
 
 .pd-related-placeholder {
   display: grid;
   place-items: center;
-  width: 100%;
   height: 100%;
-  background: var(--hero-greige);
-  color: rgba(31, 35, 39, 0.4);
+  color: rgba(31, 35, 39, 0.3);
 }
 
 .pd-related-info {
   display: flex;
   justify-content: space-between;
-  gap: 8px;
-  padding: 10px 2px 0;
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--obsidian);
+  align-items: baseline;
+  gap: 10px;
+  padding-top: 12px;
+  font-size: 12px;
 }
 
 .pd-related-info span:last-child {
-  color: var(--indigo);
+  flex-shrink: 0;
+  color: rgba(31, 35, 39, 0.6);
 }
 
 /* ================================================================
@@ -453,63 +518,74 @@
 .pd-notfound {
   display: grid;
   place-items: center;
-  gap: 20px;
-  min-height: 60vh;
+  gap: 22px;
+  min-height: 70vh;
+  padding: 0 6vw;
   text-align: center;
-  padding: 0 4vw;
 }
 
 .pd-notfound h1 {
   margin: 0;
   font-family: var(--font-display);
   font-weight: normal;
-  font-size: clamp(26px, 4vw, 40px);
+  font-size: clamp(26px, 3.4vw, 44px);
   color: var(--obsidian);
 }
 
 .pd-btn-solid {
   display: inline-flex;
-  padding: 14px 28px;
-  border-radius: 999px;
-  background: var(--indigo);
-  color: var(--beige);
-  font-size: 13px;
+  padding: 15px 30px;
+  background: var(--obsidian);
+  color: #f4ede1;
+  font-size: 12px;
   font-weight: 600;
-  transition: background 0.3s ease;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: background 0.25s ease;
 }
 
 .pd-btn-solid:hover {
-  background: var(--obsidian);
-}
-
-/* ================================================================
-   Back link
-   ================================================================ */
-
-.pd-back {
-  display: block;
-  padding: 8px 4vw 40px;
-  text-align: center;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  color: rgba(31, 35, 39, 0.55);
-  transition: color 0.25s ease;
-}
-
-.pd-back:hover {
-  color: var(--indigo);
+  background: #34393f;
 }
 
 /* ================================================================
    Responsive
    ================================================================ */
 
-@media (max-width: 900px) {
-  .pd-main {
+@media (max-width: 1020px) {
+  .pd-layout {
     grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  /* Stacked, the panel has nothing left to stick to. */
+  .pd-panel {
+    position: static;
+  }
+
+  .pd-media {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .pd-related-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 620px) {
+  .pd-media,
+  .pd-media-single {
+    grid-template-columns: 1fr;
+  }
+
+  .pd-shot,
+  .pd-media-single .pd-shot {
+    aspect-ratio: 4 / 5;
+  }
+
+  .pd-size {
+    min-width: 46px;
+    padding: 12px 8px;
   }
 }

@@ -152,7 +152,7 @@
   overflow: hidden;
   background:
     radial-gradient(65% 60% at 25% 15%, rgba(244, 240, 232, 0.45), transparent 70%),
-    radial-gradient(50% 60% at 88% 25%, rgba(148, 172, 193, 0.2), transparent 65%),
+    radial-gradient(50% 60% at 88% 25%, rgba(244, 237, 225, 0.35), transparent 65%),
     linear-gradient(178deg, #d5ccbd 0%, #c9bfae 45%, #bcb19e 100%);
 }
 

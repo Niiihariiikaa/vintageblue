@@ -37,7 +37,7 @@
 }
 
 .ab-rule-dark {
-  background: rgba(58, 85, 113, 0.45);
+  background: rgba(31, 35, 39, 0.45);
 }
 
 /* ================================================================
@@ -474,11 +474,12 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  transition: background 0.3s ease, transform 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .ab-promise-cta:hover {
-  background: var(--denim);
+  background: var(--obsidian);
+  color: #f4ede1;
   transform: translateY(-2px);
 }
 

@@ -5,9 +5,14 @@
    a rounded-card product edit below.
    ================================================================ */
 
+/* No `overflow-x: hidden` here on purpose. A non-visible value on one
+   axis computes the other to `auto`, which turned this wrapper into a
+   scroll container — and a sticky child resolves against its nearest
+   scrollport, so the whole hero/products card stack silently stopped
+   pinning and just scrolled away. Horizontal overflow is already
+   clipped on `body` in index.css, where it can't break sticky. */
 .hr-page {
   width: 100%;
-  overflow-x: hidden;
 }
 
 /* ================================================================
@@ -61,7 +66,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 16%;
+  bottom: 27%;
   z-index: 2;
   margin: 0;
   text-align: center;
@@ -94,7 +99,89 @@
   left: 6%;
   bottom: 7%;
   z-index: 4;
+  max-width: 420px;
   text-align: left;
+}
+
+.hr-hero-lede {
+  margin: 0 0 24px;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: rgba(244, 237, 225, 0.78);
+}
+
+/* Vertical dateline up the right edge — the small piece of standing
+   information that stops the hero reading as one big headline. */
+.hr-hero-meta {
+  position: absolute;
+  right: 3.2%;
+  bottom: 12%;
+  z-index: 4;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  writing-mode: vertical-rl;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 225, 0.6);
+  pointer-events: none;
+}
+
+.hr-hero-meta-rule {
+  width: 1px;
+  height: 46px;
+  background: rgba(244, 237, 225, 0.4);
+}
+
+.hr-hero-scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  z-index: 4;
+  transform: translateX(-50%);
+  padding-bottom: 30px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 225, 0.65);
+  pointer-events: none;
+}
+
+/* The travelling line under "Scroll" — the one looping animation on
+   the page, so it reads as an invitation rather than decoration. */
+.hr-hero-scroll::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 1px;
+  height: 22px;
+  background: rgba(244, 237, 225, 0.55);
+  transform-origin: top;
+  animation: hr-scroll-cue 2.1s ease-in-out infinite;
+}
+
+@keyframes hr-scroll-cue {
+  0%,
+  100% {
+    transform: scaleY(0.25);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hr-hero-scroll::after {
+    animation: none;
+    transform: scaleY(1);
+  }
 }
 
 .hr-eyebrow {
@@ -118,62 +205,205 @@
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  transition: background 0.3s ease, transform 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
+/* Inverts to the blue on hover — a cream-to-cream shift would read as
+   no feedback at all now that the palette is down to one blue. */
 .hr-cta:hover {
-  background: var(--denim);
+  background: var(--obsidian);
+  color: #f4ede1;
   transform: translateY(-2px);
 }
 
 /* ================================================================
-   Products
+   Stacked card sections
+   ----------------------------------------------------------------
+   Every band below the hero is a cream "card" with rounded top
+   corners and an upward shadow, so scrolling reads as one card
+   sliding over the last. `.hr-card-sticky` pins a card in place so
+   the following one can rise and cover it; only the first product
+   card needs that, the rest scroll normally.
    ================================================================ */
 
-.hr-products {
+.hr-card-section {
   position: relative;
   z-index: 2;
-  padding: clamp(60px, 8vw, 100px) 4vw;
+  padding: 0;
+  overflow: hidden;
   border-radius: 32px 32px 0 0;
   background: var(--beige);
   box-shadow: 0 -50px 90px rgba(15, 12, 9, 0.35);
-  text-align: center;
 }
 
-/* The first "next card" (Built To Wear In.) also pins in place so the
-   one after it (the pants row) can stack up and cover it in turn —
-   same trick as the hero below it. Both share `.hr-products` for the
-   rounded-top/shadow "next card" look; only this one needs to stick. */
-.hr-products-sticky {
+.hr-card-sticky {
   position: sticky;
   top: 72px;
 }
 
-.hr-eyebrow-dark {
-  color: var(--indigo);
+/* Content gutter, kept off the section itself so the marquee strip can
+   run edge to edge inside the same rounded card. */
+.hr-wrap {
+  max-width: 1560px;
+  margin: 0 auto;
+  padding: clamp(44px, 5vw, 68px) 4vw clamp(52px, 6vw, 76px);
 }
 
-/* New Icon Script rather than the New Icon Serif display font on
-   purpose — the display serif's lowercase glyphs render as small
-   caps (by design, used everywhere else on the brand), which reads
-   as an unwanted "all caps" look for this particular heading. */
-/* Same font, size, and look as the small uppercase eyebrow labels
-   (var(--font-body), 12px) — standing in for both the old eyebrow
-   and the heading, at the eyebrow's own size rather than a big one. */
-.hr-products-heading {
-  margin: 0 0 44px;
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 12px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--indigo);
+/* ================================================================
+   Promise marquee - caps the first card
+   ================================================================ */
+
+.hr-marquee {
+  overflow: hidden;
+  padding: 13px 0;
+  background: var(--obsidian);
+  white-space: nowrap;
 }
+
+.hr-marquee-track {
+  display: inline-flex;
+  animation: hr-marquee 34s linear infinite;
+}
+
+.hr-marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  padding-right: 24px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 225, 0.82);
+}
+
+.hr-marquee-dot {
+  font-size: 8px;
+  color: var(--denim);
+}
+
+@keyframes hr-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hr-marquee-track {
+    animation: none;
+  }
+}
+
+/* ================================================================
+   Section header - shared by every numbered band
+   ================================================================ */
+
+.hr-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 360px);
+  align-items: end;
+  gap: 28px;
+  padding-bottom: 22px;
+  margin-bottom: clamp(26px, 3vw, 40px);
+  border-bottom: 1px solid rgba(31, 35, 39, 0.16);
+  text-align: left;
+}
+
+.hr-head-main {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(14px, 1.6vw, 24px);
+}
+
+.hr-head-index {
+  flex-shrink: 0;
+  padding-top: 0.55em;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: rgba(31, 35, 39, 0.45);
+}
+
+/* New Icon Serif renders every letter at cap height by design, so this
+   is set as intentional small-caps display type: generous size, open
+   tracking, no attempt to fake a lowercase it does not have. */
+.hr-head-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(30px, 4.4vw, 62px);
+  line-height: 0.98;
+  letter-spacing: 0.005em;
+  color: var(--obsidian);
+}
+
+.hr-head-aside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding-bottom: 4px;
+}
+
+.hr-head-blurb {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: rgba(31, 35, 39, 0.68);
+}
+
+.hr-head-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(31, 35, 39, 0.35);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--obsidian);
+  transition: gap 0.3s ease, border-color 0.3s ease;
+}
+
+.hr-head-link:hover {
+  gap: 13px;
+  border-bottom-color: var(--obsidian);
+}
+
+/* Dark variant, for a header sitting on the obsidian bands. */
+.hr-head-dark {
+  border-bottom-color: rgba(244, 237, 225, 0.2);
+}
+
+.hr-head-dark .hr-head-title {
+  color: #f4ede1;
+}
+
+.hr-head-dark .hr-head-index {
+  color: rgba(244, 237, 225, 0.5);
+}
+
+.hr-head-dark .hr-head-blurb {
+  color: rgba(244, 237, 225, 0.7);
+}
+
+.hr-head-dark .hr-head-link {
+  border-bottom-color: rgba(244, 237, 225, 0.4);
+  color: #f4ede1;
+}
+
+/* ================================================================
+   Product rows
+   ================================================================ */
 
 .hr-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
+  gap: clamp(12px, 1.4vw, 20px);
   text-align: left;
 }
 
@@ -183,8 +413,9 @@
 }
 
 .hr-card-img {
-  aspect-ratio: 3 / 4;
-  border-radius: 26px;
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 22px;
   overflow: hidden;
   background: #f4ede1;
 }
@@ -194,48 +425,186 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hr-card:hover .hr-card-img img {
   transform: scale(1.05);
 }
 
+/* Quick-view pill, held just out of frame until hover. */
+.hr-card-quick {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: rgba(31, 35, 39, 0.9);
+  color: #f4ede1;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translate(-50%, 14px);
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hr-card:hover .hr-card-quick,
+.hr-card:focus-visible .hr-card-quick {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
 .hr-card-info {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   gap: 10px;
   padding-top: 14px;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
+  letter-spacing: 0.01em;
 }
 
 .hr-card-info span:last-child {
-  color: var(--indigo);
+  flex-shrink: 0;
+  color: rgba(31, 35, 39, 0.6);
 }
 
 /* ================================================================
-   Categories
+   Craft split - the one editorial pause between shopping rows
    ================================================================ */
 
-.hr-cats {
-  padding: clamp(50px, 7vw, 80px) 4vw clamp(60px, 8vw, 100px);
-  background: var(--beige);
+.hr-craft {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: stretch;
+  background: var(--obsidian);
+  color: rgba(244, 237, 225, 0.78);
 }
 
-.hr-cats-heading {
-  margin: 0 0 10px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+.hr-craft-media {
+  position: relative;
+  min-height: clamp(460px, 62vh, 700px);
+  overflow: hidden;
+  background: var(--obsidian);
+}
+
+.hr-craft-mask {
+  position: absolute;
+  inset: 0;
+}
+
+/* Overscanned so the parallax drift can never expose an edge. */
+.hr-craft-img {
+  position: absolute;
+  inset: -12% 0;
+  width: 100%;
+  height: 124%;
+  object-fit: cover;
+  object-position: 50% 42%;
+  will-change: transform;
+}
+
+.hr-craft-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 18px;
+  padding: clamp(48px, 6vw, 92px) clamp(28px, 5vw, 88px);
+}
+
+.hr-craft-eyebrow {
+  margin: 0 0 14px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.34em;
   text-transform: uppercase;
+  color: var(--denim);
+}
+
+.hr-craft-title {
+  margin: 0;
+  max-width: 18ch;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(30px, 3.6vw, 56px);
+  line-height: 1.02;
+  color: #f4ede1;
+}
+
+.hr-craft-body {
+  margin: 0;
+  max-width: 46ch;
+  font-size: 14px;
+  line-height: 1.8;
+  color: rgba(244, 237, 225, 0.72);
+}
+
+.hr-craft-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(26px, 4vw, 54px);
+  padding: 8px 0 4px;
+}
+
+.hr-craft-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hr-craft-stat-n {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.4vw, 34px);
+  line-height: 1;
+  color: #f4ede1;
+}
+
+.hr-craft-stat-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 225, 0.5);
+}
+
+.hr-craft-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 26px;
+  border: 1px solid rgba(244, 237, 225, 0.4);
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #f4ede1;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.hr-craft-link:hover {
+  background: #f4ede1;
   color: var(--obsidian);
 }
+
+/* ================================================================
+   Categories - a plain typographic list, as it was before
+   ================================================================ */
 
 .hr-cats-list {
   margin: 0;
   padding: 0;
   list-style: none;
+  text-align: left;
 }
 
 .hr-cats-row {
@@ -246,7 +615,7 @@
   padding: 22px 0;
   border-bottom: 1px solid rgba(31, 35, 39, 0.16);
   color: var(--obsidian);
-  transition: color 0.25s ease;
+  transition: color 0.25s ease, padding-left 0.3s ease;
 }
 
 .hr-cats-row span {
@@ -259,7 +628,7 @@
 }
 
 .hr-cats-row:hover {
-  color: var(--indigo);
+  padding-left: 10px;
 }
 
 .hr-cats-row:hover svg {
@@ -272,6 +641,7 @@
 
 .hr-weekend {
   position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: clamp(480px, 76vh, 720px);
@@ -369,6 +739,8 @@
 
 .hr-weekend-cta {
   display: inline-flex;
+  align-items: center;
+  gap: 9px;
   margin-top: 22px;
   padding: 13px 28px;
   border: 1px solid rgba(244, 241, 233, 0.5);
@@ -391,17 +763,277 @@
    ================================================================ */
 
 .hr-lookbook {
-  padding: clamp(60px, 8vw, 100px) 4vw;
-  background: var(--beige);
   text-align: center;
 }
 
 .hr-anatomy {
+  position: relative;
+  max-width: 1040px;
+  margin: clamp(18px, 3vw, 40px) auto 0;
+}
+
+/* The model is not in a card: it stands on the section itself, and the
+   only cards in this composition are the two garment cards the leader
+   lines point at. The 2/3 ratio is what keeps the SVG overlay's circles
+   round, since the viewBox is 200x300 and scales uniformly into it. */
+.hr-anatomy-stage {
+  position: relative;
+  width: min(420px, 62vw);
+  aspect-ratio: 2 / 3;
+  margin: 0 auto;
+}
+
+.hr-anatomy-model {
+  position: absolute;
+  inset: 64px 0 40px;
+  width: 100%;
+  height: calc(100% - 104px);
+  object-fit: contain;
+  object-position: bottom center;
+}
+
+.hr-anatomy-caption {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  max-width: 60%;
+  margin: 0;
+  font-size: 11.5px;
+  line-height: 1.55;
+  letter-spacing: 0.02em;
+  color: rgba(31, 35, 39, 0.75);
+  text-align: left;
+}
+
+/* ---------------- Leader lines ---------------- */
+
+.hr-anatomy-lines {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hr-anatomy-lines line {
+  stroke: rgba(31, 35, 39, 0.55);
+  stroke-width: 0.6;
+  /* Longer than either line, so the offset starts it fully hidden and
+     it draws itself toward the garment as the section scrolls in. */
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  transition: stroke-dashoffset 0.85s ease;
+}
+
+.hr-anatomy-lines circle {
+  fill: var(--obsidian);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* Left arrow draws first, right arrow follows — matching the order the
+   two garment cards slide in. */
+.hr-anatomy-cell.in .hr-line-l {
+  stroke-dashoffset: 0;
+  transition-delay: 0.3s;
+}
+
+.hr-anatomy-cell.in .hr-dot-l {
+  opacity: 1;
+  transition-delay: 1.05s;
+}
+
+.hr-anatomy-cell.in .hr-line-r {
+  stroke-dashoffset: 0;
+  transition-delay: 0.72s;
+}
+
+.hr-anatomy-cell.in .hr-dot-r {
+  opacity: 1;
+  transition-delay: 1.45s;
+}
+
+/* ---------------- Garment cards ---------------- */
+
+/* Each card slides in from its own side, on a delay counted from the
+   one reveal that wraps the whole composition. */
+.hr-detail-cell {
+  position: absolute;
+  z-index: 3;
+  width: 47%;
+  opacity: 0;
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hr-detail-cell-l {
+  top: 5%;
+  left: -49%;
+  transform: translateX(-34px);
+}
+
+/* Slightly lower than the left-hand card, so the pair reads as a
+   diagonal down the composition rather than two facing columns. */
+.hr-detail-cell-r {
+  top: 38%;
+  right: -49%;
+  transform: translateX(34px);
+}
+
+.hr-anatomy-cell.in .hr-detail-cell {
+  opacity: 1;
+  transform: none;
+}
+
+.hr-anatomy-cell.in .hr-detail-cell-r {
+  transition-delay: 0.42s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hr-detail-cell {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .hr-anatomy-lines line {
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+
+  .hr-anatomy-lines circle {
+    opacity: 1;
+    transition: none;
+  }
+}
+
+.hr-detail-card {
+  border-radius: 16px;
+  overflow: hidden;
+  background: #f4ede1;
+  box-shadow: 0 18px 40px rgba(31, 35, 39, 0.16);
+  text-align: left;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+}
+
+.hr-detail-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 26px 50px rgba(31, 35, 39, 0.22);
+}
+
+.hr-detail-img {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--beige);
+}
+
+.hr-detail-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hr-detail-card:hover .hr-detail-img img {
+  transform: scale(1.05);
+}
+
+.hr-detail-tag {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  z-index: 1;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: var(--obsidian);
+  color: #f4ede1;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hr-detail-body {
+  padding: 12px 14px 14px;
+}
+
+.hr-detail-name {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--obsidian);
+}
+
+.hr-detail-name:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.hr-detail-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.hr-detail-price {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--obsidian);
+}
+
+.hr-detail-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 13px;
+  border: none;
+  border-radius: 999px;
+  background: var(--obsidian);
+  color: #f4ede1;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.hr-detail-add:hover {
+  background: #3a3f45;
+}
+
+.hr-detail-add.added {
+  background: var(--hero-greige);
+  color: var(--obsidian);
+}
+
+.hr-anatomy-label {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  bottom: 0;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(31, 35, 39, 0.5);
+}
+
+/* ---------------- Slider controls ---------------- */
+
+.hr-anatomy-controls {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(10px, 2vw, 26px);
-  margin-top: 40px;
+  gap: 18px;
+  margin-top: clamp(22px, 3vw, 38px);
 }
 
 .hr-anatomy-nav {
@@ -420,244 +1052,13 @@
 .hr-anatomy-nav:hover {
   background: var(--obsidian);
   border-color: var(--obsidian);
-  color: var(--beige);
-}
-
-/* ---- Shop-this-look cards — flank the stage, one per garment ---- */
-
-.hr-shop-card {
-  flex: 1 1 0;
-  min-width: 0;
-  max-width: 220px;
-  border-radius: 20px;
-  overflow: hidden;
-  background: #f4ede1;
-  box-shadow: 0 16px 34px rgba(31, 35, 39, 0.1);
-  text-align: left;
-}
-
-.hr-shop-card-img {
-  position: relative;
-  display: block;
-  aspect-ratio: 4 / 5;
-  background: #ded9c9;
-}
-
-.hr-shop-card-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.hr-shop-card-img:hover img {
-  transform: scale(1.05);
-}
-
-.hr-shop-card-tag {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  padding: 5px 11px;
-  border-radius: 999px;
-  background: rgba(244, 237, 225, 0.92);
-  color: var(--obsidian);
-  font-size: 9.5px;
-  font-weight: 600;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-}
-
-.hr-shop-card-body {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 14px 16px 16px;
-}
-
-.hr-shop-card-name {
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1.3;
-  color: var(--obsidian);
-  transition: color 0.2s ease;
-}
-
-.hr-shop-card-name:hover {
-  color: var(--indigo);
-}
-
-.hr-shop-card-rating {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  color: rgba(31, 35, 39, 0.55);
-}
-
-.hr-shop-card-stars {
-  display: inline-flex;
-  gap: 1px;
-  color: var(--indigo);
-}
-
-.hr-shop-card-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-top: 4px;
-}
-
-.hr-shop-card-price {
-  font-size: 13.5px;
-  font-weight: 700;
-  color: var(--indigo);
-}
-
-.hr-shop-card-add {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 8px 14px;
-  border: none;
-  border-radius: 999px;
-  background: var(--obsidian);
-  color: var(--beige);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-  transition: background 0.25s ease, transform 0.25s ease;
-}
-
-.hr-shop-card-add:hover {
-  background: var(--indigo);
-  transform: translateY(-1px);
-}
-
-.hr-shop-card-add.added {
-  background: var(--indigo);
-}
-
-.hr-anatomy-stage {
-  position: relative;
-  flex-shrink: 0;
-  width: min(440px, 78vw);
-  aspect-ratio: 2 / 3;
-  border-radius: 28px;
-  background: #f4ede1;
-  box-shadow: 0 30px 60px rgba(31, 35, 39, 0.12);
-}
-
-.hr-anatomy-model {
-  position: absolute;
-  inset: 64px 0 40px;
-  width: 100%;
-  height: calc(100% - 104px);
-  object-fit: contain;
-  object-position: bottom center;
-}
-
-.hr-anatomy-caption {
-  position: absolute;
-  z-index: 3;
-  top: 20px;
-  left: 20px;
-  max-width: 44%;
-  margin: 0;
-  font-size: 11.5px;
-  line-height: 1.5;
-  letter-spacing: 0.02em;
-  color: var(--obsidian);
-  text-align: left;
-}
-
-.hr-anatomy-lines {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.hr-anatomy-lines line {
-  stroke: rgba(31, 35, 39, 0.6);
-  stroke-width: 0.6;
-}
-
-.hr-anatomy-lines circle {
-  fill: var(--obsidian);
-}
-
-.hr-detail-card {
-  position: absolute;
-  z-index: 3;
-  display: block;
-  width: 32%;
-  border-radius: 12px;
-  overflow: hidden;
-  background: var(--beige);
-  box-shadow: 0 14px 30px rgba(31, 35, 39, 0.18);
-  transition: transform 0.3s ease;
-}
-
-.hr-detail-card:hover {
-  transform: translateY(-3px);
-}
-
-.hr-detail-card img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  object-position: center;
-}
-
-.hr-detail-tag {
-  position: absolute;
-  top: 6px;
-  left: 6px;
-  z-index: 1;
-  padding: 4px 9px;
-  border-radius: 999px;
-  background: var(--obsidian);
-  color: var(--beige);
-  font-size: 8.5px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.hr-detail-1 {
-  top: 8%;
-  right: -8%;
-}
-
-.hr-detail-2 {
-  bottom: 12%;
-  left: -8%;
-}
-
-.hr-anatomy-label {
-  position: absolute;
-  z-index: 3;
-  left: 20px;
-  bottom: 16px;
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(31, 35, 39, 0.5);
+  color: #f4ede1;
 }
 
 .hr-anatomy-dots {
   display: flex;
   justify-content: center;
   gap: 9px;
-  margin-top: 26px;
 }
 
 .hr-anatomy-dot {
@@ -671,16 +1072,81 @@
 }
 
 .hr-anatomy-dot.active {
-  background: var(--indigo);
+  background: var(--obsidian);
   transform: scale(1.25);
+}
+
+/* ================================================================
+   Closing note
+   ================================================================ */
+
+.hr-outro {
+  position: relative;
+  z-index: 2;
+  padding: clamp(30px, 4vw, 60px) 4vw clamp(72px, 10vw, 140px);
+  background: var(--beige);
+  text-align: center;
+}
+
+.hr-outro-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.hr-outro-rule {
+  display: block;
+  width: 1px;
+  height: clamp(40px, 6vw, 72px);
+  margin: 0 auto clamp(22px, 3vw, 34px);
+  background: linear-gradient(180deg, transparent, rgba(31, 35, 39, 0.4));
+}
+
+.hr-outro-eyebrow {
+  margin: 0 0 16px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: rgba(31, 35, 39, 0.5);
+}
+
+.hr-outro-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(28px, 4vw, 54px);
+  line-height: 1.04;
+  color: var(--obsidian);
+}
+
+.hr-outro-copy {
+  margin: clamp(20px, 3vw, 30px) auto 0;
+  max-width: 48ch;
+  font-size: 14px;
+  line-height: 1.85;
+  color: rgba(31, 35, 39, 0.66);
+}
+
+.hr-outro-sign {
+  margin: clamp(22px, 3vw, 34px) 0 0;
+  font-family: var(--font-script);
+  font-size: clamp(30px, 4vw, 46px);
+  line-height: 1;
+  color: var(--obsidian);
 }
 
 /* ================================================================
    Footer
    ================================================================ */
 
+/* Rounded top, like every card above it, so the footer reads as the
+   last card in the stack rather than a band bolted on the end. */
 .hr-footer {
+  position: relative;
+  z-index: 2;
   padding: 0;
+  border-radius: 32px 32px 0 0;
+  overflow: hidden;
   background: var(--obsidian);
 }
 
@@ -691,7 +1157,68 @@
 }
 
 .hr-footer-top {
-  margin-bottom: 48px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 480px);
+  align-items: end;
+  gap: 34px;
+  padding-bottom: 40px;
+  margin-bottom: 44px;
+  border-bottom: 1px solid rgba(244, 237, 225, 0.14);
+}
+
+.hr-footer-sub-label {
+  margin: 0 0 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(244, 237, 225, 0.6);
+}
+
+.hr-sub {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.hr-sub-input {
+  flex: 1 1 200px;
+  min-width: 0;
+  padding: 13px 18px;
+  border: 1px solid rgba(244, 237, 225, 0.28);
+  border-radius: 999px;
+  background: transparent;
+  color: #f4ede1;
+  font-family: inherit;
+  font-size: 13px;
+  transition: border-color 0.25s ease;
+}
+
+.hr-sub-input::placeholder {
+  color: rgba(244, 237, 225, 0.4);
+}
+
+.hr-sub-input:focus {
+  outline: none;
+  border-color: rgba(244, 237, 225, 0.7);
+}
+
+.hr-sub-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 24px;
+  border: none;
+  border-radius: 999px;
+  background: #f4ede1;
+  color: var(--obsidian);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.hr-sub-btn:hover {
+  background: var(--denim);
 }
 
 .hr-footer-wordmark {
@@ -717,6 +1244,13 @@
   border-bottom: 1px solid rgba(244, 237, 225, 0.14);
 }
 
+.hr-footer-address {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: rgba(244, 237, 225, 0.6);
+}
+
 .hr-footer-col {
   display: flex;
   flex-direction: column;
@@ -740,13 +1274,6 @@
 
 .hr-footer-col a:hover {
   color: var(--denim);
-}
-
-.hr-footer-note p {
-  margin: 0;
-  font-size: 13px;
-  line-height: 1.6;
-  color: rgba(244, 237, 225, 0.6);
 }
 
 .hr-footer-bottom {
@@ -778,18 +1305,57 @@
    Responsive
    ================================================================ */
 
+@media (max-width: 1100px) {
+  .hr-head {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 18px;
+  }
+
+  .hr-craft {
+    grid-template-columns: 1fr;
+  }
+
+  .hr-craft-media {
+    min-height: clamp(360px, 52vh, 520px);
+  }
+}
+
 @media (max-width: 980px) {
   .hr-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .hr-detail-1 {
-    right: -2%;
+  /* Below this width there is no room for the garment cards to sit
+     outside the model, so they tuck over its edges instead. */
+  .hr-detail-cell {
+    width: 40%;
   }
 
-  .hr-detail-2 {
-    left: -2%;
+  .hr-detail-cell-l {
+    left: -10%;
   }
+
+  .hr-detail-cell-r {
+    right: -10%;
+  }
+
+  /* A card taller than the viewport can't be pinned without hiding its
+     own bottom edge, so the stack reverts to plain scrolling here. */
+  .hr-hero,
+  .hr-card-sticky {
+    position: static;
+  }
+
+  .hr-footer-top {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .hr-hero-meta {
+    display: none;
+  }
+
 }
 
 @media (max-width: 640px) {
@@ -798,14 +1364,32 @@
     gap: 30px 20px;
   }
 
+  /* One column can't hold the script wordmark on a single line at a
+     legible size, so it wraps to two centred lines and sits above a
+     smaller, centred cutout instead of behind it. */
   .hr-wordmark {
-    bottom: 20%;
-    font-size: 15vw;
+    bottom: 42%;
+    white-space: normal;
+    font-size: 19vw;
+    line-height: 0.88;
+  }
+
+  .hr-hero-copy {
+    max-width: none;
+    right: 5%;
+  }
+
+  .hr-hero-scroll {
+    display: none;
+  }
+
+  .hr-head-title {
+    font-size: clamp(26px, 8vw, 40px);
   }
 
   .hr-cutout {
-    left: -14%;
-    height: 82%;
+    left: 50%;
+    height: 62%;
   }
 
   .hr-hero-copy {
@@ -818,25 +1402,36 @@
     font-size: 11.5px;
   }
 
-  .hr-anatomy {
-    gap: 6px;
-  }
-
   .hr-anatomy-nav {
     width: 34px;
     height: 34px;
   }
 
-  .hr-shop-card {
-    display: none;
-  }
-
   .hr-anatomy-stage {
-    width: min(400px, 68vw);
+    width: min(340px, 62vw);
   }
 
-  .hr-detail-card {
-    width: 38%;
+  .hr-detail-cell {
+    width: 46%;
+  }
+
+  .hr-detail-cell-l {
+    left: -14%;
+  }
+
+  .hr-detail-cell-r {
+    right: -14%;
+  }
+
+  .hr-detail-body {
+    padding: 9px 10px 11px;
+  }
+
+  /* At this width the upper-left garment card sits over the caption's
+     line, and the section's own standfirst already says what the look
+     is, so the annotation drops out rather than being half-covered. */
+  .hr-anatomy-caption {
+    display: none;
   }
 
   .hr-weekend {
