@@ -1,11 +1,18 @@
 import { useEffect, useRef, useState, type CSSProperties, type MouseEvent, type ReactNode } from 'react'
-import { ArrowRight, ArrowUpRight, Check, ChevronLeft, ChevronRight, Plus } from 'lucide-react'
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Check,
+  Mail,
+  MapPin,
+  Phone,
+  Truck,
+} from 'lucide-react'
 import Nav from './Nav'
 import './HeritageLanding.css'
 import { navigate } from './router'
 import { Reveal, useParallax, usePrefersReducedMotion, useScrollY } from './motion'
-import { getProductByHandle, formatPrice } from './catalog'
-import { useCart } from './cart'
+import { SERVICE_REGIONS, STUDIO, STUDIO_DIRECTIONS, STUDIO_MAP_EMBED } from './brand'
 import heroBg from './assets2/herobg.png'
 import heroCutout from './assets2/herocutout.png'
 import craftPhoto from './assets2/About2.png'
@@ -18,70 +25,6 @@ import pant2 from './assets2/pants/pant2.png'
 import pant3 from './assets2/pants/pant3.png'
 import pant4 from './assets2/pants/pant4.png'
 import collectionVideo from './assets/video1.mp4'
-import model1 from './assets2/Model1.png'
-import model1Shirt from './assets2/model1-shirt.png'
-import model1Jeans from './assets2/model1-jeans.png'
-import model2 from './assets2/model2.png'
-import model2Shirt from './assets2/model2-shirt.png'
-import model2Jeans from './assets2/model2-jeans.png'
-
-interface LookItem {
-  img: string
-  label: string
-  handle: string
-  /* Where this garment's leader line runs, in the SVG overlay's own
-     200x300 space: `from` is the outer end beside the card, `to` the
-     point on the garment. Per-look, because the two models don't stand
-     in exactly the same place in frame. */
-  line: { x1: number; y1: number; x2: number; y2: number }
-}
-
-/* Both looks, one at a time behind the slider. Each is the same
-   composition: the top garment's card upper-left, the bottom garment's
-   card slightly lower on the right, so neither leader line has to
-   cross the body. */
-const anatomyLooks: {
-  title: string
-  model: string
-  modelAlt: string
-  top: LookItem
-  bottom: LookItem
-}[] = [
-  {
-    title: 'Corduroy shirt in washed sand, worn open over relaxed denim.',
-    model: model1,
-    modelAlt: 'Model wearing a tan corduroy shirt and wide-leg jeans',
-    top: {
-      img: model1Shirt,
-      label: 'The Shirt',
-      handle: 'garment-dyed-overshirt',
-      line: { x1: 6, y1: 78, x2: 110, y2: 86 },
-    },
-    bottom: {
-      img: model1Jeans,
-      label: 'The Denim',
-      handle: 'wide-leg-denim',
-      line: { x1: 194, y1: 214, x2: 96, y2: 182 },
-    },
-  },
-  {
-    title: 'Shearling-collar trucker layered over black wash denim.',
-    model: model2,
-    modelAlt: 'Model wearing a shearling-collar corduroy trucker jacket and black jeans',
-    top: {
-      img: model2Shirt,
-      label: 'The Jacket',
-      handle: 'charcoal-layer',
-      line: { x1: 6, y1: 78, x2: 108, y2: 88 },
-    },
-    bottom: {
-      img: model2Jeans,
-      label: 'The Denim',
-      handle: 'raw-selvedge-jean',
-      line: { x1: 194, y1: 214, x2: 100, y2: 184 },
-    },
-  },
-]
 
 const products = [
   { name: 'Shearling Trucker', price: '295 $', img: product1 },
@@ -196,63 +139,6 @@ function ProductRow({ items, to }: { items: { name: string; price: string; img: 
   )
 }
 
-/**
- * One of the two garment cards the leader lines point at. Compact on
- * purpose — it sits beside the model rather than in the page flow, so
- * it carries only what you need to decide: the piece, its price, and a
- * one-tap add with its own confirmation state.
- */
-function LookCard({ item }: { item: LookItem }) {
-  const { addItem } = useCart()
-  const [added, setAdded] = useState(false)
-  const product = getProductByHandle(item.handle)
-  if (!product) return null
-
-  const handleAdd = () => {
-    addItem(product.handle, 'M', 1)
-    setAdded(true)
-    window.setTimeout(() => setAdded(false), 1800)
-  }
-
-  return (
-    <div className="hr-detail-card">
-      <a href={`/product/${product.handle}`} className="hr-detail-img" onClick={go(`/product/${product.handle}`)}>
-        <span className="hr-detail-tag">{item.label}</span>
-        <img src={item.img} alt={product.name} />
-      </a>
-
-      <div className="hr-detail-body">
-        <a
-          href={`/product/${product.handle}`}
-          className="hr-detail-name"
-          onClick={go(`/product/${product.handle}`)}
-        >
-          {product.name}
-        </a>
-
-        <div className="hr-detail-footer">
-          <span className="hr-detail-price">{formatPrice(product.price)}</span>
-          <button
-            type="button"
-            className={`hr-detail-add${added ? ' added' : ''}`}
-            onClick={handleAdd}
-          >
-            {added ? (
-              <>
-                <Check size={12} strokeWidth={2.4} /> Added
-              </>
-            ) : (
-              <>
-                <Plus size={12} strokeWidth={2.4} /> Add
-              </>
-            )}
-          </button>
-        </div>
-      </div>
-    </div>
-  )
-}
-
 /** Footer newsletter row. Local-only: there's no mailing backend yet. */
 function Subscribe() {
   const [email, setEmail] = useState('')
@@ -315,12 +201,6 @@ function ParallaxMedia({
 
 function HeritageLanding() {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const [look, setLook] = useState(0)
-  const active = anatomyLooks[look]
-
-  const prevLook = () => setLook((i) => (i - 1 + anatomyLooks.length) % anatomyLooks.length)
-  const nextLook = () => setLook((i) => (i + 1) % anatomyLooks.length)
-
   const reducedMotion = usePrefersReducedMotion()
   const scrollY = useScrollY(reducedMotion)
 
@@ -570,112 +450,87 @@ function HeritageLanding() {
         )}
       </ParallaxMedia>
 
-      {/* ---------------- 04 — Lookbook ---------------- */}
-      <section className="hr-card-section hr-lookbook">
+      {/* ---------------- 04 — Find us ---------------- */}
+      {/* A card again: with the lookbook gone it rises straight over
+          the weekend banner, like every other section on the page. */}
+      <section className="hr-card-section hr-visit">
         <div className="hr-wrap">
           <SectionHead
             index="04"
-            title="The Way We Wear It."
-            blurb="Two looks, broken down piece by piece. Tap a card to shop the exact garment."
-            cta="Full Lookbook"
-            to="/lookbook"
+            title="Find The Workshop."
+            blurb="Every pair is cut, sewn and washed at our studio in Ludhiana, then sent out across the north."
+            cta="Contact Us"
+            to="/contact"
           />
 
-          <div className="hr-anatomy">
-            {/* One reveal drives the whole composition, and the stagger
-                lives in CSS delays off its `.in` class. Two independent
-                observers would not do: the lower card would cross the
-                threshold — and slide in — before the upper one every
-                time you scroll down. Keying it on `look` replays the
-                sequence when you switch looks, so the arrows redraw
-                with the new garments. */}
-            <Reveal variant="fade" key={look} className="hr-anatomy-cell">
-              <div className="hr-anatomy-stage">
-                <p className="hr-anatomy-caption">{active.title}</p>
-
-                <img className="hr-anatomy-model" src={active.model} alt={active.modelAlt} />
-
-                <svg
-                  className="hr-anatomy-lines"
-                  viewBox="0 0 200 300"
-                  preserveAspectRatio="none"
-                  aria-hidden="true"
-                >
-                  <line className="hr-line-l" {...active.top.line} />
-                  <circle className="hr-dot-l" cx={active.top.line.x2} cy={active.top.line.y2} r="2.4" />
-                  <line className="hr-line-r" {...active.bottom.line} />
-                  <circle
-                    className="hr-dot-r"
-                    cx={active.bottom.line.x2}
-                    cy={active.bottom.line.y2}
-                    r="2.4"
-                  />
-                </svg>
-
-                {/* Upper-left card first, lower-right one after it. */}
-                <div className="hr-detail-cell hr-detail-cell-l">
-                  <LookCard item={active.top} />
-                </div>
-
-                <div className="hr-detail-cell hr-detail-cell-r">
-                  <LookCard item={active.bottom} />
-                </div>
-
-                <span className="hr-anatomy-label">Get The Look</span>
+          <div className="hr-visit-grid">
+            <Reveal className="hr-visit-info">
+              <div className="hr-visit-block">
+                <span className="hr-visit-label">
+                  <MapPin size={14} strokeWidth={1.7} /> Studio
+                </span>
+                <p className="hr-visit-address">
+                  {STUDIO.name}
+                  <br />
+                  {STUDIO.street}
+                  <br />
+                  {STUDIO.city}
+                </p>
               </div>
+
+              <div className="hr-visit-row">
+                <div className="hr-visit-block">
+                  <span className="hr-visit-label">
+                    <Phone size={14} strokeWidth={1.7} /> Call · {STUDIO.hours}
+                  </span>
+                  <a className="hr-visit-link" href={STUDIO.phoneHref}>
+                    {STUDIO.phone}
+                  </a>
+                </div>
+
+                <div className="hr-visit-block">
+                  <span className="hr-visit-label">
+                    <Mail size={14} strokeWidth={1.7} /> Write
+                  </span>
+                  <a className="hr-visit-link" href={`mailto:${STUDIO.email}`}>
+                    {STUDIO.email}
+                  </a>
+                </div>
+              </div>
+
+              <div className="hr-visit-block">
+                <span className="hr-visit-label">
+                  <Truck size={14} strokeWidth={1.7} /> {SERVICE_REGIONS.length} states we serve
+                </span>
+                <ul className="hr-visit-regions">
+                  {SERVICE_REGIONS.map((r) => (
+                    <li key={r}>{r}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <a
+                className="hr-visit-directions"
+                href={STUDIO_DIRECTIONS}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Get Directions <ArrowUpRight size={15} strokeWidth={1.8} />
+              </a>
             </Reveal>
 
-            <div className="hr-anatomy-controls">
-              <button
-                type="button"
-                className="hr-anatomy-nav"
-                aria-label="Previous look"
-                onClick={prevLook}
-              >
-                <ChevronLeft size={18} strokeWidth={1.8} />
-              </button>
-
-              <div className="hr-anatomy-dots">
-                {anatomyLooks.map((l, i) => (
-                  <button
-                    key={l.title}
-                    type="button"
-                    className={`hr-anatomy-dot${i === look ? ' active' : ''}`}
-                    aria-label={`Show look ${i + 1}`}
-                    onClick={() => setLook(i)}
-                  />
-                ))}
-              </div>
-
-              <button
-                type="button"
-                className="hr-anatomy-nav"
-                aria-label="Next look"
-                onClick={nextLook}
-              >
-                <ChevronRight size={18} strokeWidth={1.8} />
-              </button>
-            </div>
+            {/* The frame behind the iframe is styled as a quiet map
+                placeholder, so if the embed is blocked or slow the space
+                still reads as intentional rather than broken. */}
+            <Reveal delay={120} className="hr-visit-map">
+              <iframe
+                title={`Map showing the Vintage Blue studio in ${STUDIO.street}, ${STUDIO.city}`}
+                src={STUDIO_MAP_EMBED}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </Reveal>
           </div>
-        </div>
-      </section>
-
-      {/* ---------------- Closing note ---------------- */}
-      <section className="hr-outro">
-        <div className="hr-outro-inner">
-          <Reveal>
-            <span className="hr-outro-rule" aria-hidden="true" />
-            <p className="hr-outro-eyebrow">Since 2006</p>
-            <h2 className="hr-outro-title">Cut in Ludhiana. Worn everywhere.</h2>
-          </Reveal>
-
-          <Reveal delay={140}>
-            <p className="hr-outro-copy">
-              Twenty years of one idea: build the pair you reach for first, then build it
-              again a little better. Thanks for spending a minute with us.
-            </p>
-            <p className="hr-outro-sign">Vintage Blue</p>
-          </Reveal>
         </div>
       </section>
 
@@ -740,10 +595,11 @@ function HeritageLanding() {
             <div className="hr-footer-col">
               <h3>Visit</h3>
               <p className="hr-footer-address">
-                Vintage Blue Jeanswear
+                {STUDIO.name}
                 <br />
-                Industrial Area A<br />
-                Ludhiana, Punjab
+                {STUDIO.street}
+                <br />
+                {STUDIO.city}
               </p>
             </div>
           </div>

@@ -4,11 +4,12 @@ import Nav from './Nav'
 import './ContactLanding.css'
 import { navigate } from './router'
 import { Reveal } from './motion'
+import { STUDIO } from './brand'
 
 const details = [
-  { icon: Mail, n: 'Email', label: 'Write To Us', value: 'hello@vintageblue.in', href: 'mailto:hello@vintageblue.in' },
-  { icon: Phone, n: 'Call', label: '10am – 6pm IST', value: '+91 98765 43210', href: 'tel:+919876543210' },
-  { icon: MapPin, n: 'Visit', label: 'Studio', value: 'Industrial Area, Ludhiana, Punjab', href: undefined },
+  { icon: Mail, n: 'Email', label: 'Write To Us', value: STUDIO.email, href: `mailto:${STUDIO.email}` },
+  { icon: Phone, n: 'Call', label: STUDIO.hours, value: STUDIO.phone, href: STUDIO.phoneHref },
+  { icon: MapPin, n: 'Visit', label: 'Studio', value: `${STUDIO.street}, ${STUDIO.city}`, href: undefined },
 ]
 
 const faqs = [

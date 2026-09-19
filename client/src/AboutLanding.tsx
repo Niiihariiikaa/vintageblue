@@ -4,6 +4,7 @@ import Nav from './Nav'
 import './AboutLanding.css'
 import { navigate } from './router'
 import { Reveal, usePrefersReducedMotion, useScrollY } from './motion'
+import { SERVICE_REGIONS as regions } from './brand'
 import about1 from './assets2/About1.png'
 import about2 from './assets2/About2.png'
 import about3 from './assets2/About3.png'
@@ -58,8 +59,6 @@ const nonNegotiables = [
     copy: 'Designed so the garment outlives the reason you bought it.',
   },
 ]
-
-const regions = ['Punjab', 'J&K', 'Himachal Pradesh', 'Uttarakhand', 'W. Uttar Pradesh', 'Rajasthan', 'Jharkhand', 'Bihar']
 
 function go(path: string) {
   return (e: MouseEvent) => {

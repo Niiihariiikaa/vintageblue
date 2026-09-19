@@ -1,9 +1,11 @@
 /* ================================================================
-   Lookbook landing — a bold editorial "deck" page: a slide-style meta
-   row, a giant overlapping-type hero collage, a two-tone vision panel,
-   a duotone banner, and a three-goal grid. Adapted from a pink/red
-   genZ deck template into Vintage Blue's own serif/Montserrat type
-   system and indigo/denim/beige palette.
+   Lookbook
+   ----------------------------------------------------------------
+   An editorial sequence in numbered chapters: a split hero with the
+   page's contents, then the film, the looks, the mood, the vision and
+   three ways into the range. Every chapter shares one header style
+   (kicker, display title, standfirst, hairline) so the page reads as
+   one publication rather than a stack of unrelated blocks.
    ================================================================ */
 
 .lb-page {
@@ -13,36 +15,256 @@
 }
 
 /* ================================================================
-   Meta row
+   Shared type and buttons
    ================================================================ */
 
-.lb-meta {
-  display: flex;
+.lb-kicker {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 22px 4vw;
-  font-size: 11px;
+  gap: 10px;
+  font-size: 10.5px;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
   color: rgba(31, 35, 39, 0.6);
 }
 
+.lb-kicker em,
+.lb-kicker i {
+  font-style: normal;
+  color: var(--obsidian);
+}
+
+.lb-kicker i {
+  color: rgba(31, 35, 39, 0.35);
+}
+
+.lb-kicker-light {
+  color: rgba(244, 237, 225, 0.7);
+}
+
+.lb-kicker-light em {
+  color: #f4ede1;
+}
+
+.lb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 28px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.lb-btn-solid {
+  background: var(--obsidian);
+  color: #f4ede1;
+}
+
+.lb-btn-solid:hover {
+  background: #34393f;
+}
+
+.lb-btn-line {
+  border: 1px solid rgba(31, 35, 39, 0.3);
+  color: var(--obsidian);
+}
+
+.lb-btn-line:hover {
+  border-color: var(--obsidian);
+  background: var(--obsidian);
+  color: #f4ede1;
+}
+
+.lb-btn-light {
+  background: #f4ede1;
+  color: var(--obsidian);
+}
+
+.lb-btn-light:hover {
+  background: #ffffff;
+}
+
 /* ================================================================
-   Hero grid mosaic — the lifestyle photo sliced into a precise,
-   gapless 3×3 grid (see `gridTiles` — exact thirds of the source
-   image, no resize/crop drift) and reassembled edge to edge with a
-   thin hairline seam between tiles. A floating brand tag and shop
-   CTA sit on top as overlays rather than consuming a tile, so the
-   nine-part reassembly stays exact.
+   Chapters: shared section shell and header
+   ================================================================ */
+
+.lb-section {
+  padding: clamp(72px, 9vw, 130px) 0;
+  /* Keeps an in-page jump from landing under the sticky nav. */
+  scroll-margin-top: 72px;
+}
+
+.lb-section-tint {
+  background: #f4ede1;
+}
+
+.lb-wrap {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 4vw;
+}
+
+.lb-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: clamp(36px, 5vw, 64px);
+  padding-bottom: 22px;
+  border-bottom: 1px solid rgba(31, 35, 39, 0.16);
+}
+
+.lb-head h2 {
+  margin: 14px 0 0;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(34px, 4.4vw, 62px);
+  line-height: 1.02;
+  color: var(--obsidian);
+}
+
+.lb-section .stl-anatomy {
+  /* Inside a chapter the module's header and total bars run to the
+     chapter's own edges, matching the heading rule above them; the
+     model and its cards stay centred between. */
+  max-width: none;
+}
+
+.lb-head-aside p {
+  margin: 0;
+  max-width: 38ch;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: rgba(31, 35, 39, 0.66);
+}
+
+/* ================================================================
+   Hero: the title and actions on the left, the page's contents on
+   the right; the photo mosaic follows full width underneath.
+   ================================================================ */
+
+.lb-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  align-items: end;
+  gap: clamp(32px, 6vw, 110px);
+  max-width: 1560px;
+  margin: 0 auto;
+  padding: clamp(40px, 5vw, 72px) 4vw clamp(48px, 6vw, 80px);
+}
+
+.lb-hero-copy {
+  max-width: 680px;
+}
+
+.lb-hero-side {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.lb-hero-copy h1 {
+  margin: 18px 0 0;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(54px, 6.6vw, 104px);
+  line-height: 0.95;
+  color: var(--obsidian);
+}
+
+.lb-hero-lede {
+  margin: 24px 0 0;
+  max-width: 46ch;
+  font-size: 15px;
+  line-height: 1.75;
+  color: rgba(31, 35, 39, 0.7);
+}
+
+.lb-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.lb-contents-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(31, 35, 39, 0.5);
+}
+
+.lb-contents ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(31, 35, 39, 0.16);
+}
+
+.lb-contents a {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  align-items: center;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(31, 35, 39, 0.16);
+  color: var(--obsidian);
+  transition: padding-left 0.3s ease;
+}
+
+.lb-contents em {
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: rgba(31, 35, 39, 0.45);
+}
+
+.lb-contents a span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.lb-contents svg {
+  opacity: 0.35;
+  transition: opacity 0.25s ease, transform 0.3s ease;
+}
+
+.lb-contents a:hover {
+  padding-left: 8px;
+}
+
+.lb-contents a:hover svg {
+  opacity: 1;
+  transform: translateY(2px);
+}
+
+.lb-hero-meta {
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(31, 35, 39, 0.45);
+}
+
+/* ================================================================
+   Mosaic: the sliced photo, full width, at its exact 1060x1484
+   proportions so every tile lines up with its neighbours.
    ================================================================ */
 
 .lb-grid-hero {
   position: relative;
-  /* Matches the sliced source photo's real proportions (1060×1484)
-     so the full image always shows intact — object-fit: cover on the
-     tiles would otherwise crop top/bottom to fit a shorter box. */
+  width: 100%;
   aspect-ratio: 1060 / 1484;
   background: var(--obsidian);
 }
@@ -111,393 +333,441 @@
   transform: translateY(0);
 }
 
+/* A low dark wash along the bottom, under the overlays; clicks pass
+   straight through to the shoppable tiles. */
+.lb-grid-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(0deg, rgba(18, 20, 22, 0.62) 0%, rgba(18, 20, 22, 0) 22%),
+    linear-gradient(180deg, rgba(18, 20, 22, 0.22) 0%, rgba(18, 20, 22, 0) 12%);
+  pointer-events: none;
+}
+
+.lb-grid-hint {
+  position: absolute;
+  z-index: 2;
+  top: clamp(16px, 2vw, 28px);
+  left: clamp(16px, 2vw, 28px);
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: rgba(18, 20, 22, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #f4ede1;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.lb-grid-hint-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f4ede1;
+  box-shadow: 0 0 0 4px rgba(244, 237, 225, 0.22);
+}
+
 .lb-grid-brand {
   position: absolute;
-  z-index: 1;
-  right: 16px;
-  bottom: 16px;
+  z-index: 2;
+  right: clamp(16px, 2.4vw, 36px);
+  bottom: clamp(16px, 2.4vw, 36px);
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 4px;
-  padding: 12px 18px;
-  border-radius: 4px;
-  background: rgba(31, 35, 39, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  gap: 6px;
   text-align: right;
+  pointer-events: none;
 }
 
 .lb-grid-brand-mark {
   font-family: var(--font-display);
   font-weight: normal;
-  font-size: clamp(15px, 1.8vw, 20px);
+  font-size: clamp(30px, 4.4vw, 64px);
+  line-height: 1;
   color: #f4ede1;
 }
 
 .lb-grid-brand-tag {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: var(--denim);
+  color: rgba(244, 237, 225, 0.75);
 }
 
 .lb-grid-cta {
   position: absolute;
-  z-index: 1;
-  left: 16px;
-  bottom: 16px;
-  padding: 12px 22px;
-  border-radius: 4px;
+  z-index: 2;
+  left: clamp(16px, 2.4vw, 36px);
+  bottom: clamp(16px, 2.4vw, 36px);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 28px;
+  border-radius: 999px;
   background: #f4ede1;
   color: var(--obsidian);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  transition: background 0.25s ease;
 }
 
 .lb-grid-cta:hover {
-  background: var(--obsidian);
-  color: #f4ede1;
-  transform: translateY(-2px);
-}
-
-@media (max-width: 640px) {
-  .lb-grid-brand,
-  .lb-grid-cta {
-    padding: 9px 14px;
-    font-size: 10.5px;
-  }
+  background: #ffffff;
 }
 
 /* ================================================================
-   The Looks — alternating full-outfit spreads with a shoppable
-   breakdown of the pieces in each.
+   Film band
    ================================================================ */
 
-.lb-looks {
-  padding: clamp(50px, 7vw, 90px) 4vw clamp(20px, 3vw, 40px);
-}
-
-.lb-looks-head {
-  margin-bottom: clamp(30px, 5vw, 56px);
-  text-align: center;
-}
-
-.lb-looks-eyebrow {
-  margin: 0 0 12px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--indigo);
-}
-
-.lb-looks-head h2 {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: normal;
-  font-size: clamp(28px, 3.6vw, 44px);
-  color: var(--obsidian);
-}
-
-.lb-look {
-  display: grid;
-  grid-template-columns: 0.85fr 1fr;
-  align-items: center;
-  gap: clamp(30px, 5vw, 64px);
-  padding: clamp(30px, 4vw, 50px) 0;
-}
-
-.lb-look:not(:last-child) {
-  border-bottom: 1px solid rgba(31, 35, 39, 0.1);
-}
-
-.lb-look-reverse {
-  grid-template-columns: 1fr 0.85fr;
-}
-
-.lb-look-reverse .lb-look-photo {
-  order: 2;
-}
-
-.lb-look-photo {
+.lb-film {
   position: relative;
-  aspect-ratio: 4 / 5;
-  max-width: 420px;
-  margin: 0 auto;
-  border-radius: 26px;
+  display: grid;
+  place-items: center;
   overflow: hidden;
-  background: #f4ede1;
+  padding: clamp(90px, 11vw, 170px) 4vw;
+  background: #121416;
 }
 
-.lb-look-photo img {
+/* Overscanned well past the band on every side: the blur needs spare
+   pixels at the edges or it fades to a light rim, and the parallax
+   drift needs room so it never uncovers the band behind it. */
+.lb-film-bg {
+  position: absolute;
+  inset: -14% -6%;
+}
+
+.lb-film-bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top center;
+  object-position: 30% 35%;
+  filter: blur(9px) grayscale(1) brightness(0.5) contrast(1.1);
+  will-change: transform;
 }
 
-.lb-look-n {
+/* A soft vignette pulls the eye to the frame in the middle. */
+.lb-film::after {
+  content: '';
   position: absolute;
-  top: 16px;
-  left: 16px;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(18, 20, 22, 0) 30%, rgba(18, 20, 22, 0.65) 100%);
+  pointer-events: none;
+}
+
+.lb-film-cell {
+  position: relative;
   z-index: 1;
-  padding: 6px 13px;
-  border-radius: 999px;
-  background: rgba(244, 237, 225, 0.9);
-  color: var(--obsidian);
-  font-family: var(--font-display);
-  font-size: 14px;
 }
 
-.lb-look-caption {
-  margin: 0 0 18px;
-  max-width: 40ch;
-  font-size: 18px;
-  line-height: 1.6;
-  color: var(--obsidian);
-}
-
-.lb-look-details {
-  display: grid;
-  gap: 10px;
-  margin: 0 0 28px;
-  padding: 0;
-  list-style: none;
-  max-width: 42ch;
-}
-
-.lb-look-details li {
-  padding-left: 16px;
+.lb-film-frame {
   position: relative;
-  font-size: 13px;
-  line-height: 1.6;
-  color: rgba(31, 35, 39, 0.65);
+  width: clamp(260px, 34vw, 500px);
+  /* 4:5 rather than the film's own 9:16: a wider window, and the crop
+     falls mostly on the bottom, where the generator's watermark sits. */
+  aspect-ratio: 4 / 5;
+  background: #0b0c0d;
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55);
 }
 
-.lb-look-details li::before {
-  content: '—';
-  position: absolute;
-  left: 0;
-  color: var(--indigo);
-}
-
-.lb-look-pieces {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-}
-
-.lb-piece {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex: 1 1 220px;
-  padding: 14px;
-  border-radius: 18px;
-  background: #f4ede1;
-  transition: background 0.25s ease, transform 0.25s ease;
-}
-
-.lb-piece:hover {
-  background: #efe6d4;
-  transform: translateY(-2px);
-}
-
-.lb-piece img {
-  width: 68px;
-  height: 68px;
-  border-radius: 12px;
+.lb-film-frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  object-position: top center;
-  flex-shrink: 0;
+  object-position: 50% 32%;
 }
 
-.lb-piece-body {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  min-width: 0;
-  padding-right: 38px;
-}
-
-.lb-piece-tag {
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(31, 35, 39, 0.5);
-}
-
-.lb-piece-name {
-  font-size: 13.5px;
-  font-weight: 700;
-  color: var(--obsidian);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.lb-piece-price {
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--indigo);
-}
-
-.lb-piece-add {
+/* A dark wash over the film so it sits in the band's low light instead
+   of glowing out of it. It lives on the frame, not the video, so full
+   screen still plays the film at its true brightness; the corner mark
+   sits above it (z-index 2). */
+.lb-film-frame::after {
+  content: '';
   position: absolute;
-  top: 12px;
-  right: 12px;
-  display: inline-grid;
-  place-items: center;
-  width: 26px;
-  height: 26px;
-  border: none;
-  border-radius: 50%;
-  background: var(--obsidian);
-  color: var(--beige);
-  transition: background 0.25s ease, transform 0.2s ease;
+  inset: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.32);
+  pointer-events: none;
 }
 
-.lb-piece-add:hover {
+/* Full screen shows the whole film, uncropped. */
+.lb-film-frame video:fullscreen {
+  object-fit: contain;
+}
+
+/* The viewfinder mark, sitting on the frame's top-right corner. */
+.lb-film-focus {
+  position: absolute;
+  z-index: 2;
+  top: -25px;
+  right: -25px;
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lb-film-focus svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.lb-film-focus path {
+  fill: none;
+  stroke: rgba(232, 230, 218, 0.7);
+  stroke-width: 3;
+  stroke-linecap: square;
+}
+
+.lb-film-focus circle {
+  fill: #0b0c0d;
+  stroke: rgba(232, 230, 218, 0.18);
+  stroke-width: 1;
+  transition: fill 0.3s ease;
+}
+
+.lb-film-focus:hover {
   transform: scale(1.08);
 }
 
-.lb-piece-add.added {
-  background: var(--indigo);
+.lb-film-focus:hover circle {
+  fill: #2a2f35;
+}
+
+.lb-film-focus:focus-visible {
+  outline: 1px solid rgba(232, 230, 218, 0.8);
+  outline-offset: 4px;
+}
+
+@media (max-width: 640px) {
+  .lb-film-frame {
+    width: 72vw;
+  }
+
+  .lb-film-focus {
+    top: -20px;
+    right: -20px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Chapter copy sits in the band's left margin, clear of the centred
+   frame; below 900px it drops into the flow above the frame. */
+.lb-film {
+  scroll-margin-top: 72px;
+}
+
+.lb-film-copy {
+  position: absolute;
+  z-index: 1;
+  top: clamp(56px, 7vw, 100px);
+  left: 4vw;
+  max-width: min(25vw, 340px);
+}
+
+.lb-film-copy h2 {
+  margin: 16px 0 0;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(30px, 3.2vw, 46px);
+  line-height: 1.04;
+  color: #f4ede1;
+}
+
+.lb-film-copy p {
+  margin: 16px 0 0;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: rgba(244, 237, 225, 0.7);
+}
+
+.lb-film-hint {
+  position: absolute;
+  z-index: 1;
+  right: 4vw;
+  bottom: clamp(40px, 5vw, 64px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 225, 0.6);
+}
+
+.lb-film-hint-mark {
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid rgba(244, 237, 225, 0.6);
+  border-radius: 1px;
 }
 
 /* ================================================================
-   Mood — a two-up candid/street spread between the shoppable looks
-   and the philosophy panel.
+   03 The Mood: two frames, offset like a magazine spread
    ================================================================ */
-
-.lb-mood {
-  padding: clamp(20px, 3vw, 40px) 4vw clamp(50px, 7vw, 90px);
-}
 
 .lb-mood-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: clamp(16px, 3vw, 28px);
+  grid-template-columns: 7fr 5fr;
+  align-items: start;
+  gap: clamp(20px, 4vw, 64px);
+}
+
+.lb-mood-cell-2 {
+  margin-top: clamp(60px, 12vw, 180px);
+}
+
+.lb-mood-figure {
+  margin: 0;
 }
 
 .lb-mood-photo {
-  position: relative;
-  aspect-ratio: 3 / 4;
-  border-radius: 22px;
   overflow: hidden;
-  background: #f4ede1;
+  border-radius: 6px;
+  background: var(--beige);
+}
+
+.lb-mood-cell-1 .lb-mood-photo {
+  aspect-ratio: 4 / 5;
+}
+
+.lb-mood-cell-2 .lb-mood-photo {
+  aspect-ratio: 3 / 4;
 }
 
 .lb-mood-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top center;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  object-position: center top;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.lb-mood-cell:hover .lb-mood-photo img {
-  transform: scale(1.05);
+.lb-mood-figure:hover .lb-mood-photo img {
+  transform: scale(1.04);
 }
 
-.lb-mood-caption {
-  position: absolute;
-  left: 16px;
-  bottom: 16px;
-  padding: 8px 16px;
-  border-radius: 999px;
-  background: rgba(244, 237, 225, 0.9);
-  color: var(--obsidian);
-  font-size: 12px;
+.lb-mood-figure figcaption {
+  display: flex;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.lb-mood-figure figcaption em {
+  flex-shrink: 0;
+  padding-top: 2px;
+  font-style: normal;
+  font-size: 11px;
   font-weight: 600;
+  letter-spacing: 0.14em;
+  color: rgba(31, 35, 39, 0.45);
+}
+
+.lb-mood-figure figcaption span {
+  display: grid;
+  gap: 4px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(31, 35, 39, 0.6);
+}
+
+.lb-mood-figure figcaption strong {
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(18px, 1.7vw, 24px);
+  color: var(--obsidian);
 }
 
 /* ================================================================
-   Vision / summary
+   04 The Vision: title left, argument right, figures underneath
    ================================================================ */
 
-.lb-summary {
-  padding: clamp(50px, 7vw, 90px) 4vw;
+.lb-vision {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  align-items: start;
+  gap: clamp(32px, 6vw, 96px);
 }
 
-.lb-summary-copy-cell {
-  max-width: 640px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.lb-summary-copy-cell h2 {
-  margin: 0 0 22px;
+.lb-vision-title h2 {
+  margin: 16px 0 0;
   font-family: var(--font-display);
   font-weight: normal;
-  font-size: clamp(34px, 4.4vw, 56px);
-  color: var(--indigo);
+  font-size: clamp(38px, 5vw, 74px);
+  line-height: 1;
+  color: var(--obsidian);
 }
 
-.lb-summary-copy-cell p {
-  margin: 0 auto 18px;
-  max-width: 62ch;
-  font-size: 14px;
-  line-height: 1.75;
+.lb-vision-body {
+  /* Starts level with the title, not its kicker. */
+  padding-top: 34px;
+}
+
+.lb-vision-body p {
+  margin: 0 0 20px;
+  max-width: 58ch;
+  font-size: 15px;
+  line-height: 1.8;
   color: rgba(31, 35, 39, 0.72);
 }
 
-.lb-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 6px;
-  padding: 14px 28px;
-  border-radius: 999px;
-  background: var(--indigo);
-  color: var(--beige);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.lb-cta:hover {
-  background: var(--obsidian);
-  transform: translateY(-2px);
+.lb-vision-body .lb-btn {
+  margin-top: 12px;
 }
 
 .lb-stats {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: clamp(24px, 4vw, 46px);
-  margin-top: clamp(30px, 4vw, 46px);
-  padding-top: clamp(24px, 3vw, 36px);
-  border-top: 1px solid rgba(31, 35, 39, 0.12);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: clamp(56px, 7vw, 100px);
+  border-top: 1px solid rgba(31, 35, 39, 0.16);
 }
 
 .lb-stat {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 4px;
+  gap: 10px;
+  padding: 30px clamp(16px, 2.4vw, 36px) 0;
+}
+
+.lb-stat + .lb-stat {
+  border-left: 1px solid rgba(31, 35, 39, 0.16);
+}
+
+.lb-stat:first-child {
+  padding-left: 0;
 }
 
 .lb-stat-n {
   font-family: var(--font-display);
   font-weight: normal;
-  font-size: clamp(30px, 3.4vw, 42px);
-  color: var(--indigo);
+  font-size: clamp(56px, 6.4vw, 96px);
+  line-height: 0.9;
+  color: var(--obsidian);
 }
 
 .lb-stat-label {
-  max-width: 16ch;
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: rgba(31, 35, 39, 0.55);
 }
@@ -529,7 +799,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: var(--indigo);
+  background: var(--obsidian);
   mix-blend-mode: multiply;
   opacity: 0.55;
 }
@@ -560,63 +830,96 @@
   color: rgba(238, 235, 229, 0.85);
 }
 
+.lb-banner-content .lb-kicker {
+  justify-self: center;
+}
+
+.lb-banner-content .lb-btn {
+  justify-self: center;
+  margin-top: 4px;
+}
+
 /* ================================================================
-   Goals
+   05 Shop by focus
    ================================================================ */
-
-.lb-goals {
-  padding: clamp(50px, 7vw, 90px) 4vw;
-}
-
-.lb-goals .lb-looks-head {
-  margin-bottom: clamp(30px, 5vw, 50px);
-}
 
 .lb-goals-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(20px, 3vw, 32px);
+  gap: clamp(16px, 2vw, 28px);
 }
 
 .lb-goal {
-  display: block;
-  text-align: center;
-}
-
-.lb-goal h3 {
-  margin: 0 0 10px;
-  font-family: var(--font-display);
-  font-weight: normal;
-  font-size: clamp(19px, 2vw, 24px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #f4ede1;
   color: var(--obsidian);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
 }
 
-.lb-goal p {
-  margin: 0 0 24px;
-  font-size: 13px;
-  line-height: 1.65;
-  color: rgba(31, 35, 39, 0.65);
+.lb-goal:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 50px rgba(31, 35, 39, 0.12);
 }
 
 .lb-goal-photo {
-  width: clamp(96px, 11vw, 132px);
-  aspect-ratio: 1 / 1;
-  margin: 0 auto;
-  border-radius: 50%;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
-  box-shadow: 0 18px 30px rgba(31, 35, 39, 0.18);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .lb-goal-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top center;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.lb-goal-cell:hover .lb-goal-photo {
-  transform: translateY(-6px);
+.lb-goal:hover .lb-goal-photo img {
+  transform: scale(1.04);
+}
+
+.lb-goal-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 22px 24px 26px;
+}
+
+.lb-goal-body em {
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: rgba(31, 35, 39, 0.45);
+}
+
+.lb-goal-body h3 {
+  margin: 10px 0 8px;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(22px, 2vw, 28px);
+  color: var(--obsidian);
+}
+
+.lb-goal-body p {
+  margin: 0 0 20px;
+  font-size: 13px;
+  line-height: 1.65;
+  color: rgba(31, 35, 39, 0.65);
+}
+
+.lb-goal-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
 
 /* ================================================================
@@ -717,61 +1020,88 @@
    ================================================================ */
 
 @media (max-width: 900px) {
-  .lb-summary {
+  .lb-hero {
     grid-template-columns: 1fr;
   }
 
-  .lb-mood-grid {
+  .lb-hero-copy {
+    max-width: none;
+  }
+
+  .lb-film {
+    gap: 36px;
+  }
+
+  .lb-film-copy,
+  .lb-film-hint {
+    position: static;
+    max-width: 520px;
+    text-align: center;
+  }
+
+  .lb-film-copy .lb-kicker {
+    justify-content: center;
+  }
+
+  .lb-film-hint {
+    justify-content: center;
+  }
+
+  .lb-mood-grid,
+  .lb-vision {
     grid-template-columns: 1fr;
+  }
+
+  .lb-mood-cell-2 {
+    margin-top: 0;
+  }
+
+  .lb-vision-body {
+    padding-top: 0;
   }
 
   .lb-goals-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .lb-look,
-  .lb-look-reverse {
-    grid-template-columns: 1fr;
-  }
-
-  .lb-look-reverse .lb-look-photo {
-    order: 0;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 640px) {
-  .lb-meta {
+  .lb-head {
     flex-direction: column;
     align-items: flex-start;
-    gap: 6px;
+    gap: 14px;
   }
 
-  .lb-hero {
-    height: clamp(600px, 130vw, 780px);
+  .lb-hero-actions .lb-btn {
+    flex: 1;
+    justify-content: center;
   }
 
-  .lb-line-1 {
-    font-size: clamp(46px, 14vw, 84px);
+  .lb-grid-hint {
+    display: none;
   }
 
-  .lb-line-2 {
-    font-size: clamp(54px, 18vw, 108px);
+  .lb-grid-cta {
+    padding: 11px 18px;
+    font-size: 10.5px;
   }
 
-  .lb-tagline-right {
-    max-width: 15ch;
-    font-size: 11.5px;
+  .lb-stats {
+    grid-template-columns: 1fr;
   }
 
-  .lb-tagline-left {
-    top: auto;
-    bottom: 22%;
-    max-width: 15ch;
-    font-size: 11.5px;
+  .lb-stat,
+  .lb-stat:first-child {
+    padding: 24px 0 0;
   }
 
-  .lb-hero-photo {
-    height: 62%;
+  .lb-stat + .lb-stat {
+    margin-top: 24px;
+    border-left: none;
+    border-top: 1px solid rgba(31, 35, 39, 0.16);
+  }
+
+  .lb-goals-grid {
+    grid-template-columns: 1fr;
   }
 }

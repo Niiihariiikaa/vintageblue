@@ -59,22 +59,7 @@
 }
 
 .gnav-links a,
-.gnav-more {
-  padding: 0;
-  border: none;
-  background: none;
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--obsidian);
-  white-space: nowrap;
-  cursor: pointer;
-  transition: color 0.25s ease;
-}
-
-.gnav-links a:hover,
-.gnav-more:hover {
+.gnav-links a:hover {
   color: var(--indigo);
 }
 

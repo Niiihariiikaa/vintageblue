@@ -37,11 +37,9 @@ const allLinks = [
 /**
  * The single shared top bar — logo left, a handful of primary links
  * centered (Home, a Products dropdown, About Us, Lookbook, Contact
- * Us), cart + a "more" trigger on the right. The trigger opens a
- * slide-out drawer listing every page on the site, so nothing becomes
- * unreachable just because the top bar itself stays short. On narrow
- * viewports the centered links hide and that same drawer becomes the
- * only way in, opened from a hamburger icon instead of the text link.
+ * Us), cart on the right. On narrow viewports the centered links hide
+ * and a hamburger opens a slide-out drawer listing every page on the
+ * site.
  */
 function Nav() {
   const [open, setOpen] = useState(false)
@@ -133,10 +131,6 @@ function Nav() {
           <a href="/contact" onClick={go('/contact')}>
             Contact Us
           </a>
-
-          <button type="button" className="gnav-more" onClick={() => setOpen(true)}>
-            More
-          </button>
         </nav>
 
         <div className="gnav-actions">

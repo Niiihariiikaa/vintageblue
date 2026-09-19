@@ -759,380 +759,143 @@
 }
 
 /* ================================================================
-   Lookbook
+   Find the workshop
    ================================================================ */
 
-.hr-lookbook {
-  text-align: center;
+.hr-visit-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: stretch;
+  margin-top: clamp(8px, 1.5vw, 20px);
+  text-align: left;
 }
 
-.hr-anatomy {
-  position: relative;
-  max-width: 1040px;
-  margin: clamp(18px, 3vw, 40px) auto 0;
+.hr-visit-info {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
 
-/* The model is not in a card: it stands on the section itself, and the
-   only cards in this composition are the two garment cards the leader
-   lines point at. The 2/3 ratio is what keeps the SVG overlay's circles
-   round, since the viewBox is 200x300 and scales uniformly into it. */
-.hr-anatomy-stage {
-  position: relative;
-  width: min(420px, 62vw);
-  aspect-ratio: 2 / 3;
-  margin: 0 auto;
+.hr-visit-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
-.hr-anatomy-model {
-  position: absolute;
-  inset: 64px 0 40px;
-  width: 100%;
-  height: calc(100% - 104px);
-  object-fit: contain;
-  object-position: bottom center;
+.hr-visit-block {
+  padding-top: 18px;
+  border-top: 1px solid rgba(31, 35, 39, 0.14);
 }
 
-.hr-anatomy-caption {
-  position: absolute;
-  z-index: 3;
-  top: 0;
-  left: 0;
-  max-width: 60%;
+.hr-visit-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(31, 35, 39, 0.55);
+}
+
+.hr-visit-label svg {
+  flex-shrink: 0;
+  color: var(--obsidian);
+}
+
+.hr-visit-address {
   margin: 0;
-  font-size: 11.5px;
-  line-height: 1.55;
-  letter-spacing: 0.02em;
-  color: rgba(31, 35, 39, 0.75);
-  text-align: left;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.2vw, 30px);
+  line-height: 1.12;
+  color: var(--obsidian);
 }
 
-/* ---------------- Leader lines ---------------- */
-
-.hr-anatomy-lines {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+.hr-visit-link {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--obsidian);
+  word-break: break-word;
+  text-decoration: underline;
+  text-decoration-color: rgba(31, 35, 39, 0.25);
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.2s ease;
 }
 
-.hr-anatomy-lines line {
-  stroke: rgba(31, 35, 39, 0.55);
-  stroke-width: 0.6;
-  /* Longer than either line, so the offset starts it fully hidden and
-     it draws itself toward the garment as the section scrolls in. */
-  stroke-dasharray: 200;
-  stroke-dashoffset: 200;
-  transition: stroke-dashoffset 0.85s ease;
+.hr-visit-link:hover {
+  text-decoration-color: var(--obsidian);
 }
 
-.hr-anatomy-lines circle {
-  fill: var(--obsidian);
-  opacity: 0;
-  transition: opacity 0.4s ease;
+.hr-visit-regions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-/* Left arrow draws first, right arrow follows — matching the order the
-   two garment cards slide in. */
-.hr-anatomy-cell.in .hr-line-l {
-  stroke-dashoffset: 0;
-  transition-delay: 0.3s;
+.hr-visit-regions li {
+  padding: 7px 14px;
+  border: 1px solid rgba(31, 35, 39, 0.2);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--obsidian);
 }
 
-.hr-anatomy-cell.in .hr-dot-l {
-  opacity: 1;
-  transition-delay: 1.05s;
-}
-
-.hr-anatomy-cell.in .hr-line-r {
-  stroke-dashoffset: 0;
-  transition-delay: 0.72s;
-}
-
-.hr-anatomy-cell.in .hr-dot-r {
-  opacity: 1;
-  transition-delay: 1.45s;
-}
-
-/* ---------------- Garment cards ---------------- */
-
-/* Each card slides in from its own side, on a delay counted from the
-   one reveal that wraps the whole composition. */
-.hr-detail-cell {
-  position: absolute;
-  z-index: 3;
-  width: 47%;
-  opacity: 0;
-  transition:
-    opacity 0.9s ease,
-    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.hr-detail-cell-l {
-  top: 5%;
-  left: -49%;
-  transform: translateX(-34px);
-}
-
-/* Slightly lower than the left-hand card, so the pair reads as a
-   diagonal down the composition rather than two facing columns. */
-.hr-detail-cell-r {
-  top: 38%;
-  right: -49%;
-  transform: translateX(34px);
-}
-
-.hr-anatomy-cell.in .hr-detail-cell {
-  opacity: 1;
-  transform: none;
-}
-
-.hr-anatomy-cell.in .hr-detail-cell-r {
-  transition-delay: 0.42s;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hr-detail-cell {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-
-  .hr-anatomy-lines line {
-    stroke-dashoffset: 0;
-    transition: none;
-  }
-
-  .hr-anatomy-lines circle {
-    opacity: 1;
-    transition: none;
-  }
-}
-
-.hr-detail-card {
-  border-radius: 16px;
-  overflow: hidden;
-  background: #f4ede1;
-  box-shadow: 0 18px 40px rgba(31, 35, 39, 0.16);
-  text-align: left;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
-}
-
-.hr-detail-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 26px 50px rgba(31, 35, 39, 0.22);
-}
-
-.hr-detail-img {
-  position: relative;
-  display: block;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  background: var(--beige);
-}
-
-.hr-detail-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.hr-detail-card:hover .hr-detail-img img {
-  transform: scale(1.05);
-}
-
-.hr-detail-tag {
-  position: absolute;
-  top: 9px;
-  left: 9px;
-  z-index: 1;
-  padding: 5px 11px;
+.hr-visit-directions {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding: 15px 28px;
   border-radius: 999px;
   background: var(--obsidian);
   color: #f4ede1;
-  font-size: 9px;
+  font-size: 11.5px;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  transition: background 0.25s ease;
 }
 
-.hr-detail-body {
-  padding: 12px 14px 14px;
+.hr-visit-directions:hover {
+  background: #34393f;
 }
 
-.hr-detail-name {
-  display: block;
-  font-size: 12.5px;
-  font-weight: 600;
-  line-height: 1.35;
-  color: var(--obsidian);
-}
-
-.hr-detail-name:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.hr-detail-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.hr-detail-price {
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--obsidian);
-}
-
-.hr-detail-add {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 7px 13px;
-  border: none;
-  border-radius: 999px;
-  background: var(--obsidian);
-  color: #f4ede1;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  transition: background 0.25s ease, color 0.25s ease;
-}
-
-.hr-detail-add:hover {
-  background: #3a3f45;
-}
-
-.hr-detail-add.added {
-  background: var(--hero-greige);
-  color: var(--obsidian);
-}
-
-.hr-anatomy-label {
-  position: absolute;
-  z-index: 3;
-  left: 0;
-  bottom: 0;
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(31, 35, 39, 0.5);
-}
-
-/* ---------------- Slider controls ---------------- */
-
-.hr-anatomy-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 18px;
-  margin-top: clamp(22px, 3vw, 38px);
-}
-
-.hr-anatomy-nav {
-  flex-shrink: 0;
-  display: inline-grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  border: 1px solid rgba(31, 35, 39, 0.3);
-  border-radius: 50%;
-  background: none;
-  color: var(--obsidian);
-  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
-}
-
-.hr-anatomy-nav:hover {
-  background: var(--obsidian);
-  border-color: var(--obsidian);
-  color: #f4ede1;
-}
-
-.hr-anatomy-dots {
-  display: flex;
-  justify-content: center;
-  gap: 9px;
-}
-
-.hr-anatomy-dot {
-  width: 8px;
-  height: 8px;
-  padding: 0;
-  border: none;
-  border-radius: 50%;
-  background: rgba(31, 35, 39, 0.25);
-  transition: background 0.25s ease, transform 0.25s ease;
-}
-
-.hr-anatomy-dot.active {
-  background: var(--obsidian);
-  transform: scale(1.25);
-}
-
-/* ================================================================
-   Closing note
-   ================================================================ */
-
-.hr-outro {
+/* Toned to the page palette: a full-colour road map would be the only
+   saturated thing below the fold. The backdrop is a faint grid, so a
+   blocked or slow embed still leaves a deliberate-looking panel. */
+.hr-visit-map {
   position: relative;
-  z-index: 2;
-  padding: clamp(30px, 4vw, 60px) 4vw clamp(72px, 10vw, 140px);
-  background: var(--beige);
-  text-align: center;
+  min-height: clamp(360px, 38vw, 520px);
+  overflow: hidden;
+  border: 1px solid rgba(31, 35, 39, 0.14);
+  border-radius: 24px;
+  background-color: #efe8db;
+  background-image:
+    linear-gradient(rgba(31, 35, 39, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 35, 39, 0.05) 1px, transparent 1px);
+  background-size: 36px 36px;
 }
 
-.hr-outro-inner {
-  max-width: 640px;
-  margin: 0 auto;
+.hr-visit-map iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: grayscale(1) sepia(0.22) contrast(0.96) brightness(1.02);
+  transition: filter 0.4s ease;
 }
 
-.hr-outro-rule {
-  display: block;
-  width: 1px;
-  height: clamp(40px, 6vw, 72px);
-  margin: 0 auto clamp(22px, 3vw, 34px);
-  background: linear-gradient(180deg, transparent, rgba(31, 35, 39, 0.4));
-}
-
-.hr-outro-eyebrow {
-  margin: 0 0 16px;
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.34em;
-  text-transform: uppercase;
-  color: rgba(31, 35, 39, 0.5);
-}
-
-.hr-outro-title {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: normal;
-  font-size: clamp(28px, 4vw, 54px);
-  line-height: 1.04;
-  color: var(--obsidian);
-}
-
-.hr-outro-copy {
-  margin: clamp(20px, 3vw, 30px) auto 0;
-  max-width: 48ch;
-  font-size: 14px;
-  line-height: 1.85;
-  color: rgba(31, 35, 39, 0.66);
-}
-
-.hr-outro-sign {
-  margin: clamp(22px, 3vw, 34px) 0 0;
-  font-family: var(--font-script);
-  font-size: clamp(30px, 4vw, 46px);
-  line-height: 1;
-  color: var(--obsidian);
+/* Colour comes back while someone is actually using the map. */
+.hr-visit-map:hover iframe,
+.hr-visit-map:focus-within iframe {
+  filter: none;
 }
 
 /* ================================================================
@@ -1326,18 +1089,12 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* Below this width there is no room for the garment cards to sit
-     outside the model, so they tuck over its edges instead. */
-  .hr-detail-cell {
-    width: 40%;
+  .hr-visit-grid {
+    grid-template-columns: 1fr;
   }
 
-  .hr-detail-cell-l {
-    left: -10%;
-  }
-
-  .hr-detail-cell-r {
-    right: -10%;
+  .hr-visit-map {
+    min-height: 340px;
   }
 
   /* A card taller than the viewport can't be pinned without hiding its
@@ -1402,36 +1159,8 @@
     font-size: 11.5px;
   }
 
-  .hr-anatomy-nav {
-    width: 34px;
-    height: 34px;
-  }
-
-  .hr-anatomy-stage {
-    width: min(340px, 62vw);
-  }
-
-  .hr-detail-cell {
-    width: 46%;
-  }
-
-  .hr-detail-cell-l {
-    left: -14%;
-  }
-
-  .hr-detail-cell-r {
-    right: -14%;
-  }
-
-  .hr-detail-body {
-    padding: 9px 10px 11px;
-  }
-
-  /* At this width the upper-left garment card sits over the caption's
-     line, and the section's own standfirst already says what the look
-     is, so the annotation drops out rather than being half-covered. */
-  .hr-anatomy-caption {
-    display: none;
+  .hr-visit-row {
+    grid-template-columns: 1fr;
   }
 
   .hr-weekend {
