@@ -134,7 +134,10 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  margin: 0 0 6px;
+  /* The title below is set at line-height 0.88, so its capitals rise
+     well above their own line box; without this clearance they print
+     straight through this line. */
+  margin: 0 0 clamp(18px, 2vw, 26px);
   font-size: 11.5px;
   font-weight: 600;
   letter-spacing: 0.24em;
@@ -258,8 +261,13 @@
   color: #f4ede1;
 }
 
+/* The display serif ships one upright weight only: asking for italic
+   here produced a browser-slanted counterfeit that read as a different
+   typeface. The script face gives the same emphasis for real. */
 .ab-split-heading em {
-  font-style: italic;
+  font-family: var(--font-script);
+  font-style: normal;
+  font-size: 1em;
   color: var(--denim);
 }
 
@@ -332,9 +340,12 @@
   color: rgba(31, 35, 39, 0.45);
 }
 
+/* Three columns for six values: a four-column grid left two dead
+   cells on the second row, which had to be papered over with an empty
+   tinted block. */
 .ab-values-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   border-top: 1px solid rgba(31, 35, 39, 0.14);
   border-left: 1px solid rgba(31, 35, 39, 0.14);
 }
@@ -366,13 +377,6 @@
   font-size: 13.5px;
   line-height: 1.6;
   color: rgba(31, 35, 39, 0.65);
-}
-
-.ab-value-accent {
-  grid-column: span 2;
-  border-right: 1px solid rgba(31, 35, 39, 0.14);
-  border-bottom: 1px solid rgba(31, 35, 39, 0.14);
-  background: var(--hero-greige);
 }
 
 /* ================================================================
@@ -569,10 +573,6 @@
 
   .ab-values-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .ab-value-accent {
-    display: none;
   }
 
   .ab-footer {

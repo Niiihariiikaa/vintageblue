@@ -182,7 +182,6 @@ function AboutLanding() {
               <p>{v.copy}</p>
             </Reveal>
           ))}
-          <div className="ab-value-accent" aria-hidden="true" />
         </div>
       </section>
 

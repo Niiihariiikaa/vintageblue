@@ -58,6 +58,21 @@
   gap: clamp(20px, 3vw, 40px);
 }
 
+/* The bar's links and the Products trigger share one type treatment,
+   and it's the same small uppercase label the pages use for their own
+   links ("All Outerwear", `.hr-head-link`): 11.5px semibold at 0.16em.
+   The links previously set no size or weight at all, so they inherited
+   the body's 16px regular while the trigger beside them was 13px
+   semibold — one item in the row smaller and heavier than the rest. */
+.gnav-links a,
+.gnav-dropdown-trigger {
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
 .gnav-links a,
 .gnav-links a:hover {
   color: var(--indigo);
@@ -78,10 +93,6 @@
   padding: 0;
   border: none;
   background: none;
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
   color: var(--obsidian);
   white-space: nowrap;
   cursor: pointer;
@@ -127,8 +138,10 @@
 .gnav-dropdown-panel a {
   padding: 9px 12px;
   border-radius: 10px;
-  font-size: 13px;
+  font-size: 11.5px;
   font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   white-space: nowrap;
   transition: background 0.2s ease, color 0.2s ease;
 }
@@ -215,6 +228,11 @@
   display: flex;
   flex-direction: column;
   padding: 22px 30px 30px;
+  /* The full page list runs past the bottom of a laptop screen, and
+     the panel is pinned to the viewport height: without scrolling, the
+     last entries and the cart link below them were unreachable. */
+  overflow-y: auto;
+  overscroll-behavior: contain;
   background: var(--beige);
   box-shadow: -30px 0 60px rgba(31, 35, 39, 0.25);
   transform: translateX(100%);
@@ -249,7 +267,10 @@
   gap: 20px;
 }
 
-.gnav-drawer a {
+/* Scoped to the page list: as `.gnav-drawer a` this also caught the
+   cart link below, and out-specified it, so that link rendered in the
+   28px display serif instead of the small label it sets for itself. */
+.gnav-drawer ul a {
   font-family: var(--font-display);
   font-weight: normal;
   font-size: clamp(22px, 4vw, 28px);
@@ -264,6 +285,7 @@
 .gnav-drawer-cart {
   margin-top: auto;
   padding-top: 22px;
+  font-family: var(--font-body);
   border-top: 1px solid rgba(31, 35, 39, 0.14);
   font-size: 12.5px;
   font-weight: 600;
@@ -274,6 +296,19 @@
 
 .gnav-drawer-cart:hover {
   color: var(--indigo);
+}
+
+/* Shorter screens: tighten the list so it mostly fits without
+   scrolling, rather than relying on the scroll alone. */
+@media (max-height: 820px) {
+  .gnav-drawer ul {
+    margin-top: 22px;
+    gap: 13px;
+  }
+
+  .gnav-drawer ul a {
+    font-size: clamp(18px, 3.2vw, 21px);
+  }
 }
 
 @media (max-width: 860px) {

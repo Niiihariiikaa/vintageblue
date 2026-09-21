@@ -143,6 +143,15 @@ button {
   cursor: pointer;
 }
 
+/* Form controls don't inherit the page font on their own — left alone
+   they render in the browser's default face, which is how Arial was
+   turning up among the Montserrat. */
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
