@@ -47,7 +47,7 @@ function ContactLanding() {
       <section className="cx-hero">
         <Reveal>
           <p className="cx-eyebrow">
-            Get In Touch <span className="cx-rule" aria-hidden="true" /> Ludhiana
+            Get In Touch <span className="cx-rule" aria-hidden="true" /> Delhi
           </p>
           <h1 className="cx-title">
             <span>Contact</span>
@@ -184,15 +184,15 @@ function ContactLanding() {
           <p className="cx-footer-wordmark">
             <span className="script-initial">V</span>intage Blue
           </p>
-          <p className="cx-footer-tag">Menswear built on fit, fabric, and finish. Ludhiana, Punjab — since 2006.</p>
+          <p className="cx-footer-tag">Menswear built on fit, fabric, and finish. Delhi — since 2006.</p>
         </div>
 
         <div className="cx-footer-col">
           <h3>Shop</h3>
           <a href="/shop/popular" onClick={go('/shop/popular')}>Popular</a>
           <a href="/drop" onClick={go('/drop')}>New Drop</a>
-          <a href="/shop/men" onClick={go('/shop/men')}>Men</a>
-          <a href="/shop/unisex" onClick={go('/shop/unisex')}>Unisex</a>
+          <a href="/shop/denim" onClick={go('/shop/denim')}>Denim</a>
+          <a href="/shop/jackets" onClick={go('/shop/jackets')}>Jackets</a>
         </div>
 
         <div className="cx-footer-col">

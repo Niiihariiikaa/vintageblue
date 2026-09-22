@@ -7,23 +7,21 @@ import { useCart } from './cart'
 const productLinks = [
   { label: 'Popular', to: '/shop/popular' },
   { label: 'New Drop', to: '/drop' },
+  { label: 'Denim', to: '/shop/denim' },
   { label: 'Shirts', to: '/shop/shirts' },
-  { label: 'Denims', to: '/shop/denims' },
+  { label: 'Jackets', to: '/shop/jackets' },
   { label: 'Cargos', to: '/shop/cargos' },
   { label: 'Pants', to: '/shop/pants' },
-  { label: 'Men', to: '/shop/men' },
-  { label: 'Unisex', to: '/shop/unisex' },
 ]
 
 const allLinks = [
   { label: 'Home', to: '/' },
   { label: 'Shop Popular', to: '/shop/popular' },
+  { label: 'Denim', to: '/shop/denim' },
   { label: 'Shirts', to: '/shop/shirts' },
-  { label: 'Denims', to: '/shop/denims' },
+  { label: 'Jackets', to: '/shop/jackets' },
   { label: 'Cargos', to: '/shop/cargos' },
   { label: 'Pants', to: '/shop/pants' },
-  { label: 'Men', to: '/shop/men' },
-  { label: 'Unisex', to: '/shop/unisex' },
   { label: 'The Drop', to: '/drop' },
   { label: 'About Us', to: '/about' },
   { label: 'Lookbook', to: '/lookbook' },

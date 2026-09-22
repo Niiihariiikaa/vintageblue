@@ -14,7 +14,13 @@ import { navigate } from './router'
 import { Reveal } from './motion'
 import Nav from './Nav'
 import { useCart } from './cart'
-import { getProductByHandle, PRODUCTS, formatPrice, TYPE_SLUGS, type Product } from './catalog'
+import {
+  getProductByHandle,
+  PRODUCTS,
+  formatPrice,
+  CATEGORY_LABELS,
+  type Product,
+} from './catalog'
 
 const FREE_SHIPPING_OVER = 200
 const FAVOURITES_KEY = 'vb:favourites'
@@ -122,9 +128,8 @@ function ProductLanding({ handle }: { handle: string }) {
     )
   }
 
-  const categorySlug = TYPE_SLUGS[product.type] ?? product.categories[0]
-  const rawLabel = TYPE_SLUGS[product.type] ? `${product.type}s` : product.categories[0]
-  const categoryLabel = rawLabel.charAt(0).toUpperCase() + rawLabel.slice(1)
+  const categorySlug = product.categories[0] ?? 'popular'
+  const categoryLabel = CATEGORY_LABELS[categorySlug] ?? 'Shop'
   const family = colourways(product)
 
   const toggleSection = (key: AccordionKey) => {
@@ -360,7 +365,7 @@ function ProductLanding({ handle }: { handle: string }) {
               'Delivery & payment',
               <>
                 <p>
-                  Packed within 24 hours and shipped from Ludhiana. Tracking is emailed the
+                  Packed within 24 hours and shipped from Delhi. Tracking is emailed the
                   moment it leaves us.
                 </p>
                 <p>

@@ -9,7 +9,7 @@ import about1 from './assets2/About1.png'
 import about2 from './assets2/About2.png'
 import about3 from './assets2/About3.png'
 
-const tickerItems = ['Free Shipping Over ₹2,999', '15-Day Returns', 'Made In Ludhiana Since 2006']
+const tickerItems = ['Free Shipping Over ₹2,999', '15-Day Returns', 'Made In Delhi Since 2006']
 
 const stats = [
   { n: '2006', label: 'Founded' },
@@ -102,7 +102,7 @@ function AboutLanding() {
         <div className="ab-hero-content">
           <Reveal>
             <p className="ab-hero-eyebrow">
-              Est. 2006 <span className="ab-rule" aria-hidden="true" /> Ludhiana
+              Est. 2006 <span className="ab-rule" aria-hidden="true" /> Delhi
             </p>
             <h1 className="ab-hero-title">
               <span>About</span>
@@ -212,7 +212,7 @@ function AboutLanding() {
           <h2 className="ab-promise-heading">
             Thoughtfully Designed Menswear, Made To Be Worn For Years.
           </h2>
-          <a href="/shop/men" className="ab-promise-cta" onClick={go('/shop/men')}>
+          <a href="/shop/popular" className="ab-promise-cta" onClick={go('/shop/popular')}>
             Shop The Collection <ArrowUpRight size={16} strokeWidth={1.8} />
           </a>
         </Reveal>
@@ -224,15 +224,15 @@ function AboutLanding() {
           <p className="ab-footer-wordmark">
             <span className="script-initial">V</span>intage Blue
           </p>
-          <p className="ab-footer-tag">Menswear built on fit, fabric, and finish. Ludhiana, Punjab — since 2006.</p>
+          <p className="ab-footer-tag">Menswear built on fit, fabric, and finish. Delhi — since 2006.</p>
         </div>
 
         <div className="ab-footer-col">
           <h3>Shop</h3>
           <a href="/shop/popular" onClick={go('/shop/popular')}>Popular</a>
           <a href="/drop" onClick={go('/drop')}>New Drop</a>
-          <a href="/shop/men" onClick={go('/shop/men')}>Men</a>
-          <a href="/shop/unisex" onClick={go('/shop/unisex')}>Unisex</a>
+          <a href="/shop/denim" onClick={go('/shop/denim')}>Denim</a>
+          <a href="/shop/jackets" onClick={go('/shop/jackets')}>Jackets</a>
         </div>
 
         <div className="ab-footer-col">

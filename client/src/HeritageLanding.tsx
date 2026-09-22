@@ -12,6 +12,7 @@ import Nav from './Nav'
 import './HeritageLanding.css'
 import { navigate } from './router'
 import { Reveal, useParallax, usePrefersReducedMotion, useScrollY } from './motion'
+import { CATEGORIES } from './catalog'
 import { SERVICE_REGIONS, STUDIO, STUDIO_DIRECTIONS, STUDIO_MAP_EMBED } from './brand'
 import heroBg from './assets2/herobg.png'
 import heroCutout from './assets2/herocutout.png'
@@ -46,18 +47,14 @@ const weekendRight = ['Straight Leg', 'Wide Leg', 'Selvedge', 'Raw Denim']
 /* The marquee strip that caps the first stacked card. */
 const promises = [
   'Free Shipping Over ₹2,999',
-  'Cut & Sewn In Ludhiana',
+  'Cut & Sewn In Delhi',
   '15-Day Easy Returns',
   'Rope-Dyed Indigo',
   'Est. 2006',
 ]
 
-const categories = [
-  { name: 'Denim & Wash', to: '/shop/denims' },
-  { name: 'Outerwear & Layers', to: '/shop/men' },
-  { name: 'Shirts & Overshirts', to: '/shop/shirts' },
-  { name: 'Weekend Trousers', to: '/shop/pants' },
-]
+/* The shop's five categories, in the same order as the nav. */
+const categories = CATEGORIES.map((c) => ({ name: c.label, to: `/shop/${c.slug}` }))
 
 const craftStats = [
   { n: '2006', label: 'Founded' },
@@ -271,7 +268,7 @@ function HeritageLanding() {
             />
 
             <p className="hr-hero-meta" aria-hidden="true">
-              Est. 2006 <span className="hr-hero-meta-rule" /> Ludhiana, India
+              Est. 2006 <span className="hr-hero-meta-rule" /> Delhi, India
             </p>
 
             <Reveal className="hr-hero-copy">
@@ -280,7 +277,7 @@ function HeritageLanding() {
                 Twenty years of fit, fabric and finish — cut for the way men actually
                 wear denim.
               </p>
-              <a href="/shop/men" className="hr-cta" onClick={go('/shop/men')}>
+              <a href="/shop/popular" className="hr-cta" onClick={go('/shop/popular')}>
                 Shop The Collection <ArrowUpRight size={16} strokeWidth={1.8} />
               </a>
             </Reveal>
@@ -307,9 +304,9 @@ function HeritageLanding() {
               title="Built To Wear In."
               blurb="Heavy cotton, real hardware and washes that keep improving after the hundredth wear."
               cta="All Outerwear"
-              to="/shop/men"
+              to="/shop/popular"
             />
-            <ProductRow items={products} to="/shop/men" />
+            <ProductRow items={products} to="/shop/popular" />
           </div>
         </section>
 
@@ -378,7 +375,7 @@ function HeritageLanding() {
             title="Shop By Category."
             blurb="Four ways in. Everything else lives in the full shop."
             cta="Browse Everything"
-            to="/shop/men"
+            to="/shop/popular"
           />
 
           <ul className="hr-cats-list">
@@ -441,7 +438,7 @@ function HeritageLanding() {
                   Heavier washes, softer layers. The pieces that carry a Saturday from the
                   porch to the road and back again.
                 </p>
-                <a href="/shop/men" className="hr-weekend-cta" onClick={go('/shop/men')}>
+                <a href="/shop/popular" className="hr-weekend-cta" onClick={go('/shop/popular')}>
                   Shop The Edit <ArrowUpRight size={14} strokeWidth={1.8} />
                 </a>
               </Reveal>
@@ -458,7 +455,7 @@ function HeritageLanding() {
           <SectionHead
             index="04"
             title="Find The Workshop."
-            blurb="Every pair is cut, sewn and washed at our studio in Ludhiana, then sent out across the north."
+            blurb="Every pair is cut, sewn and washed at our studio in Delhi, then sent out across the north."
             cta="Contact Us"
             to="/contact"
           />
@@ -552,10 +549,10 @@ function HeritageLanding() {
           <div className="hr-footer-grid">
             <div className="hr-footer-col">
               <h3>Shop</h3>
-              <a href="/shop/men" onClick={go('/shop/men')}>
+              <a href="/shop/jackets" onClick={go('/shop/jackets')}>
                 Men
               </a>
-              <a href="/shop/denims" onClick={go('/shop/denims')}>
+              <a href="/shop/denim" onClick={go('/shop/denim')}>
                 Denim
               </a>
               <a href="/shop/pants" onClick={go('/shop/pants')}>

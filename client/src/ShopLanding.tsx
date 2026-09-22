@@ -5,6 +5,7 @@ import { navigate } from './router'
 import { Reveal } from './motion'
 import Nav from './Nav'
 import {
+  CATEGORIES,
   getProductsByCategory,
   formatPrice,
   SIZES,
@@ -15,21 +16,14 @@ import {
 
 const tabs: { label: string; slug: string }[] = [
   { label: 'Popular', slug: 'popular' },
-  { label: 'Shirts', slug: 'shirts' },
-  { label: 'Denims', slug: 'denims' },
-  { label: 'Cargos', slug: 'cargos' },
-  { label: 'Pants', slug: 'pants' },
-  { label: 'Men', slug: 'men' },
-  { label: 'Unisex', slug: 'unisex' },
+  ...CATEGORIES.map((c) => ({ label: c.label, slug: c.slug as string })),
 ]
 
 const titles: Record<string, string> = {
   popular: 'Popular Right Now',
-  men: 'Menswear',
-  women: 'Womenswear',
-  unisex: 'Unisex Edit',
+  denim: 'Denim',
   shirts: 'Shirts',
-  denims: 'Denims',
+  jackets: 'Jackets',
   cargos: 'Cargos',
   pants: 'Pants',
 }

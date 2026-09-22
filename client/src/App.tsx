@@ -399,7 +399,7 @@ function App() {
             From deep indigo to worn-in washes, every pair is designed to age
             beautifully.
           </p>
-          <a href="/shop/men" className="denim-cta" onClick={go('/shop/men')}>
+          <a href="/shop/popular" className="denim-cta" onClick={go('/shop/popular')}>
             Shop Denim →
           </a>
         </Reveal>
@@ -556,9 +556,9 @@ function App() {
           <div className="footer-col">
             <h3>Shop</h3>
             <a href="/shop/popular" onClick={go('/shop/popular')}>New Arrivals</a>
-            <a href="/shop/men" onClick={go('/shop/men')}>Men</a>
-            <a href="/shop/women" onClick={go('/shop/women')}>Women</a>
-            <a href="/shop/unisex" onClick={go('/shop/unisex')}>Unisex</a>
+            <a href="/shop/denim" onClick={go('/shop/denim')}>Denim</a>
+            <a href="/shop/shirts" onClick={go('/shop/shirts')}>Shirts</a>
+            <a href="/shop/jackets" onClick={go('/shop/jackets')}>Jackets</a>
             <a href="/shop/popular" onClick={go('/shop/popular')}>Bestsellers</a>
           </div>
           <div className="footer-col">

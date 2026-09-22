@@ -17,7 +17,7 @@ import pant4 from './assets2/pants/pant4.png'
 import model1Jeans from './assets2/model1-jeans.png'
 import model2Jeans from './assets2/model2-jeans.png'
 
-export type Category = 'men' | 'women' | 'unisex'
+export type Category = 'denim' | 'shirts' | 'jackets' | 'cargos' | 'pants'
 export type ColorFamily = 'Blues' | 'Browns' | 'Neutrals' | 'Greens'
 
 export interface Product {
@@ -41,13 +41,19 @@ export const SIZES = ['XS', 'S', 'M', 'L', 'XL']
 export const TYPES = ['Hoodie', 'Jacket', 'Trench', 'Overcoat', 'Shirt', 'Denim', 'Cargo', 'Trouser']
 export const COLOR_FAMILIES: ColorFamily[] = ['Blues', 'Browns', 'Neutrals', 'Greens']
 
-/** Garment-type nav categories (`/shop/:slug`) that filter by `type` rather than gender. */
-export const TYPE_SLUGS: Record<string, string> = {
-  Shirt: 'shirts',
-  Denim: 'denims',
-  Cargo: 'cargos',
-  Trouser: 'pants',
-}
+/** The shop's categories, in nav order. Every product belongs to one;
+ *  `type` stays as the finer garment label used by the shop filters. */
+export const CATEGORIES: { slug: Category; label: string }[] = [
+  { slug: 'denim', label: 'Denim' },
+  { slug: 'shirts', label: 'Shirts' },
+  { slug: 'jackets', label: 'Jackets' },
+  { slug: 'cargos', label: 'Cargos' },
+  { slug: 'pants', label: 'Pants' },
+]
+
+export const CATEGORY_LABELS: Record<string, string> = Object.fromEntries(
+  CATEGORIES.map((c) => [c.slug, c.label]),
+)
 
 export const PRODUCTS: Product[] = [
   {
@@ -55,7 +61,7 @@ export const PRODUCTS: Product[] = [
     handle: 'urban-commuter',
     name: 'Urban Commuter',
     price: 160,
-    categories: ['men', 'unisex'],
+    categories: ['jackets'],
     popular: true,
     images: [product1],
     description:
@@ -72,7 +78,7 @@ export const PRODUCTS: Product[] = [
     handle: 'charcoal-layer',
     name: 'Charcoal Layer',
     price: 185,
-    categories: ['unisex'],
+    categories: ['jackets'],
     images: [product2],
     description:
       'A boxy zip jacket paired with a compact duffel and tonal sunglasses — the kind of layer that quietly does the most work in an outfit.',
@@ -88,7 +94,7 @@ export const PRODUCTS: Product[] = [
     handle: 'winter-trench',
     name: 'Winter Trench',
     price: 210,
-    categories: ['women'],
+    categories: ['jackets'],
     popular: true,
     images: [product3],
     description:
@@ -105,7 +111,7 @@ export const PRODUCTS: Product[] = [
     handle: 'soft-trench',
     name: 'Soft Trench',
     price: 260,
-    categories: ['women'],
+    categories: ['jackets'],
     images: [product4],
     description:
       'An oversized coat wrapped with a chunky scarf over a knit mini dress — deliberately soft, deliberately warm.',
@@ -121,7 +127,7 @@ export const PRODUCTS: Product[] = [
     handle: 'winter-city-layer',
     name: 'Winter City Layer',
     price: 300,
-    categories: ['women'],
+    categories: ['jackets'],
     popular: true,
     images: [product5],
     description:
@@ -138,7 +144,7 @@ export const PRODUCTS: Product[] = [
     handle: 'signature-hoodie-navy',
     name: 'Signature Hoodie — Navy',
     price: 128,
-    categories: ['men', 'unisex'],
+    categories: ['jackets'],
     popular: true,
     images: [heroFull, heroBack, heroPortrait],
     description:
@@ -155,7 +161,7 @@ export const PRODUCTS: Product[] = [
     handle: 'signature-hoodie-black',
     name: 'Signature Hoodie — Black',
     price: 132,
-    categories: ['men', 'unisex'],
+    categories: ['jackets'],
     images: [heroBlackFront, heroBlackBack],
     description:
       'The same signature fit in soft-touch black fleece, paired here with wide-leg denim and a slouchy crossbody.',
@@ -173,7 +179,7 @@ export const PRODUCTS: Product[] = [
     handle: 'garment-dyed-overshirt',
     name: 'Garment-Dyed Overshirt',
     price: 145,
-    categories: ['men', 'unisex'],
+    categories: ['shirts'],
     popular: true,
     images: [shirt1a, shirt1b],
     description:
@@ -195,7 +201,7 @@ export const PRODUCTS: Product[] = [
     handle: 'studio-oxford-shirt',
     name: 'Studio Oxford Shirt',
     price: 120,
-    categories: ['men', 'unisex'],
+    categories: ['shirts'],
     images: [],
     description: 'Coming soon — a crisp cotton oxford cut for everyday wear.',
     details: ['Details coming soon'],
@@ -210,7 +216,7 @@ export const PRODUCTS: Product[] = [
     handle: 'weekend-flannel-shirt',
     name: 'Weekend Flannel Shirt',
     price: 110,
-    categories: ['men', 'unisex'],
+    categories: ['shirts'],
     images: [],
     description: 'Coming soon — brushed flannel built for cold mornings.',
     details: ['Details coming soon'],
@@ -225,7 +231,7 @@ export const PRODUCTS: Product[] = [
     handle: 'linen-camp-shirt',
     name: 'Linen Camp Shirt',
     price: 130,
-    categories: ['unisex', 'women'],
+    categories: ['shirts'],
     images: [],
     description: 'Coming soon — an open-collar camp shirt in washed linen.',
     details: ['Details coming soon'],
@@ -242,7 +248,7 @@ export const PRODUCTS: Product[] = [
     handle: 'raw-selvedge-jean',
     name: 'Raw Selvedge Jean',
     price: 175,
-    categories: ['men'],
+    categories: ['denim'],
     images: [model2Jeans],
     description: 'Coming soon — deep indigo selvedge denim, unwashed.',
     details: ['Details coming soon'],
@@ -257,7 +263,7 @@ export const PRODUCTS: Product[] = [
     handle: 'washed-straight-jean',
     name: 'Washed Straight Jean',
     price: 155,
-    categories: ['men', 'unisex'],
+    categories: ['denim'],
     images: [],
     description: 'Coming soon — a straight-leg cut in a mid-blue wash.',
     details: ['Details coming soon'],
@@ -272,7 +278,7 @@ export const PRODUCTS: Product[] = [
     handle: 'wide-leg-denim',
     name: 'Wide-Leg Denim',
     price: 165,
-    categories: ['women', 'unisex'],
+    categories: ['denim'],
     images: [model1Jeans],
     description: 'Coming soon — relaxed wide-leg denim with a high rise.',
     details: ['Details coming soon'],
@@ -289,7 +295,7 @@ export const PRODUCTS: Product[] = [
     handle: 'black-ripstop-cargos',
     name: 'Black Ripstop Cargos',
     price: 175,
-    categories: ['men', 'unisex'],
+    categories: ['cargos'],
     images: [],
     description:
       'A convertible ripstop cargo with two detachable pockets, suspenders, and twelve more multipurpose pockets — built for movement, made to last.',
@@ -310,7 +316,7 @@ export const PRODUCTS: Product[] = [
     handle: 'olive-utility-cargos',
     name: 'Olive Utility Cargos',
     price: 165,
-    categories: ['men'],
+    categories: ['cargos'],
     images: [],
     description: 'Coming soon — a straight-leg utility cargo in washed olive.',
     details: ['Details coming soon'],
@@ -325,7 +331,7 @@ export const PRODUCTS: Product[] = [
     handle: 'stone-relaxed-cargos',
     name: 'Stone Relaxed Cargos',
     price: 160,
-    categories: ['unisex', 'women'],
+    categories: ['cargos'],
     images: [],
     description: 'Coming soon — a relaxed-fit cargo in warm stone twill.',
     details: ['Details coming soon'],
@@ -342,7 +348,7 @@ export const PRODUCTS: Product[] = [
     handle: 'weekend-trouser-olive',
     name: 'Weekend Trouser — Olive',
     price: 140,
-    categories: ['men', 'unisex'],
+    categories: ['pants'],
     popular: true,
     images: [pant1],
     description:
@@ -359,7 +365,7 @@ export const PRODUCTS: Product[] = [
     handle: 'weekend-trouser-black',
     name: 'Weekend Trouser — Black',
     price: 140,
-    categories: ['men', 'unisex'],
+    categories: ['pants'],
     images: [pant2],
     description:
       'The same relaxed elastic-waist cut in a clean black wash — the trouser that quietly works with everything else in the closet.',
@@ -375,7 +381,7 @@ export const PRODUCTS: Product[] = [
     handle: 'weekend-trouser-navy',
     name: 'Weekend Trouser — Navy',
     price: 140,
-    categories: ['men', 'unisex'],
+    categories: ['pants'],
     popular: true,
     images: [pant3],
     description:
@@ -392,7 +398,7 @@ export const PRODUCTS: Product[] = [
     handle: 'weekend-trouser-taupe',
     name: 'Weekend Trouser — Taupe',
     price: 140,
-    categories: ['men', 'unisex'],
+    categories: ['pants'],
     images: [pant4],
     description:
       'A warm taupe colorway of the weekend trouser — a quiet neutral built to pair with almost anything in rotation.',
@@ -411,11 +417,11 @@ export function getProductByHandle(handle: string): Product | undefined {
 
 export function getProductsByCategory(category: string): Product[] {
   if (category === 'popular') return PRODUCTS.filter((p) => p.popular)
-  if (category === 'men' || category === 'women' || category === 'unisex') {
-    return PRODUCTS.filter((p) => p.categories.includes(category))
+  if (CATEGORIES.some((c) => c.slug === category)) {
+    return PRODUCTS.filter((p) => p.categories.includes(category as Category))
   }
-  const type = Object.keys(TYPE_SLUGS).find((t) => TYPE_SLUGS[t] === category)
-  if (type) return PRODUCTS.filter((p) => p.type === type)
+  /* Anything else (including the retired men/women/unisex slugs, which
+     may still be bookmarked) falls back to the full range. */
   return PRODUCTS
 }
 

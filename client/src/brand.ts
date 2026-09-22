@@ -7,7 +7,7 @@
 export const STUDIO = {
   name: 'Vintage Blue Jeanswear',
   street: 'Industrial Area A',
-  city: 'Ludhiana, Punjab',
+  city: 'Delhi',
   email: 'hello@vintageblue.in',
   phone: '+91 98765 43210',
   phoneHref: 'tel:+919876543210',

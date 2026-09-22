@@ -92,13 +92,13 @@ const goals = [
     title: 'Timeless Cuts',
     copy: 'Considered silhouettes that outlast every trend cycle.',
     img: goalPhoto2,
-    to: '/shop/men',
+    to: '/shop/jackets',
   },
   {
     title: 'Conscious Fabric',
     copy: 'Responsibly sourced denim and wool, season after season.',
     img: product4,
-    to: '/shop/denims',
+    to: '/shop/denim',
   },
 ]
 
@@ -305,7 +305,7 @@ function LookbookLanding() {
             </p>
 
             <div className="lb-hero-actions">
-              <a href="/shop/men" className="lb-btn lb-btn-solid" onClick={go('/shop/men')}>
+              <a href="/shop/popular" className="lb-btn lb-btn-solid" onClick={go('/shop/popular')}>
                 Shop The Edit <ArrowRight size={15} strokeWidth={1.8} />
               </a>
               <a href="#lb-film" className="lb-btn lb-btn-line" onClick={jump('lb-film')}>
@@ -377,7 +377,7 @@ function LookbookLanding() {
           <span className="lb-grid-brand-tag">The Weekend Edit</span>
         </span>
 
-        <a href="/shop/men" className="lb-grid-cta" onClick={go('/shop/men')}>
+        <a href="/shop/popular" className="lb-grid-cta" onClick={go('/shop/popular')}>
           Shop This Look <ArrowRight size={14} strokeWidth={1.8} />
         </a>
       </section>
@@ -486,7 +486,7 @@ function LookbookLanding() {
             Washed, worn-in, and built to move. Every pair is broken in before it ever
             reaches you, cut generously and finished to last well past one season.
           </p>
-          <a href="/shop/denims" className="lb-btn lb-btn-light" onClick={go('/shop/denims')}>
+          <a href="/shop/denim" className="lb-btn lb-btn-light" onClick={go('/shop/denim')}>
             Shop Denim <ArrowRight size={15} strokeWidth={1.8} />
           </a>
         </div>
@@ -526,7 +526,7 @@ function LookbookLanding() {
           <p className="lb-footer-wordmark">
             <span className="script-initial">V</span>intage Blue
           </p>
-          <p className="lb-footer-tag">Menswear built on fit, fabric, and finish. Ludhiana, Punjab — since 2006.</p>
+          <p className="lb-footer-tag">Menswear built on fit, fabric, and finish. Delhi — since 2006.</p>
         </div>
 
         <div className="lb-footer-col">
@@ -534,7 +534,7 @@ function LookbookLanding() {
           <a href="/shop/popular" onClick={go('/shop/popular')}>Popular</a>
           <a href="/drop" onClick={go('/drop')}>New Drop</a>
           <a href="/shop/pants" onClick={go('/shop/pants')}>Pants</a>
-          <a href="/shop/men" onClick={go('/shop/men')}>Men</a>
+          <a href="/shop/denim" onClick={go('/shop/denim')}>Denim</a>
         </div>
 
         <div className="lb-footer-col">
