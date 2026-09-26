@@ -35,10 +35,10 @@ const heroPhotos = [
 ]
 
 const works = [
-  { img: product1, tag: 'DENIM', label: 'Urban Commuter', handle: 'urban-commuter' },
-  { img: product2, tag: 'OUTERWEAR', label: 'Charcoal Layer', handle: 'charcoal-layer' },
-  { img: product3, tag: 'COATS', label: 'Winter Trench', handle: 'winter-trench' },
-  { img: product4, tag: 'KNITWEAR', label: 'Soft Trench', handle: 'soft-trench' },
+  { img: product1, tag: 'DENIM', label: 'Urban Commuter', handle: 'denim-jacket-164-tinted-blue' },
+  { img: product2, tag: 'OUTERWEAR', label: 'Charcoal Layer', handle: 'corduroy-jacket-171-black' },
+  { img: product3, tag: 'COATS', label: 'Winter Trench', handle: 'denim-fur-jacket-167-dark-blue' },
+  { img: product4, tag: 'KNITWEAR', label: 'Soft Trench', handle: 'denim-fleece-jacket-169-moon-light' },
 ]
 
 const stats = [
@@ -75,9 +75,9 @@ function goHome(e: MouseEvent) {
   navigate('/')
 }
 
-function goDrop(e: MouseEvent) {
+function goShop(e: MouseEvent) {
   e.preventDefault()
-  navigate('/drop')
+  navigate('/shop/all')
 }
 
 function StoryLanding() {
@@ -115,7 +115,7 @@ function StoryLanding() {
           </Reveal>
           <Reveal delay={200}>
             <div className="sl-hero-actions">
-              <a href="/drop" className="sl-btn-solid" onClick={goDrop}>
+              <a href="/shop/all" className="sl-btn-solid" onClick={goShop}>
                 View Collection <ArrowUpRight size={16} strokeWidth={1.8} />
               </a>
               <a href="#story" className="sl-btn-text">
@@ -180,7 +180,7 @@ function StoryLanding() {
         <div className="sl-works-panel">
           <Reveal className="sl-works-head">
             <h2>Selected Drops</h2>
-            <a href="/drop" className="sl-pill-ghost" onClick={goDrop}>
+            <a href="/shop/all" className="sl-pill-ghost" onClick={goShop}>
               View all styles <ArrowUpRight size={14} strokeWidth={1.8} />
             </a>
           </Reveal>
@@ -316,7 +316,7 @@ function StoryLanding() {
               <span>@vintageblue.studio</span>
               <span>Worldwide Shipping</span>
             </div>
-            <a href="/drop" className="sl-btn-solid" onClick={goDrop}>
+            <a href="/shop/all" className="sl-btn-solid" onClick={goShop}>
               Shop Now <ArrowUpRight size={16} strokeWidth={1.8} />
             </a>
           </div>

@@ -292,6 +292,11 @@
 }
 
 .lb-grid-tile-product {
+  /* Lifted above `.lb-grid-tint` so the shoppable flat lays stay true
+     to their actual product color, unlike the lifestyle photo tiles
+     around them. */
+  position: relative;
+  z-index: 2;
   display: block;
   cursor: pointer;
 }
@@ -331,6 +336,19 @@
 .lb-grid-tile-product:hover .lb-grid-tag {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* A tint of the page's own beige background over the whole mosaic,
+   so the grid's photography reads as part of the site instead of a
+   raw photo insert. Sits below the edge shade; clicks pass through
+   to the tiles underneath. */
+.lb-grid-tint {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--beige);
+  opacity: 0.4;
+  pointer-events: none;
 }
 
 /* A low dark wash along the bottom, under the overlays; clicks pass

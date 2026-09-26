@@ -305,7 +305,7 @@ function LookbookLanding() {
             </p>
 
             <div className="lb-hero-actions">
-              <a href="/shop/popular" className="lb-btn lb-btn-solid" onClick={go('/shop/popular')}>
+              <a href="/shop/all" className="lb-btn lb-btn-solid" onClick={go('/shop/all')}>
                 Shop The Edit <ArrowRight size={15} strokeWidth={1.8} />
               </a>
               <a href="#lb-film" className="lb-btn lb-btn-line" onClick={jump('lb-film')}>
@@ -362,6 +362,12 @@ function LookbookLanding() {
           )}
         </div>
 
+        {/* A wash of the page's own background color over the mosaic, so
+            the grid reads as part of the site rather than a raw photo
+            insert; sits under the dark edge shade and never blocks
+            clicks on the tiles. */}
+        <div className="lb-grid-tint" aria-hidden="true" />
+
         {/* Shade along the bottom edge so the overlays below read over
             any part of the photo; it never takes clicks from the tiles. */}
         <div className="lb-grid-shade" aria-hidden="true" />
@@ -377,7 +383,7 @@ function LookbookLanding() {
           <span className="lb-grid-brand-tag">The Weekend Edit</span>
         </span>
 
-        <a href="/shop/popular" className="lb-grid-cta" onClick={go('/shop/popular')}>
+        <a href="/shop/all" className="lb-grid-cta" onClick={go('/shop/all')}>
           Shop This Look <ArrowRight size={14} strokeWidth={1.8} />
         </a>
       </section>
@@ -449,7 +455,7 @@ function LookbookLanding() {
                 earns its collar: chosen for how they wear in, not just how they
                 photograph on day one.
               </p>
-              <a href="/shop/popular" className="lb-btn lb-btn-solid" onClick={go('/shop/popular')}>
+              <a href="/shop/all" className="lb-btn lb-btn-solid" onClick={go('/shop/all')}>
                 Shop The Edit <ArrowRight size={15} strokeWidth={1.8} />
               </a>
             </Reveal>
@@ -531,8 +537,6 @@ function LookbookLanding() {
 
         <div className="lb-footer-col">
           <h3>Shop</h3>
-          <a href="/shop/popular" onClick={go('/shop/popular')}>Popular</a>
-          <a href="/drop" onClick={go('/drop')}>New Drop</a>
           <a href="/shop/pants" onClick={go('/shop/pants')}>Pants</a>
           <a href="/shop/denim" onClick={go('/shop/denim')}>Denim</a>
         </div>

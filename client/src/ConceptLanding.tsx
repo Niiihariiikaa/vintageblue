@@ -144,7 +144,7 @@ function ConceptLanding() {
             <a href="/lookbook" className="cn-btn-solid" onClick={go('/lookbook')}>
               View the Lookbook
             </a>
-            <a href="/shop/popular" className="cn-btn-text" onClick={go('/shop/popular')}>
+            <a href="/shop/all" className="cn-btn-text" onClick={go('/shop/all')}>
               Shop the Concept →
             </a>
           </div>

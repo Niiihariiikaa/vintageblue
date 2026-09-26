@@ -212,7 +212,7 @@ function AboutLanding() {
           <h2 className="ab-promise-heading">
             Thoughtfully Designed Menswear, Made To Be Worn For Years.
           </h2>
-          <a href="/shop/popular" className="ab-promise-cta" onClick={go('/shop/popular')}>
+          <a href="/shop/all" className="ab-promise-cta" onClick={go('/shop/all')}>
             Shop The Collection <ArrowUpRight size={16} strokeWidth={1.8} />
           </a>
         </Reveal>
@@ -229,8 +229,6 @@ function AboutLanding() {
 
         <div className="ab-footer-col">
           <h3>Shop</h3>
-          <a href="/shop/popular" onClick={go('/shop/popular')}>Popular</a>
-          <a href="/drop" onClick={go('/drop')}>New Drop</a>
           <a href="/shop/denim" onClick={go('/shop/denim')}>Denim</a>
           <a href="/shop/jackets" onClick={go('/shop/jackets')}>Jackets</a>
         </div>

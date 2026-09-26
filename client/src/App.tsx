@@ -75,11 +75,11 @@ const shopCategories = [
 ]
 
 const newArrivals = [
-  { name: 'Urban Commuter', price: '160 $', img: product1, handle: 'urban-commuter', badge: 'Bestseller' },
-  { name: 'Charcoal Layer', price: '185 $', img: product2, handle: 'charcoal-layer', badge: 'New' },
-  { name: 'Winter Trench', price: '210 $', img: product3, handle: 'winter-trench', badge: null },
-  { name: 'Soft Trench', price: '260 $', img: product4, handle: 'soft-trench', badge: 'Limited' },
-  { name: 'Winter City Layer', price: '300 $', img: product5, handle: 'winter-city-layer', badge: null },
+  { name: 'Urban Commuter', price: '160 $', img: product1, handle: 'denim-jacket-164-tinted-blue', badge: 'Bestseller' },
+  { name: 'Charcoal Layer', price: '185 $', img: product2, handle: 'corduroy-jacket-171-black', badge: 'New' },
+  { name: 'Winter Trench', price: '210 $', img: product3, handle: 'denim-fur-jacket-167-dark-blue', badge: null },
+  { name: 'Soft Trench', price: '260 $', img: product4, handle: 'denim-fleece-jacket-169-moon-light', badge: 'Limited' },
+  { name: 'Winter City Layer', price: '300 $', img: product5, handle: 'corduroy-jacket-172-olive', badge: null },
 ]
 
 const bestsellers = PRODUCTS.filter((p) => p.popular)
@@ -101,21 +101,21 @@ const looks = [
     title: 'The Everyday',
     copy: 'Signature Hoodie, wide-leg denim, canvas sneakers.',
     img: heroFull,
-    handle: 'signature-hoodie-navy',
+    handle: 'corduroy-shirt-141-1-navy',
   },
   {
     n: '02',
     title: 'After Hours',
     copy: 'Charcoal Layer jacket, tapered trousers, boots.',
     img: product2,
-    handle: 'charcoal-layer',
+    handle: 'corduroy-jacket-171-black',
   },
   {
     n: '03',
     title: 'The Weekender',
     copy: 'Urban Commuter sweatshirt, duffel, trainers.',
     img: product1,
-    handle: 'urban-commuter',
+    handle: 'denim-jacket-164-tinted-blue',
   },
 ]
 
@@ -218,7 +218,7 @@ function App() {
         </div>
 
         <div className="hero-cta">
-          <button className="shop-now" onClick={() => navigate('/shop/popular')}>
+          <button className="shop-now" onClick={() => navigate('/shop/all')}>
             SHOP THE COLLECTION →
           </button>
         </div>
@@ -253,7 +253,7 @@ function App() {
               <h2 className="section-title">The Latest Edit</h2>
               <p className="section-subtitle">New pieces, rooted in timeless style.</p>
             </div>
-            <a href="/shop/popular" className="see-more" onClick={go('/shop/popular')}>
+            <a href="/shop/all" className="see-more" onClick={go('/shop/all')}>
               see more <LongArrow className="see-more-arrow" />
             </a>
           </div>
@@ -379,7 +379,7 @@ function App() {
             Our silhouettes are designed around effortless everyday dressing — easy
             proportions, considered details, and room to move.
           </p>
-          <a href="/shop/popular" className="fit-cta" onClick={go('/shop/popular')}>
+          <a href="/shop/all" className="fit-cta" onClick={go('/shop/all')}>
             Discover Our Fits →
           </a>
           <ul className="fit-tags">
@@ -399,7 +399,7 @@ function App() {
             From deep indigo to worn-in washes, every pair is designed to age
             beautifully.
           </p>
-          <a href="/shop/popular" className="denim-cta" onClick={go('/shop/popular')}>
+          <a href="/shop/denim" className="denim-cta" onClick={go('/shop/denim')}>
             Shop Denim →
           </a>
         </Reveal>
@@ -555,18 +555,17 @@ function App() {
         <div className="footer-grid">
           <div className="footer-col">
             <h3>Shop</h3>
-            <a href="/shop/popular" onClick={go('/shop/popular')}>New Arrivals</a>
+            <a href="/shop/all" onClick={go('/shop/all')}>New Arrivals</a>
             <a href="/shop/denim" onClick={go('/shop/denim')}>Denim</a>
             <a href="/shop/shirts" onClick={go('/shop/shirts')}>Shirts</a>
             <a href="/shop/jackets" onClick={go('/shop/jackets')}>Jackets</a>
-            <a href="/shop/popular" onClick={go('/shop/popular')}>Bestsellers</a>
+            <a href="/shop/all" onClick={go('/shop/all')}>Bestsellers</a>
           </div>
           <div className="footer-col">
             <h3>About</h3>
             <a href="/story" onClick={go('/story')}>Our Story</a>
             <a href="/concept" onClick={go('/concept')}>The Concept</a>
             <a href="/lookbook" onClick={go('/lookbook')}>Lookbook</a>
-            <a href="/drop" onClick={go('/drop')}>New Drop</a>
           </div>
           <div className="footer-col">
             <h3>Help</h3>

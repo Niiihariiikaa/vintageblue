@@ -172,8 +172,8 @@ function ContactLanding() {
       <section className="cx-cta">
         <Reveal>
           <h2>Prefer To Browse First?</h2>
-          <a href="/shop/popular" className="cx-cta-link" onClick={go('/shop/popular')}>
-            Shop Popular <ArrowUpRight size={16} strokeWidth={1.8} />
+          <a href="/shop/all" className="cx-cta-link" onClick={go('/shop/all')}>
+            Shop Now <ArrowUpRight size={16} strokeWidth={1.8} />
           </a>
         </Reveal>
       </section>
@@ -189,8 +189,6 @@ function ContactLanding() {
 
         <div className="cx-footer-col">
           <h3>Shop</h3>
-          <a href="/shop/popular" onClick={go('/shop/popular')}>Popular</a>
-          <a href="/drop" onClick={go('/drop')}>New Drop</a>
           <a href="/shop/denim" onClick={go('/shop/denim')}>Denim</a>
           <a href="/shop/jackets" onClick={go('/shop/jackets')}>Jackets</a>
         </div>

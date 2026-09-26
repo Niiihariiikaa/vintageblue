@@ -20,12 +20,7 @@
    ================================================================ */
 
 .hr-hero {
-  /* Sticky and pinned just below the fixed nav so the Products section
-     below can scroll up over it — rounded top corners and all — reading
-     as the next card in a stack rather than a plain scroll transition. */
-  position: sticky;
-  top: 72px;
-  z-index: 1;
+  position: relative;
   background: var(--beige);
 }
 
@@ -64,17 +59,20 @@
 
 .hr-wordmark {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 27%;
+  /* The reference lockup: a script initial and the rest in the display
+     serif, ranged left and running the width of the frame, with the
+     model standing over its first letters. */
+  left: 6.3%;
+  right: 5.7%;
+  bottom: 25%;
   z-index: 2;
   margin: 0;
-  text-align: center;
+  text-align: left;
   white-space: nowrap;
-  font-family: var(--font-script);
+  font-family: var(--font-display);
   font-weight: normal;
   line-height: 1;
-  font-size: clamp(56px, 13vw, 190px);
+  font-size: 14.5vw;
   color: #f4ede1;
   text-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
   pointer-events: none;
@@ -84,9 +82,15 @@
   position: absolute;
   z-index: 3;
   bottom: 0;
-  left: 18%;
-  transform: translateX(-50%);
-  height: 98%;
+  /* Placed to match the reference composition: the model's head just
+     clears the nav, his legs run off the bottom edge, and he stands a
+     little right of the wordmark's script initial. `left` is where he
+     stands, centred by `translate` rather than `transform`: the
+     parallax writes an inline `transform`, which would silently cancel
+     a translateX(-50%) written here. */
+  left: 35.9%;
+  translate: -50% 0;
+  height: 102%;
   width: auto;
   max-width: none;
   object-fit: contain;
@@ -96,93 +100,13 @@
 
 .hr-hero-copy {
   position: absolute;
-  left: 6%;
-  bottom: 7%;
+  left: 6.3%;
+  bottom: 10%;
   z-index: 4;
   max-width: 420px;
   text-align: left;
 }
 
-.hr-hero-lede {
-  margin: 0 0 24px;
-  font-size: 14.5px;
-  line-height: 1.7;
-  color: rgba(244, 237, 225, 0.78);
-}
-
-/* Vertical dateline up the right edge — the small piece of standing
-   information that stops the hero reading as one big headline. */
-.hr-hero-meta {
-  position: absolute;
-  right: 3.2%;
-  bottom: 12%;
-  z-index: 4;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  writing-mode: vertical-rl;
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.34em;
-  text-transform: uppercase;
-  color: rgba(244, 237, 225, 0.6);
-  pointer-events: none;
-}
-
-.hr-hero-meta-rule {
-  width: 1px;
-  height: 46px;
-  background: rgba(244, 237, 225, 0.4);
-}
-
-.hr-hero-scroll {
-  position: absolute;
-  left: 50%;
-  bottom: 22px;
-  z-index: 4;
-  transform: translateX(-50%);
-  padding-bottom: 30px;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.34em;
-  text-transform: uppercase;
-  color: rgba(244, 237, 225, 0.65);
-  pointer-events: none;
-}
-
-/* The travelling line under "Scroll" — the one looping animation on
-   the page, so it reads as an invitation rather than decoration. */
-.hr-hero-scroll::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: 1px;
-  height: 22px;
-  background: rgba(244, 237, 225, 0.55);
-  transform-origin: top;
-  animation: hr-scroll-cue 2.1s ease-in-out infinite;
-}
-
-@keyframes hr-scroll-cue {
-  0%,
-  100% {
-    transform: scaleY(0.25);
-    opacity: 0.4;
-  }
-  50% {
-    transform: scaleY(1);
-    opacity: 1;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hr-hero-scroll::after {
-    animation: none;
-    transform: scaleY(1);
-  }
-}
 
 .hr-eyebrow {
   margin: 0 0 16px;
@@ -217,13 +141,11 @@
 }
 
 /* ================================================================
-   Stacked card sections
+   Card sections
    ----------------------------------------------------------------
    Every band below the hero is a cream "card" with rounded top
-   corners and an upward shadow, so scrolling reads as one card
-   sliding over the last. `.hr-card-sticky` pins a card in place so
-   the following one can rise and cover it; only the first product
-   card needs that, the rest scroll normally.
+   corners and an upward shadow. No sticky/stacking scroll effect
+   here — sections just flow normally, one after another.
    ================================================================ */
 
 .hr-card-section {
@@ -236,9 +158,12 @@
   box-shadow: 0 -50px 90px rgba(15, 12, 9, 0.35);
 }
 
-.hr-card-sticky {
-  position: sticky;
-  top: 72px;
+/* No rounded top / lifted-edge shadow — for a card that sits directly
+   against another beige section, where that seam would otherwise show
+   up as a stray partition line with nothing to justify it. */
+.hr-card-flush {
+  border-radius: 0;
+  box-shadow: none;
 }
 
 /* Content gutter, kept off the section itself so the marquee strip can
@@ -1097,20 +1022,9 @@
     min-height: 340px;
   }
 
-  /* A card taller than the viewport can't be pinned without hiding its
-     own bottom edge, so the stack reverts to plain scrolling here. */
-  .hr-hero,
-  .hr-card-sticky {
-    position: static;
-  }
-
   .hr-footer-top {
     grid-template-columns: 1fr;
     align-items: start;
-  }
-
-  .hr-hero-meta {
-    display: none;
   }
 
 }
@@ -1121,14 +1035,18 @@
     gap: 30px 20px;
   }
 
-  /* One column can't hold the script wordmark on a single line at a
-     legible size, so it wraps to two centred lines and sits above a
-     smaller, centred cutout instead of behind it. */
+  /* One column can't hold the lockup on a single line at a legible
+     size, so it wraps to two ranged-left lines, and the model steps
+     right to stand clear of them rather than over them. */
   .hr-wordmark {
-    bottom: 42%;
+    bottom: 28%;
+    /* Narrow box so the lockup breaks after VINTAGE and clears the
+       model standing to its right, instead of disappearing behind him
+       mid-word. */
+    right: 45%;
     white-space: normal;
-    font-size: 19vw;
-    line-height: 0.88;
+    font-size: 13vw;
+    line-height: 0.92;
   }
 
   .hr-hero-copy {
@@ -1136,17 +1054,13 @@
     right: 5%;
   }
 
-  .hr-hero-scroll {
-    display: none;
-  }
-
   .hr-head-title {
     font-size: clamp(26px, 8vw, 40px);
   }
 
   .hr-cutout {
-    left: 50%;
-    height: 62%;
+    left: 68%;
+    height: 64%;
   }
 
   .hr-hero-copy {

@@ -27,18 +27,21 @@ import pant3 from './assets2/pants/pant3.png'
 import pant4 from './assets2/pants/pant4.png'
 import collectionVideo from './assets/video1.mp4'
 
+/* The homepage rows keep the studio shots rather than the line-sheet
+   photography the shop runs on — same pieces in spirit, shot clean for
+   the front page. Prices follow the catalogue's category pricing. */
 const products = [
-  { name: 'Shearling Trucker', price: '295 $', img: product1 },
-  { name: 'Western Denim Shirt', price: '165 $', img: product2 },
-  { name: 'Corduroy Overshirt', price: '210 $', img: product3 },
-  { name: 'Classic Denim Jacket', price: '240 $', img: product4 },
+  { name: 'Shearling Trucker', price: '₹3,299', img: product1 },
+  { name: 'Western Denim Shirt', price: '₹1,499', img: product2 },
+  { name: 'Corduroy Overshirt', price: '₹1,499', img: product3 },
+  { name: 'Classic Denim Jacket', price: '₹3,299', img: product4 },
 ]
 
 const pantsProducts = [
-  { name: 'Weekend Trouser — Olive', price: '140 $', img: pant1 },
-  { name: 'Weekend Trouser — Black', price: '140 $', img: pant2 },
-  { name: 'Weekend Trouser — Navy', price: '140 $', img: pant3 },
-  { name: 'Weekend Trouser — Taupe', price: '140 $', img: pant4 },
+  { name: 'Weekend Trouser — Olive', price: '₹1,699', img: pant1 },
+  { name: 'Weekend Trouser — Black', price: '₹1,699', img: pant2 },
+  { name: 'Weekend Trouser — Navy', price: '₹1,699', img: pant3 },
+  { name: 'Weekend Trouser — Taupe', price: '₹1,699', img: pant4 },
 ]
 
 const weekendLeft = ['Truckers', 'Overshirts', 'Chore Coats', 'Flannel', 'Shearling']
@@ -243,87 +246,69 @@ function HeritageLanding() {
     <div className="hr-page">
       <Nav />
 
-      {/* The pinned cards live inside one wrapper on purpose: a sticky
-          element stays stuck until its *containing block* ends, so with
-          `.hr-page` as the container the first card stayed pinned for
-          the whole page and reappeared in the gap above the footer.
-          Bounding it here releases both pins as soon as the trousers
-          card has finished covering the one above it. */}
-      <div className="hr-stack">
-        {/* ---------------- Hero ---------------- */}
-        <section className="hr-hero" aria-label="Vintage Blue heritage denim">
-          <div className="hr-hero-inner">
-            <img className="hr-hero-bg" style={heroLayer(0.12)} src={heroBg} alt="" aria-hidden="true" />
-            <div className="hr-hero-scrim" />
+      {/* ---------------- Hero ---------------- */}
+      <section className="hr-hero" aria-label="Vintage Blue heritage denim">
+        <div className="hr-hero-inner">
+          <img className="hr-hero-bg" style={heroLayer(0.12)} src={heroBg} alt="" aria-hidden="true" />
+          <div className="hr-hero-scrim" />
 
-            <h1 className="hr-wordmark" style={{ ...heroLayer(0.16), ...heroFade }}>
-              Vintage Blue
-            </h1>
+          <h1 className="hr-wordmark" style={{ ...heroLayer(0.16), ...heroFade }}>
+            <span className="script-initial">V</span>intage Blue
+          </h1>
 
-            <img
-              className="hr-cutout"
-              style={heroLayer(-0.035)}
-              src={heroCutout}
-              alt="Model wearing a shearling-collar denim jacket over dark wash jeans"
-            />
+          <img
+            className="hr-cutout"
+            style={heroLayer(-0.035)}
+            src={heroCutout}
+            alt="Model wearing a shearling-collar denim jacket over dark wash jeans"
+          />
 
-            <p className="hr-hero-meta" aria-hidden="true">
-              Est. 2006 <span className="hr-hero-meta-rule" /> Delhi, India
-            </p>
+          <Reveal className="hr-hero-copy">
+            <p className="hr-eyebrow">Heritage Denim</p>
+            <a href="/shop/all" className="hr-cta" onClick={go('/shop/all')}>
+              Shop The Collection <ArrowUpRight size={16} strokeWidth={1.8} />
+            </a>
+          </Reveal>
+        </div>
+      </section>
 
-            <Reveal className="hr-hero-copy">
-              <p className="hr-eyebrow">Heritage Denim</p>
-              <p className="hr-hero-lede">
-                Twenty years of fit, fabric and finish — cut for the way men actually
-                wear denim.
-              </p>
-              <a href="/shop/popular" className="hr-cta" onClick={go('/shop/popular')}>
-                Shop The Collection <ArrowUpRight size={16} strokeWidth={1.8} />
-              </a>
-            </Reveal>
-
-            <span className="hr-hero-scroll" style={heroFade} aria-hidden="true">
-              Scroll
-            </span>
+      {/* ---------------- 01 — Outerwear edit ---------------- */}
+      <section className="hr-card-section" id="hr-products">
+        <div className="hr-marquee" aria-hidden="true">
+          <div className="hr-marquee-track">
+            {marquee}
+            {marquee}
           </div>
-        </section>
+        </div>
 
-        {/* ---------------- 01 — Outerwear edit (pins so the trousers card
-             below can rise and cover it, continuing the stack) ------------ */}
-        <section className="hr-card-section hr-card-sticky" id="hr-products">
-          <div className="hr-marquee" aria-hidden="true">
-            <div className="hr-marquee-track">
-              {marquee}
-              {marquee}
-            </div>
-          </div>
+        <div className="hr-wrap">
+          <SectionHead
+            index="01"
+            title="Built To Wear In."
+            blurb="Heavy cotton, real hardware and washes that keep improving after the hundredth wear."
+            cta="All Outerwear"
+            to="/shop/jackets"
+          />
+          <ProductRow items={products} to="/shop/jackets" />
+        </div>
+      </section>
 
-          <div className="hr-wrap">
-            <SectionHead
-              index="01"
-              title="Built To Wear In."
-              blurb="Heavy cotton, real hardware and washes that keep improving after the hundredth wear."
-              cta="All Outerwear"
-              to="/shop/popular"
-            />
-            <ProductRow items={products} to="/shop/popular" />
-          </div>
-        </section>
-
-        {/* ---------------- 02 — Trousers ---------------- */}
-        <section className="hr-card-section">
-          <div className="hr-wrap">
-            <SectionHead
-              index="02"
-              title="Weekend Trousers."
-              blurb="A relaxed block in four colourways, cut from washed cotton twill that softens with every wash."
-              cta="All Trousers"
-              to="/shop/pants"
-            />
-            <ProductRow items={pantsProducts} to="/shop/pants" />
-          </div>
-        </section>
-      </div>
+      {/* ---------------- 02 — Trousers ---------------- */}
+      {/* Flush against the section above it (same beige, no gap) — the
+          rounded-top-card treatment only makes sense where a section
+          actually sits over a *different* background. */}
+      <section className="hr-card-section hr-card-flush">
+        <div className="hr-wrap">
+          <SectionHead
+            index="02"
+            title="Weekend Trousers."
+            blurb="A relaxed block in four colourways, cut from washed cotton twill that softens with every wash."
+            cta="All Trousers"
+            to="/shop/pants"
+          />
+          <ProductRow items={pantsProducts} to="/shop/pants" />
+        </div>
+      </section>
 
       {/* ---------------- Craft split ---------------- */}
       <section className="hr-craft" aria-label="How we make it">
@@ -375,7 +360,7 @@ function HeritageLanding() {
             title="Shop By Category."
             blurb="Four ways in. Everything else lives in the full shop."
             cta="Browse Everything"
-            to="/shop/popular"
+            to="/shop/all"
           />
 
           <ul className="hr-cats-list">
@@ -438,7 +423,7 @@ function HeritageLanding() {
                   Heavier washes, softer layers. The pieces that carry a Saturday from the
                   porch to the road and back again.
                 </p>
-                <a href="/shop/popular" className="hr-weekend-cta" onClick={go('/shop/popular')}>
+                <a href="/shop/all" className="hr-weekend-cta" onClick={go('/shop/all')}>
                   Shop The Edit <ArrowUpRight size={14} strokeWidth={1.8} />
                 </a>
               </Reveal>
@@ -557,9 +542,6 @@ function HeritageLanding() {
               </a>
               <a href="/shop/pants" onClick={go('/shop/pants')}>
                 Trousers
-              </a>
-              <a href="/drop" onClick={go('/drop')}>
-                The Drop
               </a>
             </div>
 

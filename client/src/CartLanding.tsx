@@ -40,7 +40,7 @@ function CartLanding() {
             Order <strong>{placed}</strong> is confirmed — a receipt would land in your inbox here.
             This is a demo checkout, so nothing was actually charged.
           </p>
-          <a href="/shop/popular" className="ct-btn-solid" onClick={go('/shop/popular')}>
+          <a href="/shop/all" className="ct-btn-solid" onClick={go('/shop/all')}>
             Keep Browsing
           </a>
         </div>
@@ -49,8 +49,8 @@ function CartLanding() {
           <ShoppingBag size={32} strokeWidth={1.3} />
           <h1>Your cart is empty.</h1>
           <p>Find something you'll actually wear on repeat.</p>
-          <a href="/shop/popular" className="ct-btn-solid" onClick={go('/shop/popular')}>
-            Shop Popular
+          <a href="/shop/all" className="ct-btn-solid" onClick={go('/shop/all')}>
+            Shop Now
           </a>
         </div>
       ) : (

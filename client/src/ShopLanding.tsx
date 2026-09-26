@@ -14,13 +14,12 @@ import {
   type ColorFamily,
 } from './catalog'
 
-const tabs: { label: string; slug: string }[] = [
-  { label: 'Popular', slug: 'popular' },
-  ...CATEGORIES.map((c) => ({ label: c.label, slug: c.slug as string })),
-]
+const tabs: { label: string; slug: string }[] = CATEGORIES.map((c) => ({
+  label: c.label,
+  slug: c.slug as string,
+}))
 
 const titles: Record<string, string> = {
-  popular: 'Popular Right Now',
   denim: 'Denim',
   shirts: 'Shirts',
   jackets: 'Jackets',
@@ -95,6 +94,13 @@ function ShopLanding({ category }: { category: string }) {
     outOfStock: searched.filter((p) => !p.inStock).length,
   }
 
+  /* Only offer filters that can actually match something here — the
+     catalogue spans both waist and alpha sizing, and seventeen style
+     families, so a category page would otherwise list a wall of zeroes.
+     Anything already ticked stays visible so it can be unticked. */
+  const shownTypes = TYPES.filter((t) => countFor.type(t) > 0 || types.includes(t))
+  const shownSizes = SIZES.filter((s) => countFor.size(s) > 0 || sizes.includes(s))
+
   const activeFilters: { label: string; onRemove: () => void }[] = [
     ...types.map((t) => ({ label: t, onRemove: () => setTypes(toggle(types, t)) })),
     ...sizes.map((s) => ({ label: `Size ${s}`, onRemove: () => setSizes(toggle(sizes, s)) })),
@@ -137,7 +143,7 @@ function ShopLanding({ category }: { category: string }) {
 
       <div className="sh-filter-group">
         <h3>Type</h3>
-        {TYPES.map((t) => (
+        {shownTypes.map((t) => (
           <label key={t} className="sh-filter-row">
             <input
               type="checkbox"
@@ -152,7 +158,7 @@ function ShopLanding({ category }: { category: string }) {
 
       <div className="sh-filter-group">
         <h3>Size</h3>
-        {SIZES.map((s) => (
+        {shownSizes.map((s) => (
           <label key={s} className="sh-filter-row">
             <input
               type="checkbox"

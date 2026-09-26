@@ -22,7 +22,7 @@ import {
   type Product,
 } from './catalog'
 
-const FREE_SHIPPING_OVER = 200
+const FREE_SHIPPING_OVER = 2999
 const FAVOURITES_KEY = 'vb:favourites'
 
 function go(path: string) {
@@ -41,29 +41,36 @@ function estimatedDelivery(): string {
   return `${fmt(start)} – ${fmt(end)}`
 }
 
-const sizeGuide: { size: string; chest: string; length: string; waist: string }[] = [
-  { size: 'XS', chest: '36"', length: '26"', waist: '28"' },
-  { size: 'S', chest: '38"', length: '27"', waist: '30"' },
-  { size: 'M', chest: '40"', length: '28"', waist: '32"' },
-  { size: 'L', chest: '42"', length: '29"', waist: '34"' },
-  { size: 'XL', chest: '44"', length: '30"', waist: '36"' },
-]
+/* The line sheets carry a size *run* rather than a measurement chart,
+   so the guide reports the garment's own spec instead of inventing
+   chest/length figures nobody has measured. */
+function specRows(product: Product): { label: string; value: string }[] {
+  const waist = /^\d+$/.test(product.sizes[0])
+  return [
+    { label: 'Style no.', value: product.styleNo },
+    { label: 'Fit', value: product.fit },
+    { label: 'Fabric', value: product.material },
+    ...(product.lining ? [{ label: 'Lining', value: product.lining }] : []),
+    {
+      label: waist ? 'Waist sizes' : 'Sizes',
+      value: `${product.sizes[0]}–${product.sizes[product.sizes.length - 1]}${
+        waist ? ' in' : ''
+      }`,
+    },
+  ]
+}
 
 type AccordionKey = 'fit' | 'materials' | 'delivery' | 'size-guide'
 
 /**
  * Other colourways of the same garment, the way a retail PDP shows
- * them: a swatch row of sibling products. Siblings are detected from
- * the handle — `weekend-trouser-olive` and `weekend-trouser-navy` share
- * everything but the last segment — which keeps the relationship in the
- * catalog's own naming rather than in a second hand-maintained list.
+ * them: a swatch row of sibling products. The line sheets group every
+ * colourway under one style family, so that field is the relationship —
+ * no second hand-maintained list, and no guessing from handle strings
+ * (which breaks the moment a colour is two words, like "Off-White").
  */
 function colourways(product: Product): Product[] {
-  const stem = product.handle.split('-').slice(0, -1).join('-')
-  if (!stem) return [product]
-  const family = PRODUCTS.filter(
-    (p) => p.type === product.type && p.handle.split('-').slice(0, -1).join('-') === stem,
-  )
+  const family = PRODUCTS.filter((p) => p.type === product.type)
   return family.length > 1 ? family : [product]
 }
 
@@ -120,7 +127,7 @@ function ProductLanding({ handle }: { handle: string }) {
         <Nav />
         <div className="pd-notfound">
           <h1>We couldn't find that piece.</h1>
-          <a href="/shop/popular" className="pd-btn-solid" onClick={go('/shop/popular')}>
+          <a href="/shop/all" className="pd-btn-solid" onClick={go('/shop/all')}>
             Back to shop
           </a>
         </div>
@@ -128,7 +135,7 @@ function ProductLanding({ handle }: { handle: string }) {
     )
   }
 
-  const categorySlug = product.categories[0] ?? 'popular'
+  const categorySlug = product.categories[0] ?? 'all'
   const categoryLabel = CATEGORY_LABELS[categorySlug] ?? 'Shop'
   const family = colourways(product)
 
@@ -339,7 +346,7 @@ function ProductLanding({ handle }: { handle: string }) {
                   ))}
                 </ul>
                 <p className="pd-meta">
-                  {product.type} · {product.colorFamily}
+                  {product.type} · {product.tags.join(' · ')}
                 </p>
               </>,
             )}
@@ -349,8 +356,9 @@ function ProductLanding({ handle }: { handle: string }) {
               'Materials & care',
               <>
                 <p>
-                  Cut from mill-sourced cotton, rope-dyed for depth that fades rather than
-                  flattens. A growing share of every drop is organic or recycled fibre.
+                  {product.material}
+                  {product.lining ? `, lined in ${product.lining.toLowerCase()}. ` : '. '}
+                  Cut and sewn at our own workshop in Mayapuri, New Delhi.
                 </p>
                 <ul className="pd-bullets">
                   <li>Machine wash cold, inside out, with like colours</li>
@@ -377,31 +385,27 @@ function ProductLanding({ handle }: { handle: string }) {
 
             {accordion(
               'size-guide',
-              'Size guide',
-              <table className="pd-size-table">
-                <thead>
-                  <tr>
-                    <th>Size</th>
-                    <th>Chest</th>
-                    <th>Length</th>
-                    <th>Waist</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {sizeGuide.map((row) => (
-                    <tr key={row.size}>
-                      <td>{row.size}</td>
-                      <td>{row.chest}</td>
-                      <td>{row.length}</td>
-                      <td>{row.waist}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>,
+              'Size & spec',
+              <>
+                <table className="pd-size-table">
+                  <tbody>
+                    {specRows(product).map((row) => (
+                      <tr key={row.label}>
+                        <td>{row.label}</td>
+                        <td>{row.value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p className="pd-meta">
+                  This style runs {product.sizes.join(' · ')}. Between sizes? Take the
+                  larger — every fit here is cut generously.
+                </p>
+              </>,
             )}
           </div>
 
-          <p className="pd-artno">Art. no. {product.id.padStart(7, '0')}</p>
+          <p className="pd-artno">Style no. {product.styleNo}</p>
         </aside>
       </div>
 

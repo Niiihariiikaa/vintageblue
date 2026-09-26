@@ -6,7 +6,6 @@ import '@fontsource/montserrat/600.css'
 import '@fontsource/montserrat/700.css'
 import './index.css'
 import App from './App.tsx'
-import DropLanding from './DropLanding.tsx'
 import StoryLanding from './StoryLanding.tsx'
 import LookbookLanding from './LookbookLanding.tsx'
 import ShopLanding from './ShopLanding.tsx'
@@ -34,7 +33,6 @@ function Router() {
     return () => window.removeEventListener('popstate', onPopState)
   }, [])
 
-  if (path === '/drop') return <DropLanding />
   if (path === '/story') return <StoryLanding />
   if (path === '/lookbook') return <LookbookLanding />
   if (path === '/cart') return <CartLanding />

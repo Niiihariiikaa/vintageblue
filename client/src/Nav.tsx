@@ -5,8 +5,6 @@ import { navigate } from './router'
 import { useCart } from './cart'
 
 const productLinks = [
-  { label: 'Popular', to: '/shop/popular' },
-  { label: 'New Drop', to: '/drop' },
   { label: 'Denim', to: '/shop/denim' },
   { label: 'Shirts', to: '/shop/shirts' },
   { label: 'Jackets', to: '/shop/jackets' },
@@ -16,13 +14,11 @@ const productLinks = [
 
 const allLinks = [
   { label: 'Home', to: '/' },
-  { label: 'Shop Popular', to: '/shop/popular' },
   { label: 'Denim', to: '/shop/denim' },
   { label: 'Shirts', to: '/shop/shirts' },
   { label: 'Jackets', to: '/shop/jackets' },
   { label: 'Cargos', to: '/shop/cargos' },
   { label: 'Pants', to: '/shop/pants' },
-  { label: 'The Drop', to: '/drop' },
   { label: 'About Us', to: '/about' },
   { label: 'Lookbook', to: '/lookbook' },
   { label: 'Contact Us', to: '/contact' },
