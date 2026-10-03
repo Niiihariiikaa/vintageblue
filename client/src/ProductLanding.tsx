@@ -209,11 +209,23 @@ function ProductLanding({ handle }: { handle: string }) {
         {/* ---------------- Media ---------------- */}
         <div className={`pd-media${product.images.length < 2 ? ' pd-media-single' : ''}`}>
           {product.images.length > 0 ? (
-            product.images.map((img, i) => (
-              <div className="pd-shot" key={img}>
-                <img src={img} alt={`${product.name}, view ${i + 1}`} />
+            <>
+              {/* Stretches to the rail's height so the shot inside can pin. */}
+              <div className="pd-media-lead">
+                <div className="pd-shot pd-shot-lead">
+                  <img src={product.images[0]} alt={`${product.name}, view 1`} />
+                </div>
               </div>
-            ))
+              {product.images.length > 1 && (
+                <div className="pd-media-rail">
+                  {product.images.slice(1).map((img, i) => (
+                    <div className="pd-shot" key={img}>
+                      <img src={img} alt={`${product.name}, view ${i + 2}`} />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </>
           ) : (
             <div className="pd-shot pd-shot-empty">
               <Shirt size={44} strokeWidth={0.9} />

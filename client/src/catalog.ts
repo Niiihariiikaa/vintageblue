@@ -1336,7 +1336,11 @@ export const PRODUCTS: Product[] = [
     styleNo: '2001',
     price: 2199,
     categories: ['denim'],
-    images: [img('joggers-2001-black-front.jpg'), img('joggers-2001-black-back.jpg')],
+    images: [
+      img('joggers-2001-black-front.jpg'),
+      img('joggers-2001-black-model.jpg'),
+      img('joggers-2001-black-detail.jpg'),
+    ],
     description:
       'A comfort-leg jean in 86% cotton 10% polyester 4% elastane, finished in black. Style 2001. Cut and sewn at our own workshop in Delhi.',
     details: ['Style no. 2001', '86% Cotton 10% Polyester 4% Elastane', 'Comfort fit', 'Sizes 30–44'],
@@ -1356,7 +1360,11 @@ export const PRODUCTS: Product[] = [
     styleNo: '2003',
     price: 2199,
     categories: ['denim'],
-    images: [img('joggers-2003-tinted-indigo-front.jpg'), img('joggers-2003-tinted-indigo-back.jpg')],
+    images: [
+      img('joggers-2003-tinted-indigo-front.jpg'),
+      img('joggers-2003-tinted-indigo-model.jpg'),
+      img('joggers-2003-tinted-indigo-back.jpg'),
+    ],
     description:
       'A comfort-leg jean in 79% cotton 15% polyester 6% elastane, finished in tinted indigo. Style 2003. Cut and sewn at our own workshop in Delhi.',
     details: ['Style no. 2003', '79% Cotton 15% Polyester 6% Elastane', 'Comfort fit', 'Sizes 30–44'],
@@ -1376,7 +1384,11 @@ export const PRODUCTS: Product[] = [
     styleNo: '2002',
     price: 2199,
     categories: ['denim'],
-    images: [img('joggers-2002-indigo-front.jpg'), img('joggers-2002-indigo-back.jpg')],
+    images: [
+      img('joggers-2002-indigo-front.jpg'),
+      img('joggers-2002-indigo-model.jpg'),
+      img('joggers-2002-indigo-back.jpg'),
+    ],
     description:
       'A comfort-leg jean in 79% cotton 15% polyester 6% elastane, finished in indigo. Style 2002. Cut and sewn at our own workshop in Delhi.',
     details: ['Style no. 2002', '79% Cotton 15% Polyester 6% Elastane', 'Comfort fit', 'Sizes 30–44'],
@@ -1397,7 +1409,12 @@ export const PRODUCTS: Product[] = [
     price: 2199,
     categories: ['denim'],
     popular: true,
-    images: [img('brawny-5462-navy-front.jpg'), img('brawny-5462-navy-back.jpg')],
+    images: [
+      img('brawny-5462-navy-front.jpg'),
+      img('brawny-5462-navy-model.jpg'),
+      img('brawny-5462-navy-lifestyle.jpg'),
+      img('brawny-5462-navy-back.jpg'),
+    ],
     description:
       'A straight-leg jean in 56% cotton 40% polyester 4% spandex, finished in navy. Style 5462. Cut and sewn at our own workshop in Delhi.',
     details: ['Style no. 5462', '56% Cotton 40% Polyester 4% Spandex', 'Straight fit', 'Sizes 30–44'],

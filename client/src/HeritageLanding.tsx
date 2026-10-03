@@ -273,7 +273,7 @@ function HeritageLanding() {
       </section>
 
       {/* ---------------- 01 — Outerwear edit ---------------- */}
-      <section className="hr-card-section" id="hr-products">
+      <section className="hr-card-section hr-card-flush" id="hr-products">
         <div className="hr-marquee" aria-hidden="true">
           <div className="hr-marquee-track">
             {marquee}

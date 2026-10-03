@@ -88,7 +88,7 @@
      stands, centred by `translate` rather than `transform`: the
      parallax writes an inline `transform`, which would silently cancel
      a translateX(-50%) written here. */
-  left: 35.9%;
+  left: 36.9%;
   translate: -50% 0;
   height: 102%;
   width: auto;
@@ -156,6 +156,12 @@
   border-radius: 32px 32px 0 0;
   background: var(--beige);
   box-shadow: 0 -50px 90px rgba(15, 12, 9, 0.35);
+}
+
+/* The band that carries the marquee meets the hero square: a rounded
+   lip would clip the ticker's ends into curves. */
+.hr-card-flush {
+  border-radius: 0;
 }
 
 /* No rounded top / lifted-edge shadow — for a card that sits directly
